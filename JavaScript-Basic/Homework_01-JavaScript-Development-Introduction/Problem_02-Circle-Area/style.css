@@ -1,0 +1,27 @@
+body{
+	font-family: Arial, sans-serif;
+	color: #666;
+}
+		
+	body > h1{
+		text-align: center;
+		font-size: 40px;
+	}
+			
+	body > p:first-of-type{
+		text-align: center;
+		font-size: 17px;
+		border-bottom: solid 1px #999;
+		padding-bottom: 20px;
+		margin-bottom: 40px;
+	}
+		
+	body > .result {
+		margin-left: 18px;
+		font-size: 20px;
+		margin: 10px 10%;
+	}
+			
+		body > .result > span{
+			font-weight: bold;
+		}

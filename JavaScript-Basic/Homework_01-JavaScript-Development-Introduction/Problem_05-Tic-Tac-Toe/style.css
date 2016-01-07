@@ -1,0 +1,57 @@
+@font-face{
+	font-family: 'Left hand comic';
+	src: url('left hand comic.ttf');
+}
+
+body {
+    background-color: #000;
+	font-family: Tahoma, sans-serif;
+	text-align: center;
+}
+
+	body > h1{
+		font-family: 'Left hand comic';
+		font-size: 35px;
+		color: #000;
+		letter-spacing: 6px;
+		text-shadow: 2px 3px 8px #fff;
+		margin-bottom: 0;
+		padding-bottom: 0;
+	}
+	
+		body > h1 > span{
+			font-size: 55px;
+		}
+	
+	body > #message{
+		font-size: 17px;
+		color: red;
+		line-height: 14px;
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+
+	body > #canvas {
+		background-color: #999;
+		margin:60px auto 30px auto;
+		border: 8px outset #CCC;
+		border-radius: 77px 44px;
+	}
+
+	body > #new-game-btn {
+		display: block;
+		background-color: #666;
+		margin: 0 auto;
+		width: 150px;
+		height: 50px;
+		font-family: 'Left hand comic';
+		font-size: 18px;
+		color: #fff;
+		text-shadow: 2px 3px 8px #fff;
+		border: outset 4px #EEE;
+		border-radius: 33px 66px;
+	}
+
+		body > #new-game-btn:hover{
+			color: red;
+		}

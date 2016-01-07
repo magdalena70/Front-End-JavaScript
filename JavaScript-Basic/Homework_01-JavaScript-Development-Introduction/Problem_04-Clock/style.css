@@ -1,0 +1,45 @@
+@font-face{
+	font-family: Goudyo;
+	src: url('goudyo.ttf');
+}
+
+body{
+	background-color: #4d0000;
+	text-align: center;
+	font-family: Goudyo;
+	font-size: 17px;
+	font-weight: bold;
+	color: #1a0000;
+}
+
+	body > #wrapper{
+		background-color: #970000;
+		width: 55%;
+		max-width: 700px;
+		box-sizing: border-box;
+		margin: 50px auto;
+		padding: 5px 2px 30px 2px;
+		border-radius: 50%;
+	}
+
+	body> #wrapper > h1{
+		font-size: 60px;
+		color: #330000;
+		padding-top: 20px;
+	}
+	
+	body> #wrapper > #clock-box{
+		width: 210px;
+		height: 210px;
+		background-color: #1a0000;
+		margin: 10px auto;
+		border-radius: 50%;
+	}
+	
+		body> #wrapper > #clock-box > #clock{
+			font-size: 54px;
+			color: #fff;
+			text-shadow: 2px 3px 10px #fff;
+			padding-top: 70px;
+		}
+
