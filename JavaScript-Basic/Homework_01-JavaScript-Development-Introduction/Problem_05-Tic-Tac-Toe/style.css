@@ -1,6 +1,6 @@
 @font-face{
-	font-family: 'Left hand comic';
-	src: url('left hand comic.ttf');
+	font-family: 'Left-hand-comic';
+	src: url('left-hand-comic.ttf');
 }
 
 body {
@@ -10,7 +10,7 @@ body {
 }
 
 	body > h1{
-		font-family: 'Left hand comic';
+		font-family: 'Left-hand-comic';
 		font-size: 35px;
 		color: #000;
 		letter-spacing: 6px;
@@ -44,7 +44,7 @@ body {
 		margin: 0 auto;
 		width: 150px;
 		height: 50px;
-		font-family: 'Left hand comic';
+		font-family: 'Left-hand-comic';
 		font-size: 18px;
 		color: #fff;
 		text-shadow: 2px 3px 8px #fff;

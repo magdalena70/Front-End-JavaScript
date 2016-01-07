@@ -35,7 +35,7 @@ function fillXandO(event) {
             top > squares[i].y && top < squares[i].y + squares[i].height &&
 			!squares[i].selected) {
 				squares[i].selected = true;
-				ctx.font = "75px 'Left hand comic'";
+				ctx.font = "75px 'Left-hand-comic'";
 				if (player % 2 == 0) {
 					squares[i].value = "x";
 					ctx.shadowColor = "#000";
