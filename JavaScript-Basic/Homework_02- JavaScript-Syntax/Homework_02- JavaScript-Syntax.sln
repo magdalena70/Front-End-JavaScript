@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Problem_02-Calculate-knots", "Problem_02-Calculate-knots\Problem_02-Calculate-knots.njsproj", "{D5D0A804-4C93-4EBC-AC31-2C8986870DA1}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Problem_03-Cylinder-Volume", "Problem_03-Cylinder-Volume\Problem_03-Cylinder-Volume.njsproj", "{A8EDAFBE-9EE5-4B43-9ED9-D98A63A076F3}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Problem_04-Lifetime-Supply-Calculator", "Problem_04-Lifetime-Supply-Calculator\Problem_04-Lifetime-Supply-Calculator.njsproj", "{B3FAA05F-E8B2-4430-B49D-996EC6E30E19}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Problem_06-Build-Table", "Problem_06-Build-Table\Problem_06-Build-Table.njsproj", "{5C927DEC-C8F3-4C7D-8264-20CAC4A7917B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D5D0A804-4C93-4EBC-AC31-2C8986870DA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5D0A804-4C93-4EBC-AC31-2C8986870DA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5D0A804-4C93-4EBC-AC31-2C8986870DA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5D0A804-4C93-4EBC-AC31-2C8986870DA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8EDAFBE-9EE5-4B43-9ED9-D98A63A076F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8EDAFBE-9EE5-4B43-9ED9-D98A63A076F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8EDAFBE-9EE5-4B43-9ED9-D98A63A076F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8EDAFBE-9EE5-4B43-9ED9-D98A63A076F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3FAA05F-E8B2-4430-B49D-996EC6E30E19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3FAA05F-E8B2-4430-B49D-996EC6E30E19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3FAA05F-E8B2-4430-B49D-996EC6E30E19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3FAA05F-E8B2-4430-B49D-996EC6E30E19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C927DEC-C8F3-4C7D-8264-20CAC4A7917B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C927DEC-C8F3-4C7D-8264-20CAC4A7917B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C927DEC-C8F3-4C7D-8264-20CAC4A7917B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C927DEC-C8F3-4C7D-8264-20CAC4A7917B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

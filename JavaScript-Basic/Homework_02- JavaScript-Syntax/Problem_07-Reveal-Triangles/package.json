@@ -1,0 +1,10 @@
+{
+  "name": "Problem_07_Reveal_Triangles",
+  "version": "0.0.0",
+  "description": "Problem_07-Reveal-Triangles",
+  "main": "app.js",
+  "author": {
+    "name": "acer",
+    "email": ""
+  }
+}

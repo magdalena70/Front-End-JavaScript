@@ -1,0 +1,67 @@
+body,div, form, input,button, p{
+	margin: 0;
+	padding: 0;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	font-family: Helvetica, sans-serif;
+	font-size: 20px;
+	color: #fff;
+	background-color: #333;
+}
+
+body{
+	background-color: #666;
+	text-align: center;
+}
+
+#wrapper{
+	width: 50%;
+	max-width: 650px;
+	min-width: 400px;
+	margin: 30px auto;
+	padding: 20px 0 60px 0;
+	box-shadow: 2px 3px 10px #000;
+}
+
+h1{
+	font-size: 34px;
+	color: #666;
+	letter-spacing: 4px;
+}
+
+input {
+	width: 65%;
+	margin: 10px auto;
+	padding: 14px;
+	border: outset 3px #666;
+	overflow: elipsis;
+}
+
+#eval_result_btn, #clear_btn {
+	display: block;
+	width: 150px;
+	height: 60px;
+	background: linear-gradient(#fff, #000);
+	border: outset 3px #666;
+	margin: 10px auto;
+	color: #fff;
+}
+
+#eval_result:hover, #clear:hover {
+	background: linear-gradient(#000, #fff);
+	cursor: pointer;
+}
+
+#eval_result:active, #clear:active {
+	background: linear-gradient(#000, #fff, #000);
+	color: #000;
+}
+
+p {
+	width: 65%;
+	height: 55px;
+	margin: 15px auto;
+	padding-top: 20px;
+	border: outset 3px #666;
+}

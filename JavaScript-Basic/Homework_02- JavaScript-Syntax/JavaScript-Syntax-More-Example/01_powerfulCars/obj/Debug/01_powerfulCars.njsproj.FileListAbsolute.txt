@@ -1,0 +1,2 @@
+C:\Users\acer\Documents\GitHub\JavaScript\JavaScriptBasic_Homework\HomeworkJavaScriptSyntax\01_powerfulCars\obj\Debug\01_powerfulCars.njsprojResolveAssemblyReference.cache
+C:\Users\acer\Documents\GitHub\JavaScript\JavaScriptBasic_Homework\HomeworkJavaScriptSyntax\01_powerfulCars\bin\Microsoft.NodejsTools.WebRole.dll
