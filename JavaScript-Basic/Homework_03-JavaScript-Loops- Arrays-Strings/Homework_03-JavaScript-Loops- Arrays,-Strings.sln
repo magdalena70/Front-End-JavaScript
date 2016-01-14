@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Problem_01-Array-manipulator", "Problem_01-Array-manipulator\Problem_01-Array-manipulator.njsproj", "{E93A2227-BE9C-4D26-8873-0BF7B4D521BE}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Problem_02-Score modification", "Problem_02-Score modification\Problem_02-Score modification.njsproj", "{EEBE2CEA-76FD-4A4C-9AEC-4A81B2519189}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Problem_03-Replace-a-Tag", "Problem_03-Replace-a-Tag\Problem_03-Replace-a-Tag.njsproj", "{2E6E4512-C099-42B7-BCA3-022CDD3448D1}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Problem_04-Course-grade-scaling", "Problem_04-Course-grade-scaling\Problem_04-Course-grade-scaling.njsproj", "{A28812FD-272C-4795-B83B-9B3B3AD6A589}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Problem_05-Double-Rakiya-Numbers", "Problem_05-Double-Rakiya-Numbers\Problem_05-Double-Rakiya-Numbers.njsproj", "{A54545AC-DA93-4F6C-873F-E25EB5F05C2C}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Problem_08-Soccer-Results", "Problem_08-Soccer-Results\Problem_08-Soccer-Results.njsproj", "{CA6D95F1-99AF-46CC-989F-D6C93F79E85A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E93A2227-BE9C-4D26-8873-0BF7B4D521BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E93A2227-BE9C-4D26-8873-0BF7B4D521BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E93A2227-BE9C-4D26-8873-0BF7B4D521BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E93A2227-BE9C-4D26-8873-0BF7B4D521BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEBE2CEA-76FD-4A4C-9AEC-4A81B2519189}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEBE2CEA-76FD-4A4C-9AEC-4A81B2519189}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEBE2CEA-76FD-4A4C-9AEC-4A81B2519189}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEBE2CEA-76FD-4A4C-9AEC-4A81B2519189}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E6E4512-C099-42B7-BCA3-022CDD3448D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E6E4512-C099-42B7-BCA3-022CDD3448D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E6E4512-C099-42B7-BCA3-022CDD3448D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E6E4512-C099-42B7-BCA3-022CDD3448D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A28812FD-272C-4795-B83B-9B3B3AD6A589}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A28812FD-272C-4795-B83B-9B3B3AD6A589}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A28812FD-272C-4795-B83B-9B3B3AD6A589}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A28812FD-272C-4795-B83B-9B3B3AD6A589}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A54545AC-DA93-4F6C-873F-E25EB5F05C2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A54545AC-DA93-4F6C-873F-E25EB5F05C2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A54545AC-DA93-4F6C-873F-E25EB5F05C2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A54545AC-DA93-4F6C-873F-E25EB5F05C2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA6D95F1-99AF-46CC-989F-D6C93F79E85A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA6D95F1-99AF-46CC-989F-D6C93F79E85A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA6D95F1-99AF-46CC-989F-D6C93F79E85A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA6D95F1-99AF-46CC-989F-D6C93F79E85A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
