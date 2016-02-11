@@ -1,0 +1,56 @@
+body, div, form, label, input{
+	margin: 0;
+	padding: 0;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	font-family: Tahoma, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #333;
+}
+
+	body > #wrapper{
+		width: 60%;
+		max-width: 450px;
+		margin: 60px auto;
+		padding: 20px 40px;
+		box-shadow: 2px 3px 15px #000;
+	}
+	
+		#wrapper > label{
+			font-weight: bold;
+		}
+	
+		#wrapper > input{
+			width: 100%;
+			display: inline-block;
+			padding: 5px;
+			margin: 5px 0;
+			border: inset 2px #999;
+		}
+		
+		#wrapper > input,
+		#wrapper > #result{
+			-o-text-overflow: ellipsis;
+			-ms-text-overflow: ellipsis;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+		
+		#wrapper > #result{
+			font-weight: bold;
+			padding: 6px 5px;
+		}
+		
+		#wrapper > button{
+			padding: 7px;
+			margin: 5px 0;
+			border-color: #999;
+			font-size: 16px;
+			cursor: pointer;
+		}
+		
+			#wrapper > button:hover{
+				background-color: transparent;
+			}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Canvas Geometry API</title>
+</head>
+<body>
+	<div id="wrapper">
+		<h1>Canvas Geometry API</h1>
+		<h2>All coordinates should be in range [0, 0]:[700, 360].</h2>
+		<form id="shape-input">
+			<label for="shape">Select shape</label>
+			<select id="shape">
+				<option selected>Shape</option>
+				<option value="circle">Circle</option>
+				<option value="rectangle">Rectangle</option>
+				<option value="triangle">Triangle</option>
+				<option value="line">Line</option>
+				<option value="segment">Segment</option>
+			</select>
+			<label for="color">Select color:</label>
+			<input type="color" name="color" id="color"><br/>
+			<label for="radius">Circle - radius:</label>
+			<input type="text" name="radius" id="radius"></br>
+			<label for="width">Rectangle - width: </label>
+			<input type="text" name="width" id="width">
+			<label for="height">, Rectangle - height: </label>
+			<input type="text" name="height" id="height"></br>
+			
+			<div class="points">
+				<label>Point1 - coordinates:</label><br/>
+				<label for="x">X1:</label>
+				<input type="text" name="x" id="x">
+				<label for="y">Y1:</label>
+				<input type="text" name="y" id="y">
+			</div>
+			
+			<div class="points">
+				<label>Point2 - coordinates:</label><br/>
+				<label for="x2">X2:</label>
+				<input type="text" name="x2" id="x2">
+				<label for="y2">Y2:</label>
+				<input type="text" name="y2" id="y2">
+			</div>
+			
+			<div class="points">
+				<label>Point3 - coordinates:</label><br>
+				<label for="x3">X3:</label>
+				<input type="text" name="x3" id="x3">
+				<label for="y3">Y3:</label>
+				<input type="text" name="y3" id="y3">
+			</div>
+		</form>			
+			<select id="shapes-info" size="7">
+				<option disabled="disabled">Select a shape to remove:</option>
+			</select></br>
+			
+			<input type="submit" value="Add shape" id="addShape">
+			<input type="button" value="Remove selected shape" id="remove">
+			
+		<canvas id='myCanvas' style="border: 1px solid #333;"></canvas>
+	</div>
+	
+<script src="canvasGeometryAPI.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+body, div, h1, h2, form, label, input, select, option, textarea {
+	padding: 0;
+	margin: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+body{
+	font-family: Helvetica, sans-serif;
+	font-size: 15px;
+	color: #333;
+	font-style: italic;
+}
+
+	body #wrapper{
+		width: 70%;
+		margin: 10px auto;
+		text-align: center;
+		border: solid 2px #333;
+	}
+	
+		#wrapper h1, h2 {
+			margin: 10px; 
+		}
+		
+		#wrapper form{
+			width: 700px;
+			padding: 10px;
+			margin: 10px auto;
+			border: solid 1px #333;
+		}
+
+			#wrapper form .points {
+				display: inline-block;
+				width: 30%;
+			}
+			
+			#wrapper form input[type='color'] {
+				width: 80px;
+				height: 30px;
+			}
+
+			#wrapper form label {
+				font-weight: bold;
+			}
+
+			#wrapper form textarea {
+				width: 700px;
+				height: 100px;
+				padding: 3px;
+			}
+			
+			#wrapper form #shape {
+				width: 100px;
+				font-style: italic;
+				padding-top: 6px;
+			}
+			
+			#wrapper form input[type='text'] {
+				width: 35px;
+				margin-bottom: 5px;
+				padding-top: 5px;
+				text-align: center;
+				font-style: italic;
+			}
+
+		#wrapper  input[type='submit'],
+		#wrapper input[type='button'] {
+			color: #333;
+			font-size: 17px;
+			font-style: italic;
+			padding: 5px;
+			margin: 6px;
+			border: solid 1px #333;
+			background-color: transparent;
+			cursor: pointer;
+		}
+		
+			#wrapper  input[type='submit']:hover,
+			#wrapper input[type='button']:hover {
+				background-color: #333;
+				color: #fff;
+			}
+		
+		#wrapper #shapes-info {
+				width: 700px;
+				border-color: #333;
+				margin-bottom: 5px;
+				padding: 5px;
+				font-style: italic;
+		}
+		
+			#wrapper #shapes-info  option{
+				font-size: 14px;
+				color: #333;
+				padding: 3px;
+			}
+
+		#wrapper canvas {
+			margin-top: 10px;
+		}

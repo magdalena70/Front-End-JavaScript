@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Webinar registration form</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div id="wrapper">
+		<section>
+			<header>
+				<h1>Регистрация за уебинар</h1>
+			</header>
+			<form method="get" action="index.html">
+				<label for="name">Име и Фамилия <span>*</span></label>
+				<input type="text" id="name" name="name" required="required"/>
+				<label for="address">Адрес:</label>
+				<input type="text" id="address" name="address"/>
+				<label for="location">Населено място:</label>
+				<input type="text" id="location" name="location"/>
+				<label for="post">Пощенски код:</label>
+				<input type="text" id="post" name="post"/>
+				<label for="email">Email:<span>*</span></label>
+				<input type="email" id="email" name="email" required="required"/>
+				<label for="phone">Телефон:<span>*</span></label>
+				<input type="text" id="phone" name="phone" required="required"/>
+				<label for="date">Дата на семинара:<span>*</span></label>
+				<input type="date" id="date" name="date" required="required"/>
+				<label for="checkBtn"><input type="checkbox" id="checkBtn" name="checkBtn" value="yes" /> Желая фактура</label>
+				<div id="hidden">
+					<label for="org">Фирма/Организация:<span>*</span></label>
+					<input type="text" id="org" name="org" class="hidden-input"/>
+					<label for="mol">МОЛ:<span>*</span></label>
+					<input type="text" id="mol" name="mol" class="hidden-input"/>
+					<label for="eik">ЕИК:<span>*</span></label>
+					<input type="text" id="eik" name="eik" class="hidden-input"/>
+					<label for="dds">ИН по ДДС:<span>*</span></label>
+					<input type="text" id="dds" name="dds" class="hidden-input"/>
+					<label for="org-address">Адрес:<span>*</span></label>
+					<input type="text" id="org-address" name="org-address" class="hidden-input"/>
+				</div>
+				<input type="submit"/>
+				<input type="reset"/>
+			</form>
+		</section>
+	</div>
+<script src="webinarRegistrationForm.js"></script>
+</body>
+</html>
