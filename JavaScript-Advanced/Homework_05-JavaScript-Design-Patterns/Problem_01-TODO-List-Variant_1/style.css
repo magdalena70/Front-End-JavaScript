@@ -1,0 +1,141 @@
+body, div, section, h1, h2, ul, li, input, button, p, span, label{
+	padding: 0;
+	margin: 0;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	word-wrap: break-word;
+}
+
+input{
+	white-space: nowrap;
+	overflow: hidden;
+	-o-text-overflow: ellipsis;
+	-ms-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
+
+body {
+	font-family: Tahoma, sans-serif;
+	font-size: 14px;
+	color: #333;
+}
+
+body #wrapper{
+	width: 70%;
+	margin: 20px auto;
+	padding: 15px;
+	border: solid 3px #333;
+}
+
+	#wrapper #date{
+		color: #999;
+		font-style: italic;
+	}
+
+	#wrapper #container h1{
+		text-align: center;
+		font-weight: normal;
+		border-bottom: solid 2px #333;
+		margin: 0 10% 17px 10%;
+	}
+	
+		#wrapper #container h1 span{
+			font-weight: bold;
+			font-style: italic;
+			font-size: 33px;
+		}
+		
+	#wrapper #container footer{
+		text-align: right;
+	}
+		
+		#wrapper #container footer input{
+			padding: 5px;
+		}
+		
+		#wrapper #container footer button{
+			padding: 5px;
+			cursor: pointer;
+			font-weight: bold;
+		}
+		
+			#wrapper #container footer button:hover{
+				background-color: #333;
+				border-color: #333;
+				color: #FFF;
+			}
+		
+	#wrapper #container #sections{
+		border: solid 1px #999;
+		padding: 10px;
+		margin-bottom: 5px;
+	}
+	
+		#wrapper #container #sections #errorCreateSection,
+		#wrapper #container #sections #errorCreateItem{
+			background-color: #333;
+			border-radius: 10px;
+			padding: 8px;
+			margin-bottom: 5px;
+			text-align: center;
+			font-weight: bold;
+			font-size: 18px;
+			color: #FF0000;
+		}
+		
+			#wrapper #container #sections #errorCreateSection:hover,
+			#wrapper #container #sections #errorCreateItem:hover{
+				cursor: pointer;
+				background-color: #999;
+			}
+	
+		#wrapper #container #sections section{
+			border: solid 1px #999;
+			padding: 3px;
+			margin-bottom: 3px;
+		}
+	
+			#wrapper #container #sections section h2{
+				text-align: right;
+				margin-right: 40px;
+				margin-bottom: 10px;
+				font-weight: normal;
+			}
+			
+				#wrapper #container #sections section h2::first-letter{
+					text-transform: uppercase;
+					font-weight: bold;
+					font-style: italic;
+					margin-right: 5px;
+				}
+		
+			#wrapper #container #sections section input{
+				padding: 4px;
+				margin-top: 5px;
+			}
+			
+			#wrapper #container #sections section button{
+				padding: 4px 7px;
+				margin-top: 5px;
+				cursor: pointer;
+				font-weight: bold;
+			}
+			
+				#wrapper #container #sections section button:hover{
+					background-color: #333;
+					border-color: #333;
+					color: #FFF;
+				}
+			
+				#wrapper #container #sections section ul li{
+					list-style-type: none;
+					margin: 0 10px 5px 10px;
+					border-bottom: dashed 1px #999;
+				}
+					
+					#wrapper #container #sections section ul li label{
+						padding: 0 10px;
+						width: 100%;
+						line-height: 18px;
+					}

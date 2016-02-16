@@ -1,0 +1,106 @@
+body, div, h1, h2, ul, li, input, button, label, p{
+	margin: 0;
+	padding: 0;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	word-wrap: break-word;
+}
+
+input{
+	white-space: nowrap;
+	overflow: hidden;
+	-o-text-overflow: ellipsis;
+	-ms-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
+
+button:hover{
+	background-color: #333;
+	border-color: #333;
+	color: #FFF;
+}
+
+ul{
+	list-style-type: none;
+}
+
+body{
+	font-family: Tahoma, sans-serif;
+	font-size: 15px;
+	color: #333;
+}
+
+body #errorMsg{
+	width: 80%;
+	margin: 5px auto;
+	padding: 10px;
+	background-color: #333;
+	color: red;
+	text-align: center;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+	body #errorMsg:hover{
+		background-color: #999;
+	}
+
+body #wrapper{
+	border: solid 2px #333;
+	width: 70%;
+	margin: 0 auto;
+	padding: 20px 40px;
+}
+
+	#wrapper #date{
+		color: #999;
+		margin-bottom: 5px;
+	}
+
+	#wrapper h1{
+		text-align: center;
+		margin: 10px;
+		border-bottom: 1px solid #333;
+	}
+
+	#wrapper #container{
+		border: 1px solid #999;
+		padding: 5px;
+	}
+	
+		#wrapper #container h2,
+		#wrapper #container footer{
+			text-transform: capitalize;
+			text-align: right;
+			font-weight: normal;
+			margin-right: 30px;
+		}
+		
+			#wrapper #container footer input,
+			#wrapper #container footer button{
+				padding: 3px;
+			}
+			
+				#wrapper #container #sections div{
+					border: 1px solid #999;
+					margin: 10px;
+					padding: 5px;
+				}
+		
+					#wrapper #container #sections div input{
+						padding: 3px;
+					}
+					
+					#wrapper #container #sections div button{
+						padding: 3px 5px;
+					}
+					
+						#wrapper #container #sections div ul li{
+							margin: 5px 10px;
+							border-bottom: dashed 1px #999;
+						}
+						
+							#wrapper #container #sections div ul li label{
+								padding: 5px;
+							}
