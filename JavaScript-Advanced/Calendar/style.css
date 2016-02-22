@@ -1,0 +1,41 @@
+body, div, h1, h2, h4{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+h1, h2, h4{
+	text-align: center;
+}
+
+body{
+	font-family: Tahoma, sans-serif;
+	font-size: 15px;
+	color: #333;
+	background-color: #333;
+}
+
+body #wrapper{
+	width: 800px;
+	margin: 20px auto;
+	padding: 10px;
+	background-color: #FFF;
+}
+
+	#wrapper #container{
+		box-shadow: 2px 3px 10px #333;
+	}
+	
+		#wrapper #container .dayContainer, #wrapper #container .divEmpty{
+			width: 100px;
+			height: 70px;
+			display: inline-block;
+			vertical-align: top;
+			margin: 5px;
+			padding: 5px;
+		}
+		
+		#wrapper #container .dayContainer{
+			background-color: #333;
+			color: #FFF;
+		}
