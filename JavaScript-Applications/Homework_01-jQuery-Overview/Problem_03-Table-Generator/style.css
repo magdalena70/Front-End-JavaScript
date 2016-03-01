@@ -1,0 +1,68 @@
+body, div, section, header, h1, h3, textarea, button, table, thead,tr, th, tbody, td{
+	margin: 0;
+	padding: 3px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	word-wrap: break-word;
+}
+
+body{
+	font-style: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #333;
+}
+
+body #errorMessage{
+	width: 70%;
+	background-color: red;
+	margin: 0 auto;
+	padding: 10px;
+	text-align: center;
+	font-size: 19px;
+	font-weight: bold;
+}
+
+body #wrapper{
+	width: 70%;
+	margin: 10px auto;
+	text-align: center;
+}
+
+	#wrapper section{
+		width: 70%;
+		border: dashed 1px #333;
+		margin: 0 auto;
+		padding: 25px;
+	}
+	
+		#wrapper section textarea{
+			width: 98%;
+			height: 160px;
+		}
+	
+		#wrapper section #generateTableBtn:hover{
+			cursor: pointer;
+			background-color: transparent;
+		}
+		
+			#wrapper section #result table{
+				width: 100%;
+				background-color: #333;
+			}
+			
+				#wrapper section #result thead{
+					background-color: #333;
+					text-transform: capitalize;
+					color: #fff;
+				}
+		
+				#wrapper section #result table th,
+				#wrapper section #result table td{
+					width: 20%;
+					border: solid 1px #333;
+				}
+				
+				#wrapper section #result table td{
+					background-color: #fff;
+				}

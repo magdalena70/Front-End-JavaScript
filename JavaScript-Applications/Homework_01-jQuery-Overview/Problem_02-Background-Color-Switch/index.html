@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>JQuery - Background Color Switch</title>
+	<script src="../jquery/jquery-2.1.3.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div id="wrapper">
+		<h1>JQuery - Background Color Switch</h1>
+		<section>
+			<header>
+				<h2>Write a script using jQuery for switching the background color of elements with a specified class.</h2>
+				<p>The input should be read from an input form.</p>
+			</header>
+			<article>
+				<header>
+					<h3>Input:</h3>
+				</header>
+				<label for="listText">Create list: <span>*</span></label>
+				<input type="text" id="listText" placeholder=" Enter text"/>
+				<label for="className">Add class:</label>
+				<input type="text" id="className" placeholder=" Enter class name"/>
+				<label for="backgroundColor">Choose background color:</label>
+				<input type="color" id="backgroundColor"/>
+				<button id="createBtn">Create</button>
+			</article>
+			<article>
+				<header>
+					<h3>Output:</h3>
+				</header>
+				<ul id="result"></ul>
+			</article>
+		</section>
+	</div>
+<script src="backgroundColorSwitch.js"></script>
+</body>
+</html>

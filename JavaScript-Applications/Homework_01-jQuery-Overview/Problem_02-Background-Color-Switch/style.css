@@ -1,0 +1,96 @@
+body, div, section, article, header, h1, h2, h3, input, button, label, ul, li{
+	margin: 0;
+	padding: 0;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	word-wrap: break-word;
+}
+
+input{
+	width: 100%;
+	margin: 5px;
+	padding: 5px;
+	border: solid 1px #333;
+	white-space: nowrap;
+	overflow: hidden;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+h1, h2, h3{
+	padding: 5px;
+}
+
+body{
+	font-style: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: #333;
+}
+
+body #errorMessage{
+	width: 70%;
+	background-color: red;
+	margin: 0 auto;
+	padding: 10px;
+	text-align: center;
+	font-size: 19px;
+	font-weight: bold;
+}
+
+body #wrapper{
+	width: 70%;
+	margin: 10px auto;
+	text-align: center;
+}
+
+	#wrapper section{
+		border: dashed 1px #333;
+		padding: 5px;
+	}
+	
+		#wrapper section article{
+			display: inline-block;
+			vertical-align: top;
+			width: 48%;
+			border: dashed 1px #333;
+			padding: 20px;
+		}
+		
+			#wrapper section article label{
+				display: block;
+				text-align: left;
+				cursor: pointer;
+			}
+			
+				#wrapper section article label span{
+					color: red;
+				}
+			
+			#wrapper section article input[type="color"]{
+				display: inline-block;
+				vertical-align: middle;
+				width: 70%;
+				height: 32px;
+				
+			}
+			
+			#wrapper section article button{
+				display: inline-block;
+				vertical-align: middle;
+				width: 26%;
+				height: 32px;
+				font-size: 15px;
+				color: #333;
+				cursor: pointer;
+				border: solid 1px #333;
+			}
+		
+			#wrapper section article ul li{
+				list-style-type: none;
+				padding: 3px;
+				margin: 2px;
+				text-align: left;
+				cursor: pointer;
+			}
