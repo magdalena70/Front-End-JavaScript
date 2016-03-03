@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Poll</title>
+	<link rel="stylesheet" href="style.css"/>
+    <script src="../jquery/jquery-2.2.1.min.js"></script>
+</head>
+<body>
+	<div id="wrapper">
+		<header>
+			<h1>Poll system</h1>
+			<p>There are four questions. You have one minute. GO!</p>
+			<button id="startGame">GO!</button>
+		</header>
+		<div id="timerBox"></div>
+		<div id="timeOut"></div>
+		<div id="formQuestions">
+			<form action="index.html" method="post">
+				<h2>Questions:</h2>
+				<div id="questions">
+					<div>
+						<h3>Question - 1</h3>
+						<input type="radio" name="question1" id="answer1_1" value="First answer">
+						<label for="answer1_1">First answer</label>
+						<input type="radio" name="question1" id="answer1_2" value="Second answer">
+						<label for="answer1_2">Second answer</label>
+						<input type="radio" name="question1" id="answer1_3" value="Third answer">
+						<label for="answer1_3">Third answer</label>
+						<input type="radio" name="question1" id="answer1_4" value="Fourth answer">
+						<label for="answer1_4">Fourth answer</label>
+					</div>
+					<div>
+						<h3>Question - 2</h3>
+						<input type="radio" name="question2" id="answer2_1" value="First answer">
+						<label for="answer2_1">First answer</label>
+						<input type="radio" name="question2" id="answer2_2" value="Second answer">
+						<label for="answer2_2">Second answer</label>
+						<input type="radio" name="question2" id="answer2_3" value="Third answer">
+						<label for="answer2_3">Third answer</label>
+						<input type="radio" name="question2" id="answer2_4" value="Fourth answer">
+						<label for="answer2_4">Fourth answer</label>
+					</div>
+					<div>
+						<h3>Question - 3</h3>
+						<input type="radio" name="question3" id="answer3_1" value="First answer">
+						<label for="answer3_1">First answer</label>
+						<input type="radio" name="question3" id="answer3_2" value="Second answer">
+						<label for="answer3_2">Second answer</label>
+						<input type="radio" name="question3" id="answer3_3" value="Third answer">
+						<label for="answer3_3">Third answer</label>
+						<input type="radio" name="question3" id="answer3_4" value="Fourth answer">
+						<label for="answer3_4">Fourth answer</label>
+					</div>
+					<div>
+						<h3>Question - 4</h3>
+						<input type="radio" name="question4" id="answer4_1" value="First answer">
+						<label for="answer3_1">First answer</label>
+						<input type="radio" name="question4" id="answer4_2" value="Second answer">
+						<label for="answer3_2">Second answer</label>
+						<input type="radio" name="question4" id="answer4_3" value="Third answer">
+						<label for="answer3_3">Third answer</label>
+						<input type="radio" name="question4" id="answer4_4" value="Fourth answer">
+						<label for="answer3_4">Fourth answer</label>
+					</div>
+				</div>
+			</form>
+			<button id="submitBtn">Submit</button>
+		</div>		
+		<div id="result">
+			<h2>Answers: </h2>
+			<div>
+				<h3>Question - 1:</h3>
+				<span>Your answer is: </span>
+				<span id="result-answer1"></span>
+				<p id="answer1-message"></p>
+			</div>
+			<div>
+				<h3>Question - 2:</h3>
+				<span>Your answer is: </span>
+				<span id="result-answer2"></span>
+				<p id="answer2-message"></p>
+			</div>
+			<div>
+				<h3>Question - 3:</h3>
+				<span>Your answer is: </span>
+				<span id="result-answer3"></span>
+				<p id="answer3-message"></p>
+			</div>
+			<div>
+				<h3>Question - 4:</h3>
+				<span>Your answer is: </span>
+				<span id="result-answer4"></span>
+				<p id="answer4-message"></p>
+			</div>
+			<button id="tryAgainBtn">Try again</button>
+		</div>
+	</div>
+<script src="pollSistem.js"></script>
+</body>
+</html>

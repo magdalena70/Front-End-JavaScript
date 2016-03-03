@@ -1,0 +1,71 @@
+body, div, header, h1, h2, h3, form, input, label, button, p, span{
+	margin: 0;
+	padding: 0;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+button{
+	padding: 7px;
+	margin: 3px 0;
+	font-weight: bold;
+	border: none;
+	outline: none;
+	box-shadow: 2px 2px 10px #333;
+	cursor: pointer;
+}
+
+input:checked{
+	width: 25px;
+	height: 25px;
+}
+
+button:hover{
+	background-color: #333;
+	color: #fff;
+}
+
+body{
+	font-family: Florence, cursive;
+	font-size: 17px;
+	color: #333;
+}
+
+body #errorMsgBox{
+	width: 70%;
+	margin: 0 auto;
+	padding: 5px;
+	text-align: center;
+	font-size: 22px;
+	color: #fff;
+	background-color: #EF2C36;
+}
+
+body #wrapper{
+	width: 70%;
+	margin: 10px auto;
+	padding: 10px;
+	text-align: center;
+	background-color: #D1B9A5;
+	box-shadow: 3px 3px 10px #333;
+}
+
+	#wrapper header{
+		padding: 10px;
+	}
+
+	#wrapper #timerBox{
+		background-color: #70292D;
+		padding: 10px;
+		margin: 5px 0;
+		color: #fff;
+		font-size: 20px;
+		font-weight: bold;
+	}
+
+	#wrapper #formQuestions,
+	#wrapper #result{
+		box-shadow: 2px 2px 15px #70292D;
+		padding: 10px;
+	}
