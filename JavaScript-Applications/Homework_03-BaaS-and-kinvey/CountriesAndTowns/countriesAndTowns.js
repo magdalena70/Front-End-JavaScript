@@ -7,8 +7,17 @@ $(function(){
 		newCountryName;
 	
 	$("<p>").attr("id", "printError")
-			.prependTo($("body")).hide();
+		.prependTo($("body"))
+		.hide();
+	$("<p>").attr("id", "printSuccess")
+		.prependTo($("body"))
+		.hide();	
+	$("<p>").attr("id", "printInfo")
+		.prependTo($("body"))
+		.hide();
+		
 	$('#newTown').hide();
+	
 	$('#getAllCountries').on('click', getAllCountries);
 	$('#getAllTowns').on('click', getAllTowns);
 	$('#addNewCountry').on('click', function(){
@@ -29,10 +38,10 @@ $(function(){
 					"Authorization": USER_AUTHTOKEN,
 					"Content-Type": CONTENT_TYPE
 				},
-				url: BASE_URL + APP_KEY + "/countries"
+				url: BASE_URL + APP_KEY + "/countries?sort={\"name\":1}"
 			}).success(function(data){
 					//console.log(data);
-					addCountryToDom(data, "#country");
+					addAllCountriesToDom(data, "#country");
 			}).error(function(err){
 				printError(err.responseText);
 			})
@@ -45,7 +54,7 @@ $(function(){
 					"Authorization": USER_AUTHTOKEN,
 					"Content-Type": CONTENT_TYPE
 				},
-				url: BASE_URL + APP_KEY + "/towns?resolve=country"
+				url: BASE_URL + APP_KEY + "/towns?resolve=country&sort={\"country\":1}"
 			}).success(function(data){
 					//console.log(data);
 					addTownToDom(data, "#town");
@@ -61,10 +70,14 @@ $(function(){
 					"Authorization": USER_AUTHTOKEN,
 					"Content-Type": CONTENT_TYPE
 				},
-				url: BASE_URL + APP_KEY + '/towns?query={"country._id":"' + countryId + '"}'
+				url: BASE_URL + APP_KEY + '/towns?query={"country._id":"' + countryId + '"}&sort={"name":1}'
 			}).success(function(data){
-					//console.log(data);
-					addTownToDom(data, "#town");
+					if(data.length){
+						addTownToDom(data, "#town");	
+					}else{
+						addTownToDom(data, "#town");
+						printInfo("No towns in this country.");	
+					}
 			}).error(function(err){
 				printError(err.responseText);
 			})
@@ -82,8 +95,8 @@ $(function(){
 				}),
 				url: BASE_URL + APP_KEY + '/countries'
 			}).success(function(data){
-					//console.log(data);
-					addCountryToDom(data, "#country");
+					addNewCountryToDom(data, "#country");
+					printSuccess("Country " + data.name + " added successfully!");
 			}).error(function(err){
 				printError(err.responseText);
 			})
@@ -107,21 +120,84 @@ $(function(){
 				}),
 				url: BASE_URL + APP_KEY + '/towns'
 			}).success(function(data){
-					printSuccess("Town added successfully!");
+					printSuccess("Town " + data.name + " added successfully!");
+			}).error(function(err){
+				printError(err.responseText);
+			})
+	}
+	
+	function removeCountry(countryId){
+		$.ajax({
+				method: "DELETE",
+				headers: {
+					"Authorization": USER_AUTHTOKEN,
+				},
+				url: BASE_URL + APP_KEY + '/countries/' + countryId
+			}).success(function(){
+					removeTownByCountry(countryId);
+					printSuccess("Country removed successfully!");
+					$("#town").empty();
+			}).error(function(err){
+				printError(err.responseText);
+			})
+	}
+	
+	function removeTownByCountry(countryId){
+		$.ajax({
+				method: "DELETE",
+				headers: {
+					"Authorization": USER_AUTHTOKEN,
+				},
+				url: BASE_URL + APP_KEY + '/towns?query={"country._id":"' + countryId + '"}'
+			}).success(function(){
+					$("#town").empty();
+			}).error(function(err){
+				printError(err.responseText);
+			})
+	}
+	
+	function removeTown(townId){
+		$.ajax({
+				method: "DELETE",
+				headers: {
+					"Authorization": USER_AUTHTOKEN,
+				},
+				url: BASE_URL + APP_KEY + '/towns/' + townId
+			}).success(function(){
+					printSuccess("Town removed successfully!");
 			}).error(function(err){
 				printError(err.responseText);
 			})
 	}
 	
 	// Add to DOM
-	function addCountryToDom(countryData, parentId){
+	function addNewCountryToDom(countryData, parentId){
 		var parent = $(parentId).empty(),
-			country, countryName, countryDetails, countryId,
-			getTownsByCountryBtn, addTownBtn, newTownName;
+			countryName;
 		
 		$('#newTown').show();
 		$('#printError').hide();
 		$('#printSuccess').hide();
+		$("#newTown").css("backgroundColor", "#fff");
+		
+		if(countryData.name){
+			countryName = $("<p>").attr("id", countryData._id)
+				.css("fontStyle", "italic")
+				.text(countryData.name)
+				.appendTo(parent);
+		}
+	}
+	
+	function addAllCountriesToDom(countryData, parentId){
+		var parent = $(parentId).empty(),
+			country, countryName, countryId, newTownName,
+			getTownsByCountryBtn, addTownBtn, removeCountryBtn;
+		
+		$('#newTown').show();
+		$('#printError').hide();
+		$('#printSuccess').hide();
+		$("#newTown").css("backgroundColor", "#fff");
+		
 		for(country in countryData){
 			countryId = countryData[country]._id;
 			
@@ -134,32 +210,55 @@ $(function(){
 				.on('click', function(){
 					newTownName = $("#newTownName").val();
 					if(!newTownName && newTownName == false){
-						$("#newTown").css("border", "1px solid red");
+						$("#newTown").css("backgroundColor", "red");
 						printError("Town's name can not be empty!");
 					}else{
 						addTownInCurrentCountry(newTownName, $(this).parent().attr("id"));
-						$("#newTown").css("border", "none");
+						$("#newTown").css("backgroundColor", "#fff");
 					}
 					
 					$("#newTownName").val('');
 				});
+				
+			removeCountryBtn = $("<button>").text("X")
+				.css("color", "red")
+				.on('click', function(){
+					removeCountry($(this).parent().attr("id"));
+					$(this).parent().hide();
+				});
 			
-			countryName = $("<p>").attr("id", countryId)
-				.text(countryData[country].name)
+			countryName = $("<p>").attr("id", countryId);
+			if(countryData[country].name){
+				countryName.text(countryData[country].name)
+				.css("fontStyle", "italic")
 				.append(getTownsByCountryBtn)
 				.append(addTownBtn)
+				.append(removeCountryBtn)
 				.appendTo(parent);
+			}
 		}
 	}
 	
 	function addTownToDom(townData, parentId){
 		var parent = $(parentId).empty(),
-			town, townName, townDetails, countryTown;
+			town, townName, removeTownBtn;
 		
 		$('#printError').hide();
 		$('#printSuccess').hide();
+		$("#newTown").css("backgroundColor", "#fff");
+		
 		for(town in townData){
+			removeTownBtn = $("<button>").text("X")
+			.css("color", "red")
+			.on('click', function(){
+				removeTown($(this).parent().attr("id"));
+				$(this).parent().hide();
+			});
+		
 			townName = $("<p>").text(townData[town].name)
+				.css("fontStyle", "italic")
+				.attr("id", townData[town]._id)
+				.append(removeTownBtn)
 				.appendTo(parent);
 			if(townData[town].country._obj){
 				townName.text(townData[town].name + ": country " + townData[town].country._obj.name);
@@ -167,15 +266,20 @@ $(function(){
 		}
 	}
 	
+	// notifications
+	function printInfo(info){
+		$('#printError').hide();
+		$('#printSuccess').hide();
+		$("#printInfo").text(info).show();
+	}
+	
 	function printSuccess(message){
 		$('#printError').hide();
-		$("<p>").text(message)
-			.attr("id", "printSuccess")
-			.prependTo($("body"));
+		$('#printInfo').hide();
+		$("#printSuccess").text(message).show();
 	}
 	
 	function printError(err){
-		//console.log(err.responseText);
 		$('#printSuccess').hide();
 		$("#printError").text(err).show();
 		return false;
