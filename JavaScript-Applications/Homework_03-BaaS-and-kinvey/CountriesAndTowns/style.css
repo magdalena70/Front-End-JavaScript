@@ -1,0 +1,102 @@
+body, div, h1, p, input, button{
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	word-wrap: break-word;
+}
+
+div{
+	box-shadow: 2px 2px 10px #333;
+}
+
+button, input{
+	padding: 5px;
+	margin: 5px;
+	font-size: 15px;
+	background-color: #fff;
+	border: 1px solid #999;
+	box-shadow: 2px 2px 10px #333;
+	cursor: pointer;
+}
+
+input{
+	white-space: nowrap;
+	overflow: hidden;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+button:hover{
+	background-color: #333;
+	color: #fff;
+
+}
+
+body{
+	font-family: Arial, sans-serif;
+	font-size: 15px;
+	color: #333;
+}
+
+body #printSuccess,
+body #printError,
+body #printInfo{
+	background-color: green;
+	color: #fff;
+	font-size: 20px;
+	text-align: center;
+	padding: 10px;
+}
+
+body #printInfo{
+	background-color: blue;
+}
+
+body #printError{
+	background-color: red;
+}
+
+body #wrapper{
+	width: 70%;
+	margin: 10px auto;
+	padding: 10px;
+	border: 2px solid #333;
+}
+
+	#wrapper h1{
+		text-align: center;
+		margin: 10px 0;
+	}
+	
+	#wrapper #countryBox,
+	#wrapper #townBox{
+		display: inline-block;
+		vertical-align: top;
+		margin: 5px;
+		padding: 5px;
+		border: 1px solid #333;
+	}
+	
+	#wrapper #countryBox{
+		width: 60%
+	}
+	
+	#wrapper #townBox{
+		width: 37%;
+	}
+	
+		#wrapper #countryBox #newTown {
+			padding: 5px;
+			font-weight: bold;
+			border: 1px solid #333;
+		}
+	
+			#wrapper #countryBox #country p,
+			#wrapper #townBox #town p{
+				border-bottom: 1px dashed #999;
+				padding: 5px;
+				margin: 3px;
+			}
