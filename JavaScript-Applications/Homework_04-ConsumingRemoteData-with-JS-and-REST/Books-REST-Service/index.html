@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Books - REST Service</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+	<div id="wrapper">
+		<header>
+			<h1>Books - REST Service</h1>
+			<button id="showAllBooks">Show All Books Ordered By Date-Created</button>
+			<button id="showAllBooksByTitle">Show All Books Ordered By Title</button>
+			<button id="showAllBooksByAuthor">Show All Books Ordered By Author</button>
+		</header>
+		<div id="addBookDiv">
+			<h4>Tags must be separated by hashtag -> [tag1#tag2#tag3]</h4>
+			<label for="bookTitle"><input type="text" id="bookTitle" placeholder="New book title"/>*</label>
+			<label for="bookAuthor"><input type="text" id="bookAuthor" placeholder=" New book author"/>*</label>
+			<label for="bookIsbn"><input type="text" id="bookIsbn" placeholder=" New book isbn"/>*</label>
+			<input type="text" id="bookTags" placeholder=" New book tags"/>
+			<button id="addBook">Add New Book</button>
+		</div>
+		<div id="books"></div>
+	</div>
+<script src="scripts/requestModels.js"></script>
+<script src="scripts/bookViewModel.js"></script>
+<script src="scripts/app.js"></script>
+</body>
+</html>
