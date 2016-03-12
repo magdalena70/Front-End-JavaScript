@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Routing</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sammy.js/0.7.6/sammy.min.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <header>
+            <h1>Routing</h1>
+            <ul>
+                <li><a href="#/">Home</a></li>
+                <li><a href="#/Sam">Sam</a></li>
+                <li><a href="#/Bob">Bob</a></li>
+            </ul>
+        </header>
+        <div id="content"></div>
+    </div>
+    <script>
+        var app = app || {};
+
+        $(function () {
+            var BASE_ROUT = '#/';
+
+            app.router = Sammy(function () {
+                var selector = $('#content'),
+                    greeting = $('<h2>').appendTo(selector)
+                    _this = this;
+
+                function routing(rout, userName, text) {
+                    userName = userName || '',
+                    text = text || '';
+
+                    _this.get(rout + userName, function () {
+                        greeting.text(text + 'Welcome to home page!');
+                    });
+                }
+
+                routing(BASE_ROUT);
+                routing(BASE_ROUT, 'Sam', 'Hello, Sam! ');
+                routing(BASE_ROUT, 'Bob', 'Hello, Bob! ');
+            });
+
+            app.router.run(BASE_ROUT);
+        }());
+    </script>
+</body>
+</html>	

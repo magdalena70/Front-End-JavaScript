@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mustache-Templates</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
+</head>
+<body>
+    <div id="wrapper"></div>
+    <script>
+        $.get('template.html', function (template) {
+            var data = {}, personsArr, viewModel;
+
+            personsArr = [
+                    {
+                        "name": "Garry Finch",
+                        "jobTitle": "Frond End Technical Lead",
+                        "webSite": "http://website.com"
+                    },
+                    {
+                        "name": "Bob McFray",
+                        "jobTitle": "Photographer",
+                        "webSite": "http://goo.gle"
+                    },
+                    {
+                        "name": "Jenny O'Sullivan",
+                        "jobTitle": "LEGO Geek",
+                        "webSite": "http://stackoverflow.com"
+                    }
+            ];
+
+            data.persons = personsArr;
+         
+            viewModel = Mustache.render(template, data);
+
+            $('#wrapper').html(viewModel);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<h1>Students Collection</h1>
+<table colspan="2" rowspan="2" border="2">
+	<thead>
+		<tr>
+			<th>Full Name</th>
+			<th>Age</th>
+			<th>Country</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#students}}
+	<tr>
+		{{#firstName}}
+		<td>{{firstName}}
+		{{/firstName}}
+		{{#lastName}}
+		{{lastName}}</td>
+		{{/lastName}}
+		{{#age}}
+		<td>{{age}}</td>
+		{{/age}}
+		{{#country}}
+		<td>{{country}}</td>
+		{{/country}}
+	</tr>
+	{{/students}}
+	</tbody>
+</table>

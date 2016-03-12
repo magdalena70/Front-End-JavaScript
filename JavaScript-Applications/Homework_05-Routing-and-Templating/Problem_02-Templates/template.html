@@ -1,0 +1,25 @@
+<h1>Mustache - Templates</h1>
+<table colspan="2" rowspan="2" border="2">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Job Title</th>
+			<th>Website</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#persons}}
+	<tr>
+		{{#name}}
+		<td>{{name}}</td>
+		{{/name}}
+		{{#jobTitle}}
+		<td>{{jobTitle}}</td>
+		{{/jobTitle}}
+		{{#webSite}}
+		<td>{{webSite}}</td>
+		{{/webSite}}
+	</tr>
+	{{/persons}}
+	</tbody>
+</table>
