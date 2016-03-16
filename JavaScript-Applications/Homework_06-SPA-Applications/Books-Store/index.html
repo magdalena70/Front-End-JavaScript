@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Books-Store</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+    <script src="libraries/q.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sammy.js/0.7.6/sammy.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
+</head>
+<body>
+    <div id="notification"></div>
+    <div id="wrapper">
+        <header>
+            <h1>Books - Store</h1>
+            <nav>
+                <ul>
+                    <li><a href="#/home">Home</a></li>
+                    <li><a href="#/register">Register</a></li>
+                    <li><a href="#/login">Login</a></li>
+                    <li><a href="#/logout">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main id="content"></main>
+        <footer>
+            <address>Bulgaria, Sofia 1510</address>
+        </footer>
+    </div>
+    <script src="scripts/requester.js"></script>
+
+    <script src="scripts/models/userModel.js"></script>
+    <script src="scripts/models/booksCollectionModel.js"></script>
+
+    <script src="scripts/views/userViews.js"></script>
+    <script src="scripts/views/booksCollectionViews.js"></script>
+
+    <script src="scripts/controllers/userController.js"></script>
+    <script src="scripts/controllers/booksCollectionController.js"></script>
+
+    <script src="scripts/app.js"></script>
+</body>
+</html>
