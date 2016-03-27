@@ -13,13 +13,12 @@
 
     var router = Sammy(function () {
 
-        //this.before(function() {
-            if (!window.navigator.onLine) {
-                userViewBag.showNotification(constants.NO_INTERNET_CONNECTION_MSG);
-                lectureViewBag.showNotification(constants.NO_INTERNET_CONNECTION_MSG);
-               // return false;
+        this.before(function() {
+            if (navigator.onLine !== true) {
+                userViewBag.showNotification('Failed to load resource: net::ERR_INTERNET_DISCONNECTED');
+                return false;
             }
-        //});
+        });
 
         this.before({ except: { path: '#\/(login\/|register\/)?' } }, function () {
             if (!sessionStorage['sessionAuthToken']) {
@@ -32,9 +31,11 @@
             if (sessionStorage['sessionAuthToken']) {
                 userController.loadHomeMenu(menuSelector);
                 userController.loadWelcomeUserPage(mainSelector);
+                userViewBag.showNotification('Welcome to Home page');
             } else {
                 userController.loadLoginMenu(menuSelector);
                 userController.loadWelcomeGuestPage(mainSelector);
+                userViewBag.showNotification('Please, login or register');
             }
         });
 

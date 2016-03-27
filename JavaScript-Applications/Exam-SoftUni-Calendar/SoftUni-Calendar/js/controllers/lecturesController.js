@@ -8,11 +8,12 @@ app.lecturesController = (function () {
 
     LecturesController.prototype.loadAllLecturesPage = function (selector) {
         var _this = this;
-       
+
         this.model.getAllLectures()
         .then(function (lectureData) {
             //console.log(lectureData);
             if (lectureData.length) {
+                _this.viewBag.showNotification('There are ' + lectureData.length + ' lecture(s)');
                 _this.viewBag.showModalPage(selector, lectureData);
                 _this.viewBag.showAllLectures(selector, lectureData);
             } else {
@@ -32,6 +33,7 @@ app.lecturesController = (function () {
         .then(function (lectureData) {
             //console.log(lectureData);
             if (lectureData.length) {
+                _this.viewBag.showNotification('There are ' + lectureData.length + ' lecture(s)');
                 _this.viewBag.showModalPage(selector, lectureData);
                 _this.viewBag.showAllLectures(selector, lectureData);
             } else {

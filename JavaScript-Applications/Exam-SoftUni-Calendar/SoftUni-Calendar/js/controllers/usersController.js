@@ -43,8 +43,7 @@ app.usersController = (function () {
 
         this.model.register(data)
             .then(function (userData) {
-                console.log(userData);
-                _this.viewBag.showNotification('Hello, ' + userData.username + ' !');
+                //console.log(userData);
                 setCurrentUserData(userData);
 
                 Sammy(function () {
@@ -67,7 +66,6 @@ app.usersController = (function () {
 
         this.model.login(data)
             .then(function (userData) {
-                _this.viewBag.showNotification('Hello, ' + userData.username + ' !');
                 setCurrentUserData(userData);
 
                 Sammy(function () {
@@ -100,22 +98,18 @@ app.usersController = (function () {
     UsersController.prototype.logout = function () {
         var _this = this;
 
-        if (sessionStorage['sessionAuthToken']) {
-            this.model.logout()
-                .then(function () {
-                    sessionStorage.clear();
-                    location.reload();
-                },
-                function (err) {
-                    _this.viewBag.showNotification(err.responseText);
-                })
-                .done();
-        } else {
-            _this.viewBag.showNotification('Please login or register');
-            Sammy(function () {
-                this.trigger('redirectUrl', { url: '#/' });
-            });
-        }
+        this.model.logout()
+            .then(function () {
+                sessionStorage.clear();
+                _this.viewBag.showNotification('Logout successfully');
+                Sammy(function () {
+                    this.trigger('redirectUrl', { url: '#/' });
+                });
+            },
+            function (err) {
+                _this.viewBag.showNotification(err.responseText);
+            })
+            .done();
     }
 
     return {
