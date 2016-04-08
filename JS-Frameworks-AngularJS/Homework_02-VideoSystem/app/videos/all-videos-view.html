@@ -1,0 +1,28 @@
+<!-- All videos view -->
+<div class="row well" ng-repeat="video in videos | orderBy:videoSortOrder | filter:filterVideoBy">
+    <span class="col-md-3 col-md-offset-1">
+		<img ng-src="{{video.pictureUrl}}" width="200" height="" class="img-thumbnail" />
+	</span>
+	<div class="col-md-offset-4">
+		<p>Video title: <strong>{{video.title}}</strong></p>
+		<p>Posted on: <strong>{{video.date | date:'dd.MMM.yyyy'}}</strong></p>
+		<p>Category: <strong>{{video.category}}</strong></p>
+		<p>Video length: <strong>{{video.length}}</strong></p>
+		<p>Subtitles: <strong>{{video.haveSubtitles ? 'yes':'no'}}</strong></p>
+					
+		<!-- Add subscribers -->
+		<div id="addSubscribers" class="text-success">
+			<span id="up-subscribers" ng-click="upSubscribers(video)">
+				<i class="fa fa-thumbs-o-up"></i>
+			</span>
+			<span> - Subscribers: <strong>{{video.subscribers | number}}</strong> - </span>
+			<span id="down-subscribers" ng-click="downSubscribers(video)">
+				<i class="fa fa-thumbs-o-down"></i>
+			</span>
+		</div>
+	</div>
+
+    <!-- Comments filters -->
+    <div id="commentsFilters" class="col-md-12 pull right" ng-include="'app/comments/comments.html'"></div>
+	<!-- end comments filters -->          
+</div>

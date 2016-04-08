@@ -1,0 +1,26 @@
+<!-- Add Comment -->
+    <div ng-include="'app/comments/add-comment.html'"></div>
+	<!-- end add comment -->
+<div class="row well">	
+	<!-- Comments filter -->
+	<h3><i class="fa fa-comment"></i> Comments:</h3>
+	<div class="col-md-3">
+		<span>Order comments by: </span>
+		<select ng-model="commentSortOrder" class="form-control">
+			<option selected value="-date">Date</option>
+			<option value="-likes">Likes</option>
+			<option value="username">Username</option>
+		</select>
+	</div>
+	<div class="col-md-3">
+		<span> Show: </span>
+		<select ng-model="filterCommentsBy.username" class="form-control">
+			<option selected value="">All</option>
+			<option ng-repeat="comment in video.comments" value="{{comment.username}}">{{comment.username}}</option>
+		</select>
+	</div>
+	<!-- end comments filters -->
+</div>
+<!-- Comments view -->
+<div id="commentsView" class="pre-scrollable" style=" max-height:160px" ng-include="'app/comments/comments-view.html'"></div>
+<!-- end comments view -->

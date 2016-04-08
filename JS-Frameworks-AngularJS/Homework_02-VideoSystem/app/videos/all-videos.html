@@ -1,0 +1,39 @@
+<!-- All videos -->	
+	
+<!-- Add video -->
+<div id="addVideoForm" class="col-md-12" ng-include="'app/videos/add-video.html'"></div>
+<!-- end add video -->	
+	
+<div id="video-content" class="col-md-12">
+	<!-- All videos filters -->
+    <div id="allVideosFilters" class="row well">
+		<h1 class="col-md-offset-4">List all videos - count: {{counterVideos}}</h1>
+		<div class="col-md-3">
+			<span>Order video by: </span>
+			<select ng-model="videoSortOrder" class="form-control">
+				<option selected value="-date">Date</option>
+				<option value="category">Category</option>
+			</select>
+		</div>
+		<div class="col-md-3">
+			<span>Have Subtitles:</span>
+			<select ng-model="filterVideoBy.haveSubtitles" class="form-control">
+				<option selected value="">All</option>
+				<option value="true">Yes</option>
+				<option value="false">No</option>
+			</select>
+		</div>
+		<div class="col-md-3">
+			<span> Show: </span>
+			<select ng-model="filterVideoBy.category" class="form-control">
+				<option selected value="">All</option>
+				<option ng-repeat="video in videos" value="{{video.category}}">{{video.category}}</option>
+			</select>
+		</div>
+	</div>
+	<!-- end all videos filters -->
+	
+	<!-- All videos view -->
+    <div id="allVideosView" ng-include="'app/videos/all-videos-view.html'"></div>
+	<!-- end all videos view -->
+</div>

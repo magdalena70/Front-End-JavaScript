@@ -1,0 +1,20 @@
+body {
+    font-family: Calibri, Arial, serif;
+	text-align: center;
+}
+
+div, h1, h2, h4, img, table, tr, th, td{
+	margin: 3px;
+	padding: 3px;
+}
+
+div{
+	display: inline-block;
+	width: 48%;
+	vertical-align: top;
+	border: solid 1px #333;
+}
+
+table{
+	width: 99%;
+}

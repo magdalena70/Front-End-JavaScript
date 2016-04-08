@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="videoSistemApp">
+<head>
+	<meta charset="utf-8">
+	<title>Video system</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="app/app.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular.min.js"></script>
+</head>
+<body ng-cloack>
+	<div class="container">
+		 <!-- Navbar -->
+        <nav class="navbar navbar-fixed-top text-center">
+            <ul class="nav nav-justified">
+                <li><a href="#/home" class="bg-primary"><i class="fa fa-home"></i> Home</a></li>
+                <li><a href="#/videos" class="bg-primary"><i class="fa fa-video-camera"></i> All Videos</a></li>
+            </ul>
+        </nav>
+		<div ng-view></div>
+	</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.min.js"></script>
+<script src="app/app.js"></script>
+<script src="app/home/home.js"></script>
+<script src="app/videos/videos.js"></script>
+</body>	
+</html>

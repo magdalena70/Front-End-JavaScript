@@ -1,0 +1,65 @@
+ body {
+	padding-top: 70px; 
+	font-family: 'Comic sans';
+	font-size: 16px;
+	font-style: italic;
+	color: #001a09;
+}
+
+.bg-primary,
+.well,
+.form-control,
+.btn,
+.btn.disabled{
+	box-shadow: 2px 4px 12px #001a09;
+}
+
+.bg-primary{
+	background-color: #003311;
+	margin: 0 3px 0 3px;
+}
+
+.form-control,
+.btn{
+	border: solid 1px #ccffcc;
+	color: #001a09;
+}
+
+.small,
+small,
+.error{
+	color: red;
+}
+
+.well{
+	background-color: #fff;
+	border: solid 1px #33ff7a;
+}
+
+.img-thumbnail{
+	padding: 5px;
+	border-color: #66ff66;
+}
+
+.text-success,
+a{
+	color: #00802d;
+}
+
+.mark,
+mark{
+	background-color: transparent;
+	border: solid 1px #003311;
+	color: #003311;
+}
+
+#up-subscribers,
+#down-subscribers{
+	font-size: 22px;
+}
+
+#up-subscribers:hover,
+#down-subscribers:hover{
+	cursor: pointer;
+	color: red;
+}

@@ -1,0 +1,22 @@
+<!-- Comments view -->
+<div class="col-md-12 well" ng-repeat="comment in video.comments | orderBy:commentSortOrder | filter:filterCommentsBy">
+    <div class="col-md-8">
+        <p><em>posted on <mark>{{comment.date | date:'dd-MMM-yyyy'}}</mark></em></p>
+        <p><i class="fa fa-pencil fa-fw"></i><strong>{{comment.content}}</strong></p>
+        <span>from <mark>{{comment.username}}</mark></span>
+        <a href="mailto:{{comment.websiteUrl}}"> - {{comment.websiteUrl}}</a>
+    </div>
+	<!-- Likes  -->
+    <div class="col-md-2 col well">
+        <div ng-click="upLikes(comment)">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </div>
+        <div>
+            <span>likes: {{comment.likes}}</span>
+        </div>
+        <div ng-click="downLikes(comment)">
+            <span class="glyphicon glyphicon-chevron-down"></span>
+        </div>
+    </div>
+	<!-- end likes -->
+</div>

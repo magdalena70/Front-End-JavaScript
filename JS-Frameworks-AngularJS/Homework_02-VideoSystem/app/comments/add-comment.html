@@ -1,0 +1,45 @@
+<!-- Add Comment form -->
+<h3>Add comment <i class="fa fa-comment"></i></h3>
+<form id="addComment" name="inputCommentForm" class="form-inline">
+    <div class="form-group">
+        <label for="newUsername" class="control-label">Username
+			<span class="error" ng-show="inputCommentForm.newUsername.$error.required">
+				<small><i class="fa fa-exclamation-triangle"></i></small>
+			</span>
+		</label>
+        <input type="text" required class="form-control"
+            ng-model="video.newUsername"
+            id="newUsername" name="newUsername" placeholder="Username">
+    </div>
+    <div class="form-group">
+        <label for="newContent" class="control-label">Content
+			 <span class="error" ng-show="inputCommentForm.newContent.$error.required">
+				<small><i class="fa fa-exclamation-triangle"></i></small>
+			</span>
+		</label>
+        <input type="text" required class="form-control"
+            ng-model="video.newContent"
+			ng-minlength="3" ng-maxlength="50"
+            id="newContent" name="newContent" placeholder="Content">
+     
+		<div role="alert">
+			<span class="error" ng-show="inputCommentForm.newContent.$error.minlength">
+				Too short! [Min-length: 3 simbols]</span>
+			<span class="error" ng-show="inputCommentForm.newContent.$error.maxlength">
+				Too long! [Max-length: 50 simbols]</span>
+		</div>
+    </div>
+    <div class="form-group">
+        <label for="newWebsiteUrl" class="control-label">Website-url</label>
+        <input type="url" class="form-control"
+            ng-model="video.newWebsiteUrl"
+			id="newWebsiteUrl" name="newWebsiteUrl" placeholder="http(s)://..."
+            ng-pattern="/(https?:\/\/.*\..)/i">
+        <p class="error" ng-show="inputCommentForm.newWebsiteUrl.$invalid && inputCommentForm.newWebsiteUrl.$dirty">
+            Invalid URL
+        </p>
+    </div>
+    <button type="submit" class="btn btn-default" ng-disabled="inputCommentForm.$invalid" ng-click="addComment(video)">
+			<i class="fa fa-comment"></i> Add Comment
+    </button>
+</form>
