@@ -11,7 +11,7 @@ angular.module('issueTrackingSystemApp.users.authentication', [])
 				var defer = $q.defer();
 				$http.post(BASE_URL + 'api/Account/Register', user)
 					.then(function(success){
-						console.log(success);
+						//console.log(success);
 						defer.resolve(success.data);
 					},
 					function(error){
@@ -25,7 +25,7 @@ angular.module('issueTrackingSystemApp.users.authentication', [])
 				var defer = $q.defer();
 				$http.post(BASE_URL + 'api/Token', user)
 					.then(function(success){
-						console.log(success);
+						//console.log(success);
 						defer.resolve(success.data);
 					},
 					function(error){
@@ -36,7 +36,19 @@ angular.module('issueTrackingSystemApp.users.authentication', [])
 			}
 			
 			function logout(){
-			
+				var defer = $q.defer();
+				var accessToken = sessionStorage['accessToken'];
+				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
+				$http.post(BASE_URL + 'api/Account/Logout', '', headers)
+					.then(function(success){
+						//console.log(success);
+						defer.resolve(success);
+					},
+					function(error){
+						defer.reject(error);
+					});
+				
+				return defer.promise;
 			}
 			
 			return{

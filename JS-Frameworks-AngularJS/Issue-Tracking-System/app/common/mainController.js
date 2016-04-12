@@ -2,22 +2,17 @@
 
 angular.module('issueTrackingSystemApp.common', [])
 	.controller('MainController', [
-		'$scope',
-		//'identity', 
+		'$scope', 
 		'BASE_URL',
 		function($scope, identity, BASE_URL){
-			//$scope.isAuthenticated = function(){
+		
+			$scope.isAuthenticated = function(){
 				if(sessionStorage['accessToken']){
-					$scope.isAuthenticated = true;
+					return true;
 				}else{
-					$scope.isAuthenticated = false;
-				}
-			//}
-			/*$scope.isAuthenticated = identity.isAuthenticated();
+					 return false;
+				}	
+			}
 			
-			identity.getCurrentUser(BASE_URL)
-				.then(function(currentUserData){
-					console.log(currentUserData);
-					$scope.currentUser = currentUserData;
-				});*/
+			$scope.username = sessionStorage['currentUserUsername'];
 		}]);

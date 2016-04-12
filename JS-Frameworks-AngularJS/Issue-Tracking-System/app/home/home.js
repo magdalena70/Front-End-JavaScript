@@ -8,11 +8,18 @@ angular.module('issueTrackingSystemApp.home', [
 		  templateUrl: 'app/home/home.html',
 		  controller: 'HomeController'
 	  });
+	  
+	  $routeProvider.when('/logout', {
+		  templateUrl: 'app/users/logout.html',
+		  controller: 'HomeController'
+	  });
 	}])
 	.controller('HomeController', [
 		'$scope',
+		'$location',
 		'authentication',
-		function($scope, authentication) {
+		function($scope, $location, authentication) {
+		
 			$scope.register = function(user){
 				//console.log(user);
 				$scope.registerUserData = user;
@@ -27,9 +34,23 @@ angular.module('issueTrackingSystemApp.home', [
 				//console.log(user);
 				authentication.loginUser("username=" + user.username + "&password=" + user.password + "&grant_type=password")
 					.then(function(loggedInUser){
-						console.log(loggedInUser);
+						//console.log(loggedInUser);
 						sessionStorage['accessToken'] = loggedInUser.access_token;
 						sessionStorage['currentUserUsername'] = loggedInUser.userName;
+						//$scope.isAuthenticated = true;
+						$location.path('/');
+					},
+					function(error){
+						console.log(error);
+					});
+			}
+			
+			$scope.logout = function(){
+				authentication.logout()
+					.then(function(success){
+						sessionStorage.clear();
+						//$scope.isAuthenticated = false;
+						$location.path('/');
 					},
 					function(error){
 						console.log(error);
