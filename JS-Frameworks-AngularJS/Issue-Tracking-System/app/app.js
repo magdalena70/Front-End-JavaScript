@@ -4,8 +4,8 @@ angular.module('issueTrackingSystemApp', [
 		'angular-loading-bar',
 		'ngRoute',
 		'issueTrackingSystemApp.common',
-		'issueTrackingSystemApp.home'
-		//'issueTrackingSystemApp.users.identity'	
+		'issueTrackingSystemApp.home',
+		'issueTrackingSystemApp.users'	
 	])
 	.config(['$routeProvider', 'cfpLoadingBarProvider',
 		function($routeProvider, cfpLoadingBarProvider) {
