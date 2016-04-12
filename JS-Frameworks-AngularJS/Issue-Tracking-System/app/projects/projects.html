@@ -1,0 +1,45 @@
+<!--projects-->
+<div class="row">
+	<div class="col-md-12">
+		<button class="btn btn-success" ng-click="getProjects()">List projects</button>
+		<h2>All Projects</h2>
+		<table class="table table-hover table-bordered">
+			<thead>
+			  <tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Project Key</th>
+				<th>Description</th>
+				<th>Lead</th>
+				<th>Transition Scheme Id</th>
+				<th>Labels</th>
+				<th>Priorities</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr ng-repeat="project in projects">
+				<td>{{project.Id}}
+				</td>
+				<td><a href="#/projects/{{project.Id}}">{{project.Name}}</a></td>
+				<td>{{project.ProjectKey}}</td>
+				<td>{{project.Description}}</td>
+				<td>
+					<p>Username: {{project.Lead.Username}}</p>
+					<p>isAdmin: {{project.Lead.isAdmin}}</p>
+				</td>
+				<td>{{project.TransitionSchemeId}}</td>
+				<td>
+					<ul class="list-unstyled" ng-repeat="label in project.Labels">
+						<li>{{label.Name}}</li>
+					</ul>
+				</td>
+				<td>
+					<ul class="list-unstyled" ng-repeat="priority in project.Priorities">
+						<li>{{priority.Name}}</li>
+					</ul>
+				</td>
+			  </tr>
+			</tbody>
+	  </table>
+	</div>
+</div>
