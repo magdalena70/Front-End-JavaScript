@@ -1,15 +1,9 @@
+<!--dashboard-->
 <div class="jumbotron">
-	<div class="row text-center">
-		<div class="col-md-6">
-			<button class="btn btn-success">Dashboard</button>
-			<h2>Dashboard</h2>
-		</div>	
-		<div class="col-md-6">
-			<button class="btn btn-success">Projects</button>
-			<h2>Affiliated projects</h2>
-		</div>
-		<h4><a href="">entirely new project</a></h4>
-		<br/>
+	<div class="row text-center">	
+		<h2>My Issues</h2>
+	</div>
+	<div class="row">
 		<table class="table table-hover table-bordered">
 			<thead>
 			  <tr>
@@ -20,13 +14,13 @@
 			  </tr>
 			</thead>
 			<tbody>
-			  <tr>
-				<td>problem 1</td>
-				<td>na red 12</td>
-				<td>entirely new project</td>
-				<td>11.04.2016</td>
+			  <tr ng-repeat="issue in issues">
+				<td>{{issue.Title}}</td>
+				<td>{{issue.Description}}</td>
+				<td>{{issue.Project.Name}}</td>
+				<td>{{issue.DueDate | date: "dd.MM.yyyy"}}</td>
 			  </tr>
 			</tbody>
 	  <table>
-	</div>
+	 </div>
 </div>

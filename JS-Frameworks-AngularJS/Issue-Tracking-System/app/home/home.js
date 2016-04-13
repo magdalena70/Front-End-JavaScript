@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('issueTrackingSystemApp.home', [
-		'issueTrackingSystemApp.users.authentication'
+		'issueTrackingSystemApp.users.authentication',
+		'issueTrackingSystemApp.issues.issueServices'
 	])
 	.config(['$routeProvider', function($routeProvider) {
 	  $routeProvider.when('/', {
@@ -18,7 +19,8 @@ angular.module('issueTrackingSystemApp.home', [
 		'$scope',
 		'$location',
 		'authentication',
-		function($scope, $location, authentication) {
+		'issueServices',
+		function($scope, $location, authentication, issueServices) {
 		
 			$scope.register = function(user){
 				//console.log(user);
@@ -56,6 +58,18 @@ angular.module('issueTrackingSystemApp.home', [
 					});
 			}
 			
+			$scope.getMyIssues = function(){
+				issueServices.getMyIssues()
+					.then(function(issuesData){
+						console.log(issuesData);
+						$scope.issues = issuesData.data.Issues;
+						//console.log($scope.issues);
+					},
+					function(error){
+						console.log(error);
+					});
+			}
+			$scope.getMyIssues();
 			
 			$scope.logout = function(){
 				authentication.logout()

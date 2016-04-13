@@ -29,8 +29,8 @@
 					<li><a href="#/projects">All Projects</a></li>
 					<li ng-if="isAdmin()"><a href="#/projects/add">Add New Project</a></li>
 					<li class="divider"></li>
-					<li ng-if="!isAdmin()"><a href="#/admin/makeAdmin">Make Admin</a></li>
-					<li ng-if="!isAdmin()"><a href="#/admin/users/all">All Users</a></li>
+					<li ng-if="isAdmin()"><a href="#/admin/makeAdmin">Make Admin</a></li>
+					<li ng-if="isAdmin()"><a href="#/admin/users/all">All Users</a></li>
 				</ul>
             </li>
         </ul>
