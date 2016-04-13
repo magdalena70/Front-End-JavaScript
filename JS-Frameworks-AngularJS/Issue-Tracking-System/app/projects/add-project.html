@@ -1,0 +1,60 @@
+<!--add project page-->
+<!--error message-->
+<div>
+	<h1>Message: Only admins can access this page!</h1>
+</div>
+<!--end error message-->
+<!--add project form-->
+<div ng-if="isAdmin()" class="col-md-6 col-md-offset-3">
+	<h2>Add New Project</h2>
+	<form name="addProjectForm">
+			<div class="form-group">
+				<label for="name">Name<span class="red">*</span></label>
+				<input type="text" ng-model="project.name" 
+					id="name" 
+					required="required"
+					max-length="100"
+					class="form-control"/>
+			</div>
+			<div class="form-group">
+				<label for="project-key">Project Key<span class="red">*</span></label>
+				<input type="text" ng-model="project.projectKey" 
+					id="project-key" 
+					required="required"
+					max-length="100"
+					class="form-control"/>
+			</div>
+			<div class="form-group">
+				<label for="leader">Leader<span class="red">*</span></label>
+				<select ng-model="project.leadId" ng-repeat="user in users" id="leader" required="required" class="form-control">
+					<option value="{{user.Id}}">{{user.Username}}</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="description">Description<span class="red">*</span></label>
+				<textarea type="text" ng-model="project.Description" 
+					id="description" 
+					required="required"
+					max-length="100"
+					class="form-control"></textarea>
+			</div>
+			<div class="form-group">
+				<label for="priorities">Priorities <span class="red">*</span></label>
+				<input type="text" ng-model="project.priorities " 
+					id="priorities " 
+					required="required"
+					class="form-control"/>
+			</div>
+			<div class="form-group">
+				<label for="name">Labels</label>
+				<input type="text" ng-model="project.labels" 
+					id="labels" 
+					class="form-control"/>
+			</div>
+			<button type="submit" class="btn btn-success" 
+				ng-disabled="addProjectForm.$invalid" 
+				ng-click="addProject(project)">
+					Add New Project
+			</button>
+	</form>
+</div>

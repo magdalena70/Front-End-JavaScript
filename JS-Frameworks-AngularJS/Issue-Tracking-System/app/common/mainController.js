@@ -4,8 +4,9 @@ angular.module('issueTrackingSystemApp.common', [])
 	.controller('MainController', [
 		'$scope', 
 		'BASE_URL',
-		function($scope, identity, BASE_URL){
-		
+		function($scope, authentication, BASE_URL){
+			$scope.username = sessionStorage['currentUserUsername'];
+			
 			$scope.isAuthenticated = function(){
 				if(sessionStorage['accessToken']){
 					return true;
@@ -14,5 +15,11 @@ angular.module('issueTrackingSystemApp.common', [])
 				}	
 			}
 			
-			$scope.username = sessionStorage['currentUserUsername'];
+			$scope.isAdmin = function(){
+				if(sessionStorage['isAdmin']){
+					return true;
+				}else{
+					 return false;
+				}
+			}
 		}]);

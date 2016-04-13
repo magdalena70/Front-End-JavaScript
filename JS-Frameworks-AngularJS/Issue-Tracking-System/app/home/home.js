@@ -36,8 +36,7 @@ angular.module('issueTrackingSystemApp.home', [
 					.then(function(loggedInUser){
 						//console.log(loggedInUser);
 						sessionStorage['accessToken'] = loggedInUser.access_token;
-						sessionStorage['currentUserUsername'] = loggedInUser.userName;
-						//$scope.isAuthenticated = true;
+						$scope.getUserInfo();
 						$location.path('/');
 					},
 					function(error){
@@ -45,11 +44,23 @@ angular.module('issueTrackingSystemApp.home', [
 					});
 			}
 			
+			$scope.getUserInfo = function(){
+				authentication.getUserInfo()
+					.then(function(userData){
+					console.log(userData);
+						sessionStorage['userId'] = userData.data.Id;
+						sessionStorage['currentUserUsername'] = userData.data.Username;
+						if(userData.data.isAdmin === true){
+							sessionStorage['isAdmin'] = userData.data.isAdmin;
+						}
+					});
+			}
+			
+			
 			$scope.logout = function(){
 				authentication.logout()
 					.then(function(success){
 						sessionStorage.clear();
-						//$scope.isAuthenticated = false;
 						$location.path('/');
 					},
 					function(error){

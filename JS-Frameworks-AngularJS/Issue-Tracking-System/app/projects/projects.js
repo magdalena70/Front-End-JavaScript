@@ -9,6 +9,11 @@ angular.module('issueTrackingSystemApp.projects', [
 			controller: 'ProjectsController'
 		});
 		
+		$routeProvider.when('/projects/add', {
+			templateUrl: 'app/projects/add-project.html',
+			controller: 'ProjectsController'
+		});
+		
 		$routeProvider.when('/projects/:id', {
 			templateUrl: 'app/projects/project-details.html',
 			controller: 'ProjectsController'
@@ -19,7 +24,6 @@ angular.module('issueTrackingSystemApp.projects', [
 		'$routeParams',
 		'services',
 		function($scope, $routeParams, services){
-			//$scope.projectId = $routeParams.id;
 			
 			$scope.getProjects = function(){
 				services.getAllProjects()
@@ -28,7 +32,7 @@ angular.module('issueTrackingSystemApp.projects', [
 						$scope.projects = projectsData.data;
 					});
 			}
-			$scope.getProjects();
+			//$scope.getProjects();
 			
 			$scope.getProjectById = function(){
 				var projectId = $routeParams.id;
@@ -40,7 +44,7 @@ angular.module('issueTrackingSystemApp.projects', [
 						$scope.getIssuesByProjectId();
 					});
 			}
-			$scope.getProjectById();
+			//$scope.getProjectById();
 			
 			$scope.getIssuesByProjectId = function(){
 				var projectId = $routeParams.id;
@@ -49,6 +53,14 @@ angular.module('issueTrackingSystemApp.projects', [
 					.then(function(issuesData){
 						console.log(issuesData);
 						$scope.issuesInProject = issuesData.data;
+					});
+			}
+			
+			$scope.addProject = function(project){
+				services.addProject(project)
+					.then(function(projectData){
+						console.log(projectData);
+						$scope.newProject = projectData.data;
 					});
 			}
 	}]);
