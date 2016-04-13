@@ -7,7 +7,8 @@ angular.module('issueTrackingSystemApp', [
 		'issueTrackingSystemApp.home',
 		'issueTrackingSystemApp.users',
 		'issueTrackingSystemApp.projects',
-		'issueTrackingSystemApp.issues'
+		'issueTrackingSystemApp.issues',
+		'issueTrackingSystemApp.admin'
 	])
 	.config(['$routeProvider', 'cfpLoadingBarProvider',
 		function($routeProvider, cfpLoadingBarProvider) {

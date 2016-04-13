@@ -4,8 +4,14 @@ body{
 	font-size: 16px;
 }
 
+.warning{
+	color: red;
+	font-size: 140px;
+}
+
 .red{
 	color: red;
 	font-size: 20px;
 }
+
 
