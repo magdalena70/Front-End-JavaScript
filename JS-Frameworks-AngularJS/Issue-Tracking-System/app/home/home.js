@@ -63,7 +63,7 @@ angular.module('issueTrackingSystemApp.home', [
 					.then(function(issuesData){
 						console.log(issuesData);
 						$scope.issues = issuesData.data.Issues;
-						//console.log($scope.issues);
+						console.log($scope.issues);
 					},
 					function(error){
 						console.log(error);

@@ -2,9 +2,14 @@
 
 angular.module('issueTrackingSystemApp.issues', [])
 	.config(['$routeProvider', function($routeProvider){
-		$routeProvider.when('/issues/:id', {
-			//templateUrl: 'app/projects/projects.html',
-			//controller: 'IssuesController'
+		$routeProvider.when('/projects/:id/add-issue', {
+			templateUrl: 'app/issues/add-issue.html',
+			controller: 'IssuesController'
+		});
+		
+		$routeProvider.when('/issues/:id/edit', {
+			templateUrl: 'app/issues/edit-issue.html',
+			controller: 'IssuesController'
 		});
 	}])
 	.controller('IssuesController', [function(){}]);

@@ -1,4 +1,4 @@
-<button class="btn btn-success" ng-click="getProjectById()">Project Info</button>
+<!--<button class="btn btn-success" ng-click="getProjectById()">Get Project Info</button>-->
 <ul>
 	<li><strong>Id:</strong> <em>{{project.Id}}</em></li>
 	<li><strong>Name:</strong> <em>{{project.Name}}</em></li>
@@ -11,14 +11,19 @@
 		</ul>
 	</li>
 	<li><strong>Transition Scheme Id:</strong> <em>{{project.TransitionSchemeId}}</em></li>
-	<li><strong>Labels:</strong>
-		<span ng-repeat="label in project.Labels">
-			<em>#{{label.Name}}; </em> 
-		</span>
+	<li>
+		<select class="form-control">
+			<option>Labels:</option>
+			<option ng-repeat="label in project.Labels">#{{label.Name}}</option>
+		</select>
 	</li>
-	<li><strong>Priorities:</strong>
-		<span ng-repeat="priority in project.Priorities">
-			<em>{{priority.Name}}; </em>
-		</span>
+	<li>
+		<select class="form-control">
+			<option>Priorities:</option>
+			<option ng-repeat="priority in project.Priorities">{{priority.Name}}</option>
+		</select>
 	</li>
 </ul>
+<div class="text-center">
+	<p><a href="#/projects/{{project.Id}}/add-issue"><strong>Add New Issue In This Project</strong></a></p>
+</div>

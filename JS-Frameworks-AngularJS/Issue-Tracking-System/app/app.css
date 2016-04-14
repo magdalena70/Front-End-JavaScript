@@ -1,7 +1,53 @@
 /* app css stylesheet */
 body{
-	margin-top: 70px;
+	margin-top: 80px;
+	font-family: "Open sans", cursiv;
 	font-size: 16px;
+	color: #333;
+}
+
+h2{
+	text-align: center;
+}
+
+div, th, td, li, p, a{
+	word-break: break-all;
+}
+
+.navbar > .container{
+	margin-bottom: 10px;
+	background-color: #EEE;
+	box-shadow: 2px 3px 12px #333;
+}
+
+.row, .form-control, .navbar{
+	box-shadow: 2px 3px 12px #333;
+}
+
+.navbar-header, .navbar-right li{
+	box-shadow: 2px 3px 10px #333;
+	padding: 3px;
+	margin-right: 10px;
+}
+
+.navbar-header:hover, .nav li:hover{
+	background-color: #fff;
+}
+
+#loading-bar-container{
+	color: lightblue;
+	text-shadow: 0 2px 4px blue;
+}
+
+button, .btn-success{
+	background-color: #333;
+	color: #fff;
+	margin: 10px;
+}
+
+button, .btn-success:hover{
+	background: #fff;
+	color: #333;
 }
 
 .warning{
@@ -14,4 +60,10 @@ body{
 	font-size: 20px;
 }
 
+.project-table th, .project-table td{
+	width: 12%;
+}
 
+.issue-table th, .issue-table td{
+	width: 10%;
+}

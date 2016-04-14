@@ -3,10 +3,10 @@
 <div class="row text-center" ng-if="!isAdmin()" ng-include="'app/common/partial/admin-warning-msg.html'"></div>
 <!--end error message-->
 <div class="row" ng-if="isAdmin()">
-	<h2 class="text-center">All Users</h2>
+	<h2>All Users</h2>
 	<div class="col-md-5 col-md-offset-3">
 		<div class="form-group">
-			<label for="search-user">Search user by username:</label>
+			<label for="search-user">Search user by Username:</label>
 			<input type="text" ng-model="user.Username" id="search-user" class="form-control">
 		</div>
 		<ul class="list-group">

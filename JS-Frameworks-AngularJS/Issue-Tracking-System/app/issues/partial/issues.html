@@ -1,10 +1,36 @@
 <!--issues-->
-<button class="btn btn-success" ng-click="getIssuesByProjectId()">Project Issues</button>
-<table class="table table-hover table-bordered">
+<button class="btn btn-success" ng-click="getIssuesByProjectId()">Get Project's Issues</button>
+<div id="issues-filters">
+	<div class="col-md-3">
+		<div class="form-group">
+			<label for="search-user">Search issue by Author:</label>
+			<input type="text" ng-model="issue.Author.Username" id="search-issue-by-author" class="form-control">
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="form-group">
+			<label for="search-user">Search issue by Assignee:</label>
+			<input type="text" ng-model="issue.Assignee.Username" id="search-issue-by-assignee" class="form-control">
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="form-group">
+			<label for="search-user">Search issue by Title:</label>
+			<input type="text" ng-model="issue.Title" id="search-issue-by-title" class="form-control">
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="form-group">
+			<label for="search-user">Search issue by Label:</label>
+			<input type="text" ng-model="issue.Labels.Name" id="search-issue-by-label" class="form-control">
+		</div>
+	</div>
+</div>
+<table class="table table-hover table-bordered issue-table">
 	<thead>
 		<tr>
 			<th>Title</th>
-			<!--<th>Issue Key</th>-->
+			<th>Issue Key</th>
 			<th>Description</th>
 			<th>Due Date</th>
 			<th>Author</th>
@@ -16,9 +42,10 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="issue in issuesInProject | orderBy:issue.DueDate">
+		<tr ng-repeat="issue in issuesInProject | orderBy:issue.DueDate |
+				filter:issue.Assignee.Username | filter:issue.Author.Username | filter:issue.Title | filter:issue.Labels.Name">
 			<td><a href="#/issues/{{issue.Id}}">{{issue.Title}}</a></td>
-			<!--<td>{{issue.IssueKey}}</td>-->
+			<td>{{issue.IssueKey}}</td>
 			<td>{{issue.Description}}</td>
 			<td>{{issue.DueDate | date: 'dd/MM/yyyy'}}</td>
 			<td>{{issue.Author.Username}}</td>

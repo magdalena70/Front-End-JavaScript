@@ -1,11 +1,6 @@
-<!--add project page-->
-<!--error message-->
-<div class="row text-center" ng-if="!isAdmin()" ng-include="'app/common/partial/admin-warning-msg.html'"></div>
-<!--end error message-->
-<!--add project form-->
-<div ng-if="isAdmin()" class="row">
+<div class="row">
 	<div class="col-md-6 col-md-offset-3">
-		<h2>Add New Project</h2>
+		<h4>Add new issue in this project</h4>
 		<form name="addProjectForm">
 			<div class="form-group">
 				<label for="name">Name<span class="red">*</span></label>

@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('issueTrackingSystemApp.projects.services', [])
-	.factory('services', [
+angular.module('issueTrackingSystemApp.projects.projectServices', [])
+	.factory('projectServices', [
 		'$http',
 		'$q',
 		'BASE_URL',

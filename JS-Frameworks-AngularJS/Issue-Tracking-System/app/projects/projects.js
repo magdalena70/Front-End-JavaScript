@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('issueTrackingSystemApp.projects', [
-		'issueTrackingSystemApp.projects.services'
+		'issueTrackingSystemApp.projects.projectServices'
 	])
 	.config(['$routeProvider', function($routeProvider){
 		$routeProvider.when('/projects', {
@@ -22,11 +22,11 @@ angular.module('issueTrackingSystemApp.projects', [
 	.controller('ProjectsController', [
 		'$scope',
 		'$routeParams',
-		'services',
-		function($scope, $routeParams, services){
+		'projectServices',
+		function($scope, $routeParams, projectServices){
 			
 			$scope.getProjects = function(){
-				services.getAllProjects()
+				projectServices.getAllProjects()
 					.then(function(projectsData){
 						console.log(projectsData);
 						$scope.projects = projectsData.data;
@@ -37,19 +37,19 @@ angular.module('issueTrackingSystemApp.projects', [
 			$scope.getProjectById = function(){
 				var projectId = $routeParams.id;
 				
-				services.getProjectById(projectId)
+				projectServices.getProjectById(projectId)
 					.then(function(projectData){
 						console.log(projectData);
 						$scope.project = projectData.data;
 						$scope.getIssuesByProjectId();
 					});
 			}
-			//$scope.getProjectById();
+			$scope.getProjectById();
 			
 			$scope.getIssuesByProjectId = function(){
 				var projectId = $routeParams.id;
 				
-				services.getIssuesByProjectId(projectId)
+				projectServices.getIssuesByProjectId(projectId)
 					.then(function(issuesData){
 						console.log(issuesData);
 						$scope.issuesInProject = issuesData.data;
@@ -57,7 +57,7 @@ angular.module('issueTrackingSystemApp.projects', [
 			}
 			
 			$scope.addProject = function(project){
-				services.addProject(project)
+				projectServices.addProject(project)
 					.then(function(projectData){
 						console.log(projectData);
 						$scope.newProject = projectData.data;
