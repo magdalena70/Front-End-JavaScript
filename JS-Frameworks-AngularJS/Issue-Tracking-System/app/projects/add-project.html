@@ -8,41 +8,60 @@
 		<h2>Add New Project</h2>
 		<form name="addProjectForm">
 			<div class="form-group">
-				<label for="name">Name<span class="red">*</span></label>
-				<input type="text" ng-model="project.name" 
+				<label for="name">Project Name<span class="red">*</span></label>
+				<input type="text" ng-model="project.Name" 
 					id="name" 
+					name="projectName"
 					required="required"
-					max-length="100"
+					ng-maxlength="50"
 					class="form-control"/>
+				<p class="red" ng-show="addProjectForm.projectName.$error.required">
+					<small><i class="fa fa-exclamation-triangle"></i> Project Name is required!</small>
+				</p>
 			</div>
 			<div class="form-group">
 				<label for="project-key">Project Key<span class="red">*</span></label>
-				<input type="text" ng-model="project.projectKey" 
-					id="project-key" 
+				<input type="text" ng-model="project.ProjectKey" 
+					id="project-key"
+					name="projectKey"
 					required="required"
 					max-length="100"
 					class="form-control"/>
+				<p class="red" ng-show="addProjectForm.projectKey.$error.required">
+					<small><i class="fa fa-exclamation-triangle"></i> Project Key is required!</small>
+				</p>
 			</div>
 			<div class="form-group">
 				<label for="leader">Leader<span class="red">*</span></label>
-				<select ng-model="project.leadId" ng-repeat="user in users" id="leader" required="required" class="form-control">
-					<option value="{{user.Id}}">{{user.Username}}</option>
+				<select ng-model="project.LeadId" id="leader" name="leadId" required="required" class="form-control">
+					<option  ng-repeat="user in usersForLeader | orderBy: 'Username'" value="{{user.Id}}">{{user.Username}}</option>
 				</select>
+				<p class="red" ng-show="addProjectForm.leadId.$error.required">
+					<small><i class="fa fa-exclamation-triangle"></i> Leader is required!</small>
+				</p>
 			</div>
 			<div class="form-group">
 				<label for="description">Description<span class="red">*</span></label>
 				<textarea type="text" ng-model="project.Description" 
-					id="description" 
+					id="description"
+					name="description"
 					required="required"
 					max-length="100"
 					class="form-control"></textarea>
+				<p class="red" ng-show="addProjectForm.description.$error.required">
+					<small><i class="fa fa-exclamation-triangle"></i> Description is required!</small>
+				</p>
 			</div>
 			<div class="form-group">
 				<label for="priorities">Priorities <span class="red">*</span></label>
-				<input type="text" ng-model="project.priorities " 
-					id="priorities " 
+				<input type="text" ng-model="project.priorities.Name" 
+					id="priorities "
+					name="priorities"
 					required="required"
 					class="form-control"/>
+				<p class="red" ng-show="addProjectForm.priorities.$error.required">
+					<small><i class="fa fa-exclamation-triangle"></i> Priorities is required!</small>
+				</p>
 			</div>
 			<div class="form-group">
 				<label for="name">Labels</label>

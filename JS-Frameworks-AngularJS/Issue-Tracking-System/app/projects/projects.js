@@ -1,7 +1,8 @@
 'use strict'
 
 angular.module('issueTrackingSystemApp.projects', [
-		'issueTrackingSystemApp.projects.projectServices'
+		'issueTrackingSystemApp.projects.projectServices',
+		'issueTrackingSystemApp.admin.adminSettings'
 	])
 	.config(['$routeProvider', function($routeProvider){
 		$routeProvider.when('/projects', {
@@ -23,20 +24,8 @@ angular.module('issueTrackingSystemApp.projects', [
 		'$scope',
 		'$routeParams',
 		'projectServices',
-		function($scope, $routeParams, projectServices){
-		
-			function getProjectById(){
-				var projectId = $routeParams.id;
-				
-				projectServices.getProjectById(projectId)
-					.then(function(projectData){
-						$scope.project = projectData.data;
-					},
-					function(error){
-						console.log(error);
-					});
-			}
-			getProjectById();
+		'adminSettings',
+		function($scope, $routeParams, projectServices, adminSettings){
 			
 			$scope.getProjects = function(){
 				projectServices.getAllProjects()
@@ -48,6 +37,7 @@ angular.module('issueTrackingSystemApp.projects', [
 						console.log(error);
 					});
 			}
+			
 			
 			$scope.getIssuesByProjectId = function(){
 				var projectId = $routeParams.id;
@@ -66,6 +56,8 @@ angular.module('issueTrackingSystemApp.projects', [
 			}
 			
 			$scope.addProject = function(project){
+				project.priorities = [project.priorities];
+				console.log(project);
 				projectServices.addProject(project)
 					.then(function(projectData){
 						console.log(projectData);
@@ -75,4 +67,28 @@ angular.module('issueTrackingSystemApp.projects', [
 						console.log(error);
 					});
 			}
+			
+			function getProjectById(){
+				var projectId = $routeParams.id;
+				
+				projectServices.getProjectById(projectId)
+					.then(function(projectData){
+						$scope.project =  projectData.data;
+					},
+					function(error){
+						//console.log(error);
+					});
+			}
+			getProjectById();
+			
+			function getAllUsersToMakeLeader(){
+				adminSettings.getUsers()
+					.then(function(usersData){
+						$scope.usersForLeader =  usersData.data;
+					},
+					function(error){
+						console.log(error);
+					});
+			}
+			getAllUsersToMakeLeader();
 	}]);
