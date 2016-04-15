@@ -4,14 +4,20 @@
 <!--end error message-->
 <div class="row" ng-if="isAdmin()">
 	<h2>All Users</h2>
-	<div class="col-md-5 col-md-offset-3">
+	<div class="col-md-6 col-md-offset-3">
 		<div class="form-group">
 			<label for="search-user">Search user by Username:</label>
-			<input type="text" ng-model="user.Username" id="search-user" class="form-control">
+			<div class="inner-addon left-addon">
+				<i class="fa fa-search" aria-hidden="true"></i>
+				<input type="text" ng-model="user.Username" id="search-user" class="form-control">
+			</div>
+		</div>
+		<div>
+			<button class="btn btn-success" ng-click="getAllUsers()">Get Users</button>
 		</div>
 		<ul class="list-group">
 		  <li ng-repeat="user in users | filter : user.Username" class="list-group-item">
-			<a href=""><strong>{{user.Username}}</strong><em> - isAdmin: {{user.isAdmin}}</em></a>
+			<a href="#/profile/{{user.Username}}"><strong>{{user.Username}}</strong><em> - isAdmin: {{user.isAdmin}}</em></a>
 		  </li>
 		</ul>
 	</div>

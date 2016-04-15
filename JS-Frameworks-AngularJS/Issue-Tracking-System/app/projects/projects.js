@@ -24,35 +24,44 @@ angular.module('issueTrackingSystemApp.projects', [
 		'$routeParams',
 		'projectServices',
 		function($scope, $routeParams, projectServices){
+		
+			function getProjectById(){
+				var projectId = $routeParams.id;
+				
+				projectServices.getProjectById(projectId)
+					.then(function(projectData){
+						$scope.project = projectData.data;
+					},
+					function(error){
+						console.log(error);
+					});
+			}
+			getProjectById();
 			
 			$scope.getProjects = function(){
 				projectServices.getAllProjects()
 					.then(function(projectsData){
 						console.log(projectsData);
 						$scope.projects = projectsData.data;
+					},
+					function(error){
+						console.log(error);
 					});
 			}
-			//$scope.getProjects();
-			
-			$scope.getProjectById = function(){
-				var projectId = $routeParams.id;
-				
-				projectServices.getProjectById(projectId)
-					.then(function(projectData){
-						console.log(projectData);
-						$scope.project = projectData.data;
-						$scope.getIssuesByProjectId();
-					});
-			}
-			$scope.getProjectById();
 			
 			$scope.getIssuesByProjectId = function(){
 				var projectId = $routeParams.id;
 				
 				projectServices.getIssuesByProjectId(projectId)
 					.then(function(issuesData){
-						console.log(issuesData);
-						$scope.issuesInProject = issuesData.data;
+						if(issuesData.data.length){
+							$scope.issuesInProject = issuesData.data;
+						}else{
+							console.log('No issues in project');
+						}
+					},
+					function(error){
+						console.log(error);
 					});
 			}
 			
@@ -61,6 +70,9 @@ angular.module('issueTrackingSystemApp.projects', [
 					.then(function(projectData){
 						console.log(projectData);
 						$scope.newProject = projectData.data;
+					},
+					function(error){
+						console.log(error);
 					});
 			}
 	}]);

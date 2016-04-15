@@ -23,20 +23,17 @@ angular.module('issueTrackingSystemApp.admin', [
 			$scope.getAllUsers = function(){
 				adminSettings.getUsers()
 					.then(function(usersData){
-						//console.log(usersData);
 						$scope.users = usersData.data;
 					},
 					function(error){
 						console.log(error);
 					});
 			}
-			$scope.getAllUsers();
 			
 			$scope.makeAdmin = function(user){
 				console.log(user);
 				adminSettings.makeAdmin({"userId": user.userId})
 					.then(function(response){
-						console.log(response);
 						$location.path('/');
 					},
 					function(error){

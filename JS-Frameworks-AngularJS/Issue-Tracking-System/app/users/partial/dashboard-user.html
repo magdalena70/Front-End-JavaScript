@@ -1,27 +1,57 @@
 <!--dashboard-->
 	<div class="col-md-12">
+		<h2>My Projects</h2>
+		<div class="col-md-10 col-md-offset-1">
+			<div class="col-md-4 form-group">
+				<label for="search-project-by-name">Search project by Name:</label>
+				<div class="inner-addon left-addon">
+					<i class="fa fa-search" aria-hidden="true"></i>
+					<input type="text" ng-model="project.Name" id="search-project-by-name" class="form-control">
+				</div>
+				<button class="btn btn-success" ng-click="getMyProjects()">Get My Projects</button>
+			</div>
+			<div class="col-md-8 text-center">
+				<p ng-repeat="project in myProjects | filter:project.Name">
+					<a href="#/projects/{{project.Id}}">{{project.Name}}</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
 		<h2>My Issues</h2>
 		<div id="my-issues-filters">
 			<div class="col-md-3">
 				<div class="form-group">
-					<label for="search-user">Search issue by Title:</label>
-					<input type="text" ng-model="issue.Title" id="search-issue-by-title" class="form-control">
+					<label for="search-issue-by-title">Search issue by Title:</label>
+					<div class="inner-addon left-addon">
+						<i class="fa fa-search" aria-hidden="true"></i>
+						<input type="text" ng-model="issue.Title" id="search-issue-by-title" class="form-control">
+					</div>
 				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="form-group">
-					<label for="search-user">Search issue by Project:</label>
-					<input type="text" ng-model="issue.Project" id="search-issue-by-project" class="form-control">
+					<label for="search-issue-by-project">Search issue by Project:</label>
+					<div class="inner-addon left-addon">
+						<i class="fa fa-search" aria-hidden="true"></i>
+						<input type="text" ng-model="issue.Project" id="search-issue-by-project" class="form-control">
+					</div>
 				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="form-group">
-					<label for="search-user">Search issue by Due Date:</label>
-					<input type="text" ng-model="issue.DueDate" 
-						id="search-issue-by-date" 
-						placeholder="yyyy-MM-ddThh-mm-ss" 
-						class="form-control">
+					<label for="search-issue-by-date">Search issue by Due Date:</label>
+					<div class="inner-addon left-addon">
+						<i class="fa fa-search" aria-hidden="true"></i>
+						<input type="text" ng-model="issue.DueDate" 
+							id="search-issue-by-date" 
+							placeholder="yyyy-MM-ddThh-mm-ss" 
+							class="form-control">
+					</div>
 				</div>
+			</div>
+			<div class="col-md-12">
+				<button class="btn btn-success" ng-click="getMyIssues()">Get My Issues</button>
 			</div>
 		</div>
 		<table class="table table-hover table-bordered">

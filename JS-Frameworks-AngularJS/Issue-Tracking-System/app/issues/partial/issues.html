@@ -1,30 +1,45 @@
 <!--issues-->
-<button class="btn btn-success" ng-click="getIssuesByProjectId()">Get Project's Issues</button>
+<h3>Issues in this project:</h3>
 <div id="issues-filters">
 	<div class="col-md-3">
 		<div class="form-group">
-			<label for="search-user">Search issue by Author:</label>
-			<input type="text" ng-model="issue.Author.Username" id="search-issue-by-author" class="form-control">
+			<label for="search-issue-by-author">Search issue by Author:</label>
+			<div class="inner-addon left-addon">
+				<i class="fa fa-search" aria-hidden="true"></i>
+				<input type="text" ng-model="issue.Author.Username" id="search-issue-by-author" class="form-control">
+			</div>
 		</div>
 	</div>
 	<div class="col-md-3">
 		<div class="form-group">
-			<label for="search-user">Search issue by Assignee:</label>
-			<input type="text" ng-model="issue.Assignee.Username" id="search-issue-by-assignee" class="form-control">
+			<label for="search-issue-by-assignee">Search issue by Assignee:</label>
+			<div class="inner-addon left-addon">
+				<i class="fa fa-search" aria-hidden="true"></i>
+				<input type="text" ng-model="issue.Assignee.Username" id="search-issue-by-assignee" class="form-control">
+			</div>
 		</div>
 	</div>
 	<div class="col-md-3">
 		<div class="form-group">
-			<label for="search-user">Search issue by Title:</label>
-			<input type="text" ng-model="issue.Title" id="search-issue-by-title" class="form-control">
+			<label for="search-issue-by-title">Search issue by Title:</label>
+			<div class="inner-addon left-addon">
+				<i class="fa fa-search" aria-hidden="true"></i>
+				<input type="text" ng-model="issue.Title" id="search-issue-by-title" class="form-control">
+			</div>
 		</div>
 	</div>
 	<div class="col-md-3">
 		<div class="form-group">
-			<label for="search-user">Search issue by Label:</label>
-			<input type="text" ng-model="issue.Labels.Name" id="search-issue-by-label" class="form-control">
+			<label for="search-issue-by-lable">Search issue by Label:</label>
+			<div class="inner-addon left-addon">
+				<i class="fa fa-search" aria-hidden="true"></i>
+				<input type="text" ng-model="issue.Labels.Name" id="search-issue-by-label" class="form-control">
+			</div>
 		</div>
 	</div>
+</div>
+<div class="col-md-12">
+	<button class="btn btn-success" ng-click="getIssuesByProjectId()">Get Project's Issues</button>
 </div>
 <table class="table table-hover table-bordered issue-table">
 	<thead>

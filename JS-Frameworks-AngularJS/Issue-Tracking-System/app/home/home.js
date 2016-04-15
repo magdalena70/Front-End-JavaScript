@@ -2,6 +2,7 @@
 
 angular.module('issueTrackingSystemApp.home', [
 		'issueTrackingSystemApp.users.authentication',
+		'issueTrackingSystemApp.projects.projectServices',
 		'issueTrackingSystemApp.issues.issueServices'
 	])
 	.config(['$routeProvider', function($routeProvider) {
@@ -19,11 +20,11 @@ angular.module('issueTrackingSystemApp.home', [
 		'$scope',
 		'$location',
 		'authentication',
+		'projectServices',
 		'issueServices',
-		function($scope, $location, authentication, issueServices) {
+		function($scope, $location, authentication, projectServices, issueServices) {
 		
 			$scope.register = function(user){
-				//console.log(user);
 				$scope.registerUserData = user;
 				$scope.registerUserData.username = user.email;
 				authentication.registerUser(user)
@@ -33,10 +34,8 @@ angular.module('issueTrackingSystemApp.home', [
 			}
 			
 			$scope.login = function(user){
-				//console.log(user);
 				authentication.loginUser("username=" + user.username + "&password=" + user.password + "&grant_type=password")
 					.then(function(loggedInUser){
-						//console.log(loggedInUser);
 						sessionStorage['accessToken'] = loggedInUser.access_token;
 						$scope.getUserInfo();
 						$location.path('/');
@@ -58,24 +57,35 @@ angular.module('issueTrackingSystemApp.home', [
 					});
 			}
 			
-			$scope.getMyIssues = function(){
-				issueServices.getMyIssues()
-					.then(function(issuesData){
-						console.log(issuesData);
-						$scope.issues = issuesData.data.Issues;
-						console.log($scope.issues);
-					},
-					function(error){
-						console.log(error);
-					});
-			}
-			$scope.getMyIssues();
-			
 			$scope.logout = function(){
 				authentication.logout()
 					.then(function(success){
 						sessionStorage.clear();
 						$location.path('/');
+					},
+					function(error){
+						console.log(error);
+					});
+			}
+			
+			$scope.getMyProjects = function(){
+				projectServices.getAllProjects()
+					.then(function(projectsData){
+						var projects = [];
+						angular.forEach(projectsData.data, function(project){
+							if(project.Lead.Username == sessionStorage['currentUserUsername']){
+								projects.push(project);
+							}
+						});
+						$scope.myProjects = projects;
+					});
+			}
+			
+			$scope.getMyIssues = function(){
+				issueServices.getMyIssues()
+					.then(function(issuesData){
+						$scope.issues = issuesData.data.Issues;
+						console.log($scope.issues);
 					},
 					function(error){
 						console.log(error);

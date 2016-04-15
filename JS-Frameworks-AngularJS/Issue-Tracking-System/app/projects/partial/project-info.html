@@ -1,4 +1,7 @@
-<!--<button class="btn btn-success" ng-click="getProjectById()">Get Project Info</button>-->
+<!--project info-->
+<div class="text-center">
+	<p><a href="#/projects/{{project.Id}}/add-issue"><strong>Add New Issue In This Project</strong></a></p>
+</div>
 <ul>
 	<li><strong>Id:</strong> <em>{{project.Id}}</em></li>
 	<li><strong>Name:</strong> <em>{{project.Name}}</em></li>
@@ -11,19 +14,16 @@
 		</ul>
 	</li>
 	<li><strong>Transition Scheme Id:</strong> <em>{{project.TransitionSchemeId}}</em></li>
-	<li>
-		<select class="form-control">
-			<option>Labels:</option>
-			<option ng-repeat="label in project.Labels">#{{label.Name}}</option>
-		</select>
-	</li>
-	<li>
-		<select class="form-control">
-			<option>Priorities:</option>
-			<option ng-repeat="priority in project.Priorities">{{priority.Name}}</option>
-		</select>
-	</li>
 </ul>
-<div class="text-center">
-	<p><a href="#/projects/{{project.Id}}/add-issue"><strong>Add New Issue In This Project</strong></a></p>
+<div class="col-md-4" id="project-labels">
+	<select class="form-control">
+		<option>Labels:</option>
+		<option ng-repeat="label in project.Labels">#{{label.Name}}</option>
+	</select>
+</div>
+<div class="col-md-4" id="project-priorities">
+	<select class="form-control">
+		<option>Priorities:</option>
+		<option ng-repeat="priority in project.Priorities">{{priority.Name}}</option>
+	</select>
 </div>
