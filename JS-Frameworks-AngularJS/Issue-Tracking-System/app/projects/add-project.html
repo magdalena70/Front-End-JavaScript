@@ -13,11 +13,21 @@
 					id="name" 
 					name="projectName"
 					required="required"
+					ng-minlength="3"
 					ng-maxlength="50"
+					placeholder="[Min-length: 3] [Max-length: 50]"
 					class="form-control"/>
 				<p class="red" ng-show="addProjectForm.projectName.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i> Project Name is required!</small>
 				</p>
+				<div role="alert">
+					<span class="red" ng-show="addProjectForm.projectName.$error.minlength">
+						<small>[Min-length: 3 simbols]</small>
+					</span>
+					<span class="error" ng-show="addProjectForm.projectName.$error.maxlength">
+						<small>[Max-length: 50 simbols]</small>
+					</span>
+				</div>
 			</div>
 			<div class="form-group">
 				<label for="project-key">Project Key<span class="red">*</span></label>
@@ -25,49 +35,102 @@
 					id="project-key"
 					name="projectKey"
 					required="required"
-					max-length="100"
+					ng-minlength="1"
+					ng-maxlength="100"
+					placeholder="[Min-length: 1] [Max-length: 100]"
 					class="form-control"/>
 				<p class="red" ng-show="addProjectForm.projectKey.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i> Project Key is required!</small>
 				</p>
+				<div role="alert">
+					<span class="red" ng-show="addProjectForm.projectKey.$error.minlength">
+						<small>[Min-length: 1 simbols]</small>
+					</span>
+					<span class="error" ng-show="addProjectForm.projectKey.$error.maxlength">
+						<small>[Max-length: 100 simbols]</small>
+					</span>
+				</div>
 			</div>
 			<div class="form-group">
 				<label for="leader">Leader<span class="red">*</span></label>
-				<select ng-model="project.LeadId" id="leader" name="leadId" required="required" class="form-control">
-					<option  ng-repeat="user in usersForLeader | orderBy: 'Username'" value="{{user.Id}}">{{user.Username}}</option>
-				</select>
+				<p>Search user by Username:</p>
+				<div class="inner-addon left-addon">
+					<i class="fa fa-search" aria-hidden="true"></i>
+					<select ng-model="project.LeadId" id="leader" name="leadId" required="required" class="form-control">
+						<option  ng-repeat="user in usersForLeader | orderBy: 'Username'"
+							value="{{user.Id}}">{{user.Username}}
+						</option>
+					</select>
+				</div>
 				<p class="red" ng-show="addProjectForm.leadId.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i> Leader is required!</small>
 				</p>
 			</div>
 			<div class="form-group">
 				<label for="description">Description<span class="red">*</span></label>
-				<textarea type="text" ng-model="project.Description" 
+				<textarea type="text" ng-model="project.Description" rows="5"
 					id="description"
 					name="description"
 					required="required"
-					max-length="100"
+					ng-minlength="3"
+					ng-maxlength="1000"
+					placeholder="[Min-length: 3] [Max-length: 100]"
 					class="form-control"></textarea>
 				<p class="red" ng-show="addProjectForm.description.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i> Description is required!</small>
 				</p>
+				<div role="alert">
+					<span class="red" ng-show="addProjectForm.description.$error.minlength">
+						<small>[Min-length: 3 simbols]</small>
+					</span>
+					<span class="error" ng-show="addProjectForm.description.$error.maxlength">
+						<small>[Max-length: 1000 simbols]</small>
+					</span>
+				</div>
 			</div>
 			<div class="form-group">
 				<label for="priorities">Priorities <span class="red">*</span></label>
-				<input type="text" ng-model="project.priorities.Name" 
+				<p>Add priorities separated by a dot-comma and an white-space :</p>
+				<p class="red">[priority1; priority2; ...]</p>
+				<input type="text" ng-model="project.Priorities" 
 					id="priorities "
 					name="priorities"
 					required="required"
+					ng-minlength="3"
+					ng-maxlength="100"
+					placeholder="[Min-length: 3] [Max-length: 100]"
 					class="form-control"/>
 				<p class="red" ng-show="addProjectForm.priorities.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i> Priorities is required!</small>
 				</p>
+				<div role="alert">
+					<span class="red" ng-show="addProjectForm.priorities.$error.minlength">
+						<small>[Min-length: 3 simbols]</small>
+					</span>
+					<span class="error" ng-show="addProjectForm.priorities.$error.maxlength">
+						<small>[Max-length: 100 simbols]</small>
+					</span>
+				</div>
 			</div>
 			<div class="form-group">
-				<label for="name">Labels</label>
-				<input type="text" ng-model="project.labels" 
-					id="labels" 
+				<label for="labels">Labels</label>
+				<p>Add labels separated by a dot-comma and an white-space:</p>
+				<p class="red">[label1; label2; ...]</p>
+				<input type="text" ng-model="project.Labels" 
+					id="labels"
+					name="labels"
+					ng-minlength="3"
+					ng-maxlength="100"
+					placeholder="[Min-length: 3] [Max-length: 100]"
 					class="form-control"/>
+				<div role="alert">
+					<span class="red" ng-show="addProjectForm.labels.$error.minlength">
+						<small>[Min-length: 3 simbols]</small>
+					</span>
+					<span class="error" ng-show="addProjectForm.labels.$error.maxlength">
+						<small>[Max-length: 100 simbols]</small>
+					</span>
+				</div>
 			</div>
 			<button type="submit" class="btn btn-success" 
 				ng-disabled="addProjectForm.$invalid" 

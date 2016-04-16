@@ -22,7 +22,7 @@ div, td, li, p, a{
 	box-shadow: 2px 3px 12px #333;
 }
 
-.row, .form-control, .navbar
+.row, .form-control, .navbar{
 	box-shadow: 2px 3px 12px #333;
 }
 
@@ -70,7 +70,7 @@ div, td, li, p, a{
 	text-shadow: 0 2px 4px blue;
 }
 
-#project-labels, #project-priorities{
+#project-info{
 	padding-bottom: 20px;
 	border-bottom: dashed 1px #333;
 }

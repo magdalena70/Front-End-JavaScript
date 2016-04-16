@@ -25,6 +25,14 @@
 				<p class="red" ng-show="registerUserForm.password.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i>Password is required!</small>
 				</p>
+				<div role="alert">
+					<span class="red" ng-show="registerUserForm.password.$error.minlength">
+						<small>[Min-length: 6 simbols]</small>
+					</span>
+					<span class="error" ng-show="registerUserForm.password.$error.maxlength">
+						<small>[Max-length: 100 simbols]</small>
+					</span>
+				</div>
 			</div>
 			<div class="form-group">
 				<label for="confirm-register-pass">Confirm password<span class="red">*</span></label>
@@ -36,9 +44,17 @@
 					ng-maxlength="100"	
 					placeholder="[Min-length: 6] [Max-length: 100]"				
 					class="form-control"/>
-				<p class="red" ng-show="registerUserForm.email.$error.required">
+				<p class="red" ng-show="registerUserForm.confirmPassword.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i>Confirm password is required!</small>
 				</p>
+				<div role="alert">
+					<span class="red" ng-show="registerUserForm.confirmPassword.$error.minlength">
+						<small>[Min-length: 6 simbols]</small>
+					</span>
+					<span class="error" ng-show="registerUserForm.confirmPassword.$error.maxlength">
+						<small>[Max-length: 100 simbols]</small>
+					</span>
+				</div>
 			</div>
 			<button type="submit" class="btn btn-success" 
 				ng-disabled="registerUserForm.$invalid || registerUser.password != registerUser.confirmPassword" 

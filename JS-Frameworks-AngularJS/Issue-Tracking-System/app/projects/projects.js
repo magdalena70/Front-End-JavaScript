@@ -15,6 +15,11 @@ angular.module('issueTrackingSystemApp.projects', [
 			controller: 'ProjectsController'
 		});
 		
+		$routeProvider.when('/projects/:id/edit', {
+			templateUrl: 'app/projects/edit-project.html',
+			controller: 'ProjectsController'
+		});
+		
 		$routeProvider.when('/projects/:id', {
 			templateUrl: 'app/projects/project-details.html',
 			controller: 'ProjectsController'
@@ -23,9 +28,10 @@ angular.module('issueTrackingSystemApp.projects', [
 	.controller('ProjectsController', [
 		'$scope',
 		'$routeParams',
+		'$location',
 		'projectServices',
 		'adminSettings',
-		function($scope, $routeParams, projectServices, adminSettings){
+		function($scope, $routeParams, $location, projectServices, adminSettings){
 			
 			$scope.getProjects = function(){
 				projectServices.getAllProjects()
@@ -56,16 +62,61 @@ angular.module('issueTrackingSystemApp.projects', [
 			}
 			
 			$scope.addProject = function(project){
-				project.priorities = [project.priorities];
-				console.log(project);
+				project.Priorities = makeStrToAsociativeArr(project.Priorities, '; ');
+				project.Labels = makeStrToAsociativeArr(project.Labels, '; ');
+				//project.priorities = [project.priorities];
+				//project.labels = [project.labels];
+				//console.log(project);
 				projectServices.addProject(project)
 					.then(function(projectData){
-						console.log(projectData);
-						$scope.newProject = projectData.data;
+						//console.log(projectData);
+						project.Priorities = makeToString(project.Priorities);
+						project.Labels = makeToString(project.Labels);
+						//$scope.newProject = projectData.data;
+						$location.path('/projects/' + projectData.data.Id);
 					},
 					function(error){
 						console.log(error);
 					});
+			}
+			
+			$scope.editProject = function(editedProject){
+				//console.log(editedProject);
+				var projectId = $routeParams.id;
+				editedProject.Priorities = makeStrToAsociativeArr(editedProject.Priorities, '; ');
+				editedProject.Labels = makeStrToAsociativeArr(editedProject.Labels, '; ');
+				if(!editedProject.LeadId){
+					editedProject.LeadId = editedProject.Lead.Id;
+				}
+				console.log(editedProject);
+				projectServices.editProject(editedProject, projectId)
+					.then(function(projectData){
+						//console.log(projectData);
+						editedProject.Priorities = makeToString(editedProject.Priorities);
+						editedProject.Labels = makeToString(editedProject.Labels);
+						$location.path('/projects/' + $routeParams.id);
+					});
+			}
+			
+			function makeStrToAsociativeArr(str, splitBy){
+				var strToArr = str.split(splitBy),  arr = [];
+				
+				angular.forEach(strToArr, function(elem){
+					if(elem != false){
+					var obj = {"Name": elem};
+					arr.push(obj);
+					}
+				});
+				
+				return arr;
+			}
+			
+			function makeToString(asociativeArr){
+				var str = '';
+				angular.forEach(asociativeArr, function(obj){
+							str += obj.Name + '; ';
+						});
+				return str;
 			}
 			
 			function getProjectById(){
@@ -73,10 +124,16 @@ angular.module('issueTrackingSystemApp.projects', [
 				
 				projectServices.getProjectById(projectId)
 					.then(function(projectData){
-						$scope.project =  projectData.data;
+						var editedProject = projectData.data;
+						editedProject.Priorities = makeToString(editedProject.Priorities);
+						editedProject.Labels = makeToString(editedProject.Labels);
+						
+						$scope.project = editedProject;
+						$scope.editedProject = editedProject;
+						//console.log($scope.project);
 					},
 					function(error){
-						//console.log(error);
+						console.log(error);
 					});
 			}
 			getProjectById();

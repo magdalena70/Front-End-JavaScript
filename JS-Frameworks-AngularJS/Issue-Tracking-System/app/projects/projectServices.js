@@ -66,11 +66,27 @@ angular.module('issueTrackingSystemApp.projects.projectServices', [])
 				
 				return defer.promise;
 			}
+			
+			function editProject(project, projectId){
+				var defer = $q.defer();
+				var accessToken = sessionStorage['accessToken'];
+				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
+				$http.put(BASE_URL + 'projects/' + projectId, project, headers)
+					.then(function(success){
+						defer.resolve(success);
+					},
+					function(error){
+						defer.reject(error);
+					});
+				
+				return defer.promise;
+			}
 		
 			return{
 				getAllProjects: getAllProjects,
 				getProjectById: getProjectById,
 				getIssuesByProjectId: getIssuesByProjectId,
-				addProject: addProject
+				addProject: addProject,
+				editProject: editProject
 			};
 	}]);
