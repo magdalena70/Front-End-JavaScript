@@ -1,7 +1,9 @@
 'use strict'
 
 angular.module('issueTrackingSystemApp.admin', [
-		'issueTrackingSystemApp.admin.adminSettings'
+		'issueTrackingSystemApp.admin.adminSettings',
+		'issueTrackingSystemApp.projects.projectServices',
+		'issueTrackingSystemApp.issues.issueServices'
 	])
 	.config(['$routeProvider', function($routeProvider){
 		$routeProvider.when('/admin/makeAdmin', {
@@ -13,12 +15,20 @@ angular.module('issueTrackingSystemApp.admin', [
 			templateUrl: 'app/admin/all-users.html',
 			controller: 'AdminsController'
 		});
+		
+		$routeProvider.when('/admin/users/:username/info', {
+			templateUrl: 'app/admin/admin-user-info.html',
+			controller: 'AdminsController'
+		});
 	}])
 	.controller('AdminsController', [
 		'$scope',
 		'$location',
+		'$routeParams',
 		'adminSettings',
-		function($scope, $location, adminSettings){
+		'projectServices',
+		'issueServices',
+		function($scope, $location, $routeParams, adminSettings, projectServices, issueServices){
 			
 			$scope.getAllUsers = function(){
 				adminSettings.getUsers()
@@ -40,4 +50,31 @@ angular.module('issueTrackingSystemApp.admin', [
 						console.log(error.data.Message);
 					});
 			}
+			
+			$scope.getUserProjects = function(){
+				var username = $routeParams.username;
+				
+				projectServices.getUserProjects(username)
+					.then(function(userProjectsData){
+						$scope.userProjects = userProjectsData.data.Projects;
+						console.log($scope.userProjects);
+					},
+					function(error){
+						console.log(error);
+					});
+			}
+			
+			$scope.getUserIssues = function(){
+				var username = $routeParams.username;
+				
+				issueServices.getUserIssues(username)
+					.then(function(userIssuesData){
+						$scope.userIssues = userIssuesData.data.Issues;
+						console.log($scope.userIssues);
+					},
+					function(error){
+						console.log(error);
+					});
+			}
+			
 	}]);

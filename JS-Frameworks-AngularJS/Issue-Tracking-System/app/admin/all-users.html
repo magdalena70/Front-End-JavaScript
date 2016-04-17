@@ -17,7 +17,9 @@
 		</div>
 		<ul class="list-group">
 		  <li ng-repeat="user in users | filter : user.Username" class="list-group-item">
-			<a href="#/profile/{{user.Username}}"><strong>{{user.Username}}</strong><em> - isAdmin: {{user.isAdmin}}</em></a>
+			<strong>{{user.Username}}</strong>
+			<em> - isAdmin: {{user.isAdmin}}</em>
+			<a href="#/admin/users/{{user.Username}}/info"><i class="fa fa-info-circle" aria-hidden="true"></i> Info</a>
 		  </li>
 		</ul>
 	</div>

@@ -96,6 +96,10 @@ button, .btn-success:hover{
 	font-size: 20px;
 }
 
+.blue{
+	font-size: 23px;
+}
+
 .my-issues-table th, .my-issues-table td{
 	width: 20%;
 }
