@@ -1,0 +1,28 @@
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+	<h2>Issue Details</h2>
+	<p class="text-center" ng-if="isLeader || isAdmin"><a href="">Edit Issue</a></p>
+		<ul>
+			<li><strong>Title:</strong> <em>{{issue.Title}}</em></li>
+			<li><strong>Author:</strong> <em>{{issue.Author.Username}}</em></li>
+			<li><strong>Assignee</strong> <em>{{issue.Assignee.Username}}</em></li>
+			<li><strong>Due Date</strong> <em>{{issue.DueDate | date: dd.MM.yyyy}}</em></li>
+			<li><strong>Project:</strong> <em>{{issue.Project.Name}}</em></li>
+			<li><strong>Priority:</strong> <em>{{issue.Priority.Name}}</em></li>
+			<li><strong>Labels:</strong> <em>{{issue.Labels}}</em></li>
+			<li><strong>Current Status:</strong> <em class="red">{{issue.Status.Name}}</em></li>
+			<li><strong>AvailableStatuses:</strong> <em>{{issue.AvailableStatuses}}</em></li>
+		</ul>
+		<div class="col-md-6 col-md-offset-3" ng-if="isAssignee || isAdmin">
+		<form name="changeStatusForm">
+			<div class="form-group">
+				<label for="newStatus">Select new Status</label>
+				<select ng-model="issue.statusId" id="newStatus" name="newStatus" required="required" class="form-control">
+					<option ng-repeat="status in issue.AvailableStatuses" value="{{status.Id}}">{{status.Name}}</option>
+				</select>
+			</div>
+			<button class="btn btn-success" ng-click="changeIssueStatus(issue.statusId, {id:issue.Id, statusId: issue.statusId})">Change Status</button>
+		</form
+		</div>
+	</div>
+</div>

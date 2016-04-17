@@ -64,15 +64,11 @@ angular.module('issueTrackingSystemApp.projects', [
 			$scope.addProject = function(project){
 				project.Priorities = makeStrToAsociativeArr(project.Priorities, '; ');
 				project.Labels = makeStrToAsociativeArr(project.Labels, '; ');
-				//project.priorities = [project.priorities];
-				//project.labels = [project.labels];
-				//console.log(project);
 				projectServices.addProject(project)
 					.then(function(projectData){
 						//console.log(projectData);
 						project.Priorities = makeToString(project.Priorities);
 						project.Labels = makeToString(project.Labels);
-						//$scope.newProject = projectData.data;
 						$location.path('/projects/' + projectData.data.Id);
 					},
 					function(error){
@@ -131,6 +127,11 @@ angular.module('issueTrackingSystemApp.projects', [
 						$scope.project = editedProject;
 						$scope.editedProject = editedProject;
 						//console.log($scope.project);
+						if(editedProject.Lead.Username === sessionStorage['currentUserUsername']){
+							$scope.isLeader = true;
+						}else{
+							$scope.isLeader = false;
+						}
 					},
 					function(error){
 						console.log(error);
