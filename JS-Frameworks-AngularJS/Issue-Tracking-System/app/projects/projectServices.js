@@ -6,12 +6,28 @@ angular.module('issueTrackingSystemApp.projects.projectServices', [])
 		'$q',
 		'BASE_URL',
 		function($http, $q, BASE_URL){
-		
+			
+			//to do
 			function getAllProjects(){
 				var defer = $q.defer();
 				var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
-				$http.get(BASE_URL + 'projects', headers)
+				$http.get(BASE_URL + 'projects?pageSize={pageSize}&pageNumber={pageNumber}&filter={filter}', headers)
+					.then(function(success){
+						defer.resolve(success);
+					},
+					function(error){
+						defer.reject(error);
+					});
+				
+				return defer.promise;
+			}
+			
+			function getUserProjects(username){
+				var defer = $q.defer();
+				var accessToken = sessionStorage['accessToken'];
+				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
+				$http.get(BASE_URL + 'projects?pageSize=10&pageNumber=1&filter=Lead.Username=="' + username + '"', headers)
 					.then(function(success){
 						defer.resolve(success);
 					},
@@ -84,6 +100,7 @@ angular.module('issueTrackingSystemApp.projects.projectServices', [])
 		
 			return{
 				getAllProjects: getAllProjects,
+				getUserProjects: getUserProjects,
 				getProjectById: getProjectById,
 				getIssuesByProjectId: getIssuesByProjectId,
 				addProject: addProject,

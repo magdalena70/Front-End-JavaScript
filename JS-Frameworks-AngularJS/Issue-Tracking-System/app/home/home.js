@@ -69,15 +69,12 @@ angular.module('issueTrackingSystemApp.home', [
 			}
 			
 			$scope.getMyProjects = function(){
-				projectServices.getAllProjects()
-					.then(function(projectsData){
-						var projects = [];
-						angular.forEach(projectsData.data, function(project){
-							if(project.Lead.Username == sessionStorage['currentUserUsername']){
-								projects.push(project);
-							}
-						});
-						$scope.myProjects = projects;
+				var username = sessionStorage['currentUserUsername'];
+				//console.log(username);
+				projectServices.getUserProjects(username)
+					.then(function(myProjectsData){
+						$scope.myProjects = myProjectsData.data.Projects;
+						console.log($scope.myProjects);
 					});
 			}
 			
