@@ -96,6 +96,10 @@ button, .btn-success:hover{
 	font-size: 20px;
 }
 
+.my-issues-table th, .my-issues-table td{
+	width: 20%;
+}
+
 .project-table th, .project-table td{
 	width: 16.6%;
 	text-align: center;

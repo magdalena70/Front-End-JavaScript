@@ -120,6 +120,8 @@ angular.module('issueTrackingSystemApp.projects', [
 				
 				projectServices.getProjectById(projectId)
 					.then(function(projectData){
+						sessionStorage['availablePriorities'] = JSON.stringify(projectData.data.Priorities);
+					
 						var editedProject = projectData.data;
 						editedProject.Priorities = makeToString(editedProject.Priorities);
 						editedProject.Labels = makeToString(editedProject.Labels);

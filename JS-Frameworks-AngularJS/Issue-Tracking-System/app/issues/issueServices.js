@@ -52,9 +52,25 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [])
 				return defer.promise;
 			}
 			
+			function editIssue(id, issue){
+				var defer = $q.defer();
+				var accessToken = sessionStorage['accessToken'];
+				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
+				$http.put(BASE_URL + 'issues/' + id, issue, headers)
+					.then(function(success){
+						defer.resolve(success);
+					},
+					function(error){
+						defer.reject(error);
+					});
+				
+				return defer.promise;
+			}
+			
 			return{
 				getMyIssues: getMyIssues,
 				getIssueById: getIssueById,
-				changeIssueStatus: changeIssueStatus
+				changeIssueStatus: changeIssueStatus,
+				editIssue: editIssue
 			};
 	}]);
