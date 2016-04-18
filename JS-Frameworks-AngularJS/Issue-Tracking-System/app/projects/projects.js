@@ -50,11 +50,11 @@ angular.module('issueTrackingSystemApp.projects', [
 				
 				projectServices.getIssuesByProjectId(projectId)
 					.then(function(issuesData){
-						if(issuesData.data.length){
-							$scope.issuesInProject = issuesData.data;
-						}else{
+						if(!issuesData.data.length){
 							console.log('No issues in project');
 						}
+						
+						$scope.issuesInProject = issuesData.data;
 					},
 					function(error){
 						console.log(error);
@@ -62,8 +62,8 @@ angular.module('issueTrackingSystemApp.projects', [
 			}
 			
 			$scope.addProject = function(project){
-				project.Priorities = makeStrToAsociativeArr(project.Priorities, '; ');
-				project.Labels = makeStrToAsociativeArr(project.Labels, '; ');
+				project.Priorities = makeToAsociativeArr(project.Priorities, '; ');
+				project.Labels = makeToAsociativeArr(project.Labels, '; ');
 				projectServices.addProject(project)
 					.then(function(projectData){
 						//console.log(projectData);
@@ -79,12 +79,12 @@ angular.module('issueTrackingSystemApp.projects', [
 			$scope.editProject = function(editedProject){
 				//console.log(editedProject);
 				var projectId = $routeParams.id;
-				editedProject.Priorities = makeStrToAsociativeArr(editedProject.Priorities, '; ');
-				editedProject.Labels = makeStrToAsociativeArr(editedProject.Labels, '; ');
+				editedProject.Priorities = makeToAsociativeArr(editedProject.Priorities, '; ');
+				editedProject.Labels = makeToAsociativeArr(editedProject.Labels, '; ');
 				if(!editedProject.LeadId){
 					editedProject.LeadId = editedProject.Lead.Id;
 				}
-				console.log(editedProject);
+				//console.log(editedProject);
 				projectServices.editProject(editedProject, projectId)
 					.then(function(projectData){
 						//console.log(projectData);
@@ -94,7 +94,7 @@ angular.module('issueTrackingSystemApp.projects', [
 					});
 			}
 			
-			function makeStrToAsociativeArr(str, splitBy){
+			function makeToAsociativeArr(str, splitBy){
 				var strToArr = str.split(splitBy),  arr = [];
 				
 				angular.forEach(strToArr, function(elem){
@@ -126,14 +126,15 @@ angular.module('issueTrackingSystemApp.projects', [
 						editedProject.Priorities = makeToString(editedProject.Priorities);
 						editedProject.Labels = makeToString(editedProject.Labels);
 						
-						$scope.project = editedProject;
-						$scope.editedProject = editedProject;
-						//console.log($scope.project);
 						if(editedProject.Lead.Username === sessionStorage['currentUserUsername']){
 							$scope.isLeader = true;
 						}else{
 							$scope.isLeader = false;
 						}
+						
+						$scope.project = editedProject;
+						$scope.editedProject = editedProject;
+						console.log($scope.project);
 					},
 					function(error){
 						console.log(error);

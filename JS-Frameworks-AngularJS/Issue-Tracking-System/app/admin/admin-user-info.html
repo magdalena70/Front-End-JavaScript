@@ -6,13 +6,13 @@
 		<table class="table table-bordered text-center">
 			<thead>
 				<tr>
-					<th width="85%">Name</th>
+					<th width="85%">Project Name</th>
 					<th width="15%">Details</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="userProject in userProjects">
-					<td width="85%">Name: {{userProject.Name}}</td>
+					<td width="85%">{{userProject.Name}}</td>
 					<td width="15%"><a href="#/projects/{{userProject.Id}}"><i class="fa fa-info-circle blue" aria-hidden="true"></i></a></td>
 				</tr>
 			</tbody>
@@ -24,13 +24,13 @@
 		<table class="table table-bordered text-center">
 			<thead>
 				<tr>
-					<th width="85%">Title</th>
+					<th width="85%">Issue Title</th>
 					<th width="15%">Details</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="userIssue in userIssues">
-					<td width="85%">Name: {{userIssue.Title}}</td>
+					<td width="85%">{{userIssue.Title}}</td>
 					<td width="15%"><a href="#/issues/{{userIssue.Id}}"><i class="fa fa-info-circle blue" aria-hidden="true"></i></a></td>
 				</tr>
 			</tbody>

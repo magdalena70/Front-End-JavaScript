@@ -61,16 +61,15 @@
 				<th>Description</th>
 				<th>Project</th>
 				<th>Due date</th>
-				<th>Edit Issue</th>
 			  </tr>
 			</thead>
 			<tbody>
 			  <tr ng-repeat="issue in issues | filter:issue.Title | filter: issue.Project | filter:issue.DueDate">
-				<td>{{issue.Title}}</td>
+				<td><a href="#issues/{{issue.Id}}">{{issue.Title}}</a></td>
 				<td>{{issue.Description}}</td>
-				<td>{{issue.Project.Name}}</td>
+				<td ng-if="isAdmin()"><a href="#/projects/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>
+				<td ng-if="!isAdmin()">{{issue.Project.Name}}</td>
 				<td>{{issue.DueDate}}</td>
-				<td><a href="#/issues/{{issue.Id}}/edit">Edit</a></td>
 			  </tr>
 			</tbody>
 	    </table>

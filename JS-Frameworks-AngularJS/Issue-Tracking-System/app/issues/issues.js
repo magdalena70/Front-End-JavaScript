@@ -36,7 +36,7 @@ angular.module('issueTrackingSystemApp.issues', [
 				issueServices.changeIssueStatus(issueId, statusId, issue)
 					.then(function(issueData){
 						console.log(issueData);
-						$location.path('/');
+						$location.path('/issues/issue.Id');
 					});
 			}
 			
@@ -51,9 +51,20 @@ angular.module('issueTrackingSystemApp.issues', [
 			}
 			$scope.getAllUsersToMakeAssignee();
 			
+			$scope.addIssue = function(issue){
+				issue.Labels = makeToAsociativeArr(issue.Labels, '; ');
+				issue.ProjectId = $routeParams.id;
+				console.log(issue);
+				issueServices.addIssue(issue)
+					.then(function(issueData){
+						console.log(issueData);
+						$location.path('/issues/' + issue.Id);
+					});
+			}
+			
 			$scope.editIssue = function(issue){
 				var issueId = $routeParams.id;
-				issue.Labels = makeStrToAsociativeArr(issue.Labels, '; ');
+				issue.Labels = makeToAsociativeArr(issue.Labels, '; ');
 				if(!issue.AssigneeId){
 					issue.AssigneeId = issue.Assignee.Id;
 				}
@@ -65,7 +76,7 @@ angular.module('issueTrackingSystemApp.issues', [
 					});
 			}
 			
-			function makeStrToAsociativeArr(str, splitBy){
+			function makeToAsociativeArr(str, splitBy){
 				var strToArr = str.split(splitBy),  arr = [];
 				
 				angular.forEach(strToArr, function(elem){
