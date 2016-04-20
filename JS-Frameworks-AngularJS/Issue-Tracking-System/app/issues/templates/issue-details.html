@@ -1,0 +1,69 @@
+<!--issue-details-->
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<h2><i class="fa fa-info-circle" aria-hidden="true"></i> Issue Details</h2>
+		<p class="text-center" ng-if="isLeader || isAdmin()"><a href="#/issues/{{issue.Id}}/edit">Edit Issue</a></p>
+		<ul>
+			<li><strong>Is current user are project leader:</strong> <em>{{isLeader}}</em> </li>
+			<li><strong>Title:</strong> <em>&#34;{{issue.Title}}&#34;</em></li>
+			<li><strong>Description:</strong> <em>{{issue.Description}}</em></li>
+			<li><strong>Author:</strong> <em>{{issue.Author.Username}}</em></li>
+			<li class="red"><small><strong>Assignee</strong> <em>{{issue.Assignee.Username}}</em></small></li>
+			<li><strong>Due Date</strong> <em>{{issue.DueDate | date: dd.MM.yyyy}}</em></li>
+			<li><strong>Project Name:</strong> <a href="#/projects/{{issue.Project.Id}}"><em>&#34;{{issue.Project.Name}}&#34;</em></a></li>
+			<li><strong>Priority:</strong> <em>{{issue.Priority.Name}}</em></li>
+			<li><strong>Labels:</strong> <em>{{issue.Labels}}</em></li>
+			<li><strong>Current Status:</strong> <em class="red">{{issue.Status.Name}}</em></li>
+			<li><strong>AvailableStatuses:</strong> <em>{{issue.AvailableStatuses}}</em></li>
+		</ul>
+		<div class="col-md-6 col-md-offset-3" ng-if="isAssignee || isAdmin() || isLeader">
+			<form name="changeStatusForm">
+				<div class="form-group">
+					<label for="newStatus">Select new Status</label>
+					<select ng-model="issue.statusId" id="newStatus" name="newStatus" required="required" class="form-control">
+						<option ng-repeat="status in issue.AvailableStatuses" value="{{status.Id}}">{{status.Name}}</option>
+					</select>
+				</div>
+				<button class="btn btn-success" 
+					ng-click="changeIssueStatus(issue.statusId, {id:issue.Id, statusId: issue.statusId})">
+						Change Status
+				</button>
+			</form>
+		</div>
+		<div class="col-md-12">
+			<h3><i class="fa fa-commenting-o" aria-hidden="true"></i> Add Comment:</h3>
+			<p class="red"><small>
+				Only user who is either a project leader or has a assigned issue in this project can add comments.
+			</small></p>
+			<form name="addCommentForm">
+				<div class="form-group">
+					<label for="text">Text<span class="red">*</span></label>
+					<div class="inner-addon left-addon">
+						<i class="fa fa-pencil" aria-hidden="true"></i>
+						<input type="text" ng-model="comment.Text" id="text" name="text" required="required" class="form-control"/>
+					</div>
+					<p class="red" ng-show="addCommentForm.text.$error.required || addCommentForm.text==false">
+						<small><i class="fa fa-exclamation-triangle"></i> Text is required! Comment can not be empty!</small>
+					</p>
+				</div>
+				<button class="btn btn-success" 
+					ng-disabled="addCommentForm.text.$invalid"
+					ng-click="addCommentInIssue(comment)">
+						Add
+					</button>
+			</form>
+		</div>
+		<div class="col-md-12">
+			<h3><i class="fa fa-comments" aria-hidden="true"></i> Comments: <span class="blue">{{commentsCount}}</span></h3> 
+			<button class="btn btn-success" ng-click="getIssueComments()">Get Comments</button>
+			<ul class="list-decimal">
+				<li ng-repeat="comment in comments">
+					<p>
+						<em>CreatedOn: <strong>{{comment.CreatedOn | date: dd.MM.yyyy}}</strong> By: <strong>{{comment.Author.Username}}</strong></em>
+					</p>
+					<p><strong>{{comment.Text}}</strong></p>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

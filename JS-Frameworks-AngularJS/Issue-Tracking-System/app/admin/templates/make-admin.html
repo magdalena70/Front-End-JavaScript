@@ -7,20 +7,23 @@
 		<h2>Make Admin</h2>
 		<form name="makeAdminForm">
 			<div class="form-group">
-				<label for="search-user">Search user by username:</label>
+				<label for="searchUser">Search user by filter: "Username"<span class="red">*</span>:</label>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-search" aria-hidden="true"></i>
-					<input type="text" ng-model="user.Username" id="search-user" class="form-control">
+					<input type="text" ng-model="user.Username" id="searchUser" name="searchUser" required="required" class="form-control">
 				</div>
+				<p class="red" ng-show="makeAdminForm.searchUser.$error.required">
+					<small><i class="fa fa-exclamation-triangle"></i> Filter by "Username" is required</small>
+				</p>
 			</div>
 			<div class="col-md-12">
-				<button class="btn btn-success" ng-click="getAllUsers()">Get Users</button>
+				<button class="btn btn-success" ng-disabled="makeAdminForm.searchUser.$invalid" ng-click="getAllUsers()">Get Users By Filter</button>
 			</div>
 			<div class="form-group">
 				<label for="user-id">Select User<span class="red">*</span></label>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-users" aria-hidden="true"></i>
-					<select ng-model="user.userId" id="user-id" required="required" class="form-control">
+					<select ng-model="user.userId" id="userId" required="required" class="form-control">
 						<option ng-repeat="user in users | orderBy: 'Username' | filter: 'isAdmin'==false | filter: user.Username"  value="{{user.Id}}">
 							{{user.Username}} - isAdmin: {{user.isAdmin}}
 						</option>

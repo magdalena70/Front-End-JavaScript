@@ -7,17 +7,17 @@ angular.module('issueTrackingSystemApp.admin', [
 	])
 	.config(['$routeProvider', function($routeProvider){
 		$routeProvider.when('/admin/makeAdmin', {
-			templateUrl: 'app/admin/make-admin.html',
+			templateUrl: 'app/admin/templates/make-admin.html',
 			controller: 'AdminsController'
 		});
 		
 		$routeProvider.when('/admin/users/all', {
-			templateUrl: 'app/admin/all-users.html',
+			templateUrl: 'app/admin/templates/all-users.html',
 			controller: 'AdminsController'
 		});
 		
 		$routeProvider.when('/admin/users/:username/info', {
-			templateUrl: 'app/admin/admin-user-info.html',
+			templateUrl: 'app/admin/templates/admin-user-info.html',
 			controller: 'AdminsController'
 		});
 	}])
@@ -34,20 +34,21 @@ angular.module('issueTrackingSystemApp.admin', [
 				adminSettings.getUsers()
 					.then(function(usersData){
 						$scope.users = usersData.data;
+						$scope.usersCount = usersData.data.length;
 					},
 					function(error){
-						console.log(error);
+						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
 			
 			$scope.makeAdmin = function(user){
-				console.log(user);
 				adminSettings.makeAdmin({"userId": user.userId})
 					.then(function(response){
-						$location.path('/');
+						sessionStorage['successMsg'] = 'Made admin successfuly';
+						$location.path('/admin/users/all');
 					},
 					function(error){
-						console.log(error.data.Message);
+						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
 			
@@ -57,10 +58,14 @@ angular.module('issueTrackingSystemApp.admin', [
 				projectServices.getUserProjects(username)
 					.then(function(userProjectsData){
 						$scope.userProjects = userProjectsData.data.Projects;
-						console.log($scope.userProjects);
+						if($scope.userProjects.length){
+							$scope.projectMessage = '';
+						}else{
+							$scope.projectMessage = 'No projects';
+						}
 					},
 					function(error){
-						console.log(error);
+						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
 			
@@ -70,10 +75,14 @@ angular.module('issueTrackingSystemApp.admin', [
 				issueServices.getUserIssues(username)
 					.then(function(userIssuesData){
 						$scope.userIssues = userIssuesData.data.Issues;
-						console.log($scope.userIssues);
+						if($scope.userIssues.length){
+							$scope.issueMessage = '';
+						}else{
+							$scope.issueMessage = 'No issues';
+						}
 					},
 					function(error){
-						console.log(error);
+						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
 			

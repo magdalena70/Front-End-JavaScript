@@ -7,12 +7,12 @@ angular.module('issueTrackingSystemApp.home', [
 	])
 	.config(['$routeProvider', function($routeProvider) {
 	  $routeProvider.when('/', {
-		  templateUrl: 'app/home/home.html',
+		  templateUrl: 'app/home/templates/home.html',
 		  controller: 'HomeController'
 	  });
 	  
 	  $routeProvider.when('/logout', {
-		  templateUrl: 'app/users/logout.html',
+		  templateUrl: 'app/users/templates/logout.html',
 		  controller: 'HomeController'
 	  });
 	}])
@@ -30,6 +30,9 @@ angular.module('issueTrackingSystemApp.home', [
 				authentication.registerUser(user)
 					.then(function(){
 						$scope.login($scope.registerUserData);
+					},
+					function(error){
+						sessionStorage['errorMsg'] = error.data.Message;
 					})
 			}
 			
@@ -38,22 +41,26 @@ angular.module('issueTrackingSystemApp.home', [
 					.then(function(loggedInUser){
 						sessionStorage['accessToken'] = loggedInUser.access_token;
 						$scope.getUserInfo();
+						sessionStorage['successMsg'] = 'Logged in successfuly';
 						$location.path('/');
 					},
 					function(error){
-						console.log(error);
+						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
 			
+			//get isAdmin
 			$scope.getUserInfo = function(){
 				authentication.getUserInfo()
 					.then(function(userData){
-					console.log(userData);
 						sessionStorage['userId'] = userData.data.Id;
 						sessionStorage['currentUserUsername'] = userData.data.Username;
 						if(userData.data.isAdmin === true){
 							sessionStorage['isAdmin'] = userData.data.isAdmin;
 						}
+					},
+					function(error){
+						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
 			
@@ -61,20 +68,28 @@ angular.module('issueTrackingSystemApp.home', [
 				authentication.logout()
 					.then(function(success){
 						sessionStorage.clear();
+						sessionStorage['successMsg'] = 'Logout successfuly';
 						$location.path('/');
 					},
 					function(error){
-						console.log(error);
+						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
 			
 			$scope.getMyProjects = function(){
 				var username = sessionStorage['currentUserUsername'];
-				//console.log(username);
+	
 				projectServices.getUserProjects(username)
 					.then(function(myProjectsData){
 						$scope.myProjects = myProjectsData.data.Projects;
-						console.log($scope.myProjects);
+						if($scope.myProjects.length){
+							$scope.myProjectsCount = $scope.myProjects.length;
+						}else{
+							$scope.myProjectsCount = 'No projects';
+						}
+					},
+					function(error){
+						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
 			
@@ -82,10 +97,14 @@ angular.module('issueTrackingSystemApp.home', [
 				issueServices.getMyIssues()
 					.then(function(issuesData){
 						$scope.issues = issuesData.data.Issues;
-						console.log($scope.issues);
+						if($scope.issues.length){
+							$scope.myIssuesCount = $scope.issues.length;
+						}else{
+							$scope.myIssuesCount = 'No issues';
+						}
 					},
 					function(error){
-						console.log(error);
+						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
 	}]);

@@ -1,19 +1,28 @@
+<!--user-info-only-for-admin-->
+<!--error message-->
+<div class="row text-center" ng-if="!isAdmin()" ng-include="'app/common/partial/admin-warning-msg.html'"></div>
+<!--end error message-->
 <div class="row" ng-if="isAdmin()">
 <h2><i class="fa fa-info-circle" aria-hidden="true"></i> User Info</h2>
 	<div class="col-md-6">
 	<h2>User Projects</h2>
 	<button class="btn btn-success" ng-click="getUserProjects()">Get User Projects</button>
-		<table class="table table-bordered text-center">
+	<p class="blue">{{projectMessage}}</p>
+		<table class="table table-bordered">
 			<thead>
 				<tr>
 					<th width="85%">Project Name</th>
-					<th width="15%">Details</th>
+					<th width="15%" class="text-center">Details</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="userProject in userProjects">
 					<td width="85%">{{userProject.Name}}</td>
-					<td width="15%"><a href="#/projects/{{userProject.Id}}"><i class="fa fa-info-circle blue" aria-hidden="true"></i></a></td>
+					<td width="15%" class="text-center">
+						<a href="#/projects/{{userProject.Id}}">
+							<i class="fa fa-info-circle blue" aria-hidden="true"></i>
+						</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -21,17 +30,22 @@
 	<div class="col-md-6">
 	<h2>User Issues</h2>
 	<button class="btn btn-success" ng-click="getUserIssues()">Get User Issues</button>
-		<table class="table table-bordered text-center">
+	<p class="blue">{{issueMessage}}</p>
+		<table class="table table-bordered">
 			<thead>
 				<tr>
 					<th width="85%">Issue Title</th>
-					<th width="15%">Details</th>
+					<th width="15%" class="text-center">Details</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="userIssue in userIssues">
 					<td width="85%">{{userIssue.Title}}</td>
-					<td width="15%"><a href="#/issues/{{userIssue.Id}}"><i class="fa fa-info-circle blue" aria-hidden="true"></i></a></td>
+					<td width="15%" class="text-center">
+						<a href="#/issues/{{userIssue.Id}}">
+							<i class="fa fa-info-circle blue" aria-hidden="true"></i>
+						</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>

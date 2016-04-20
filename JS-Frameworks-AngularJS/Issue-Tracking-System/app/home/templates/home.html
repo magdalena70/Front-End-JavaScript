@@ -1,0 +1,3 @@
+<!--Home page-->
+<div class="row" ng-if="!isAuthenticated()" ng-include="'app/home/templates/login-and-register.html'"></div>
+<div class="row" ng-if="isAuthenticated()" ng-include="'app/users/templates/dashboard.html'"></div>

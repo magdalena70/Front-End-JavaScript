@@ -52,6 +52,36 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [])
 				return defer.promise;
 			}
 			
+			function getCommentsByIssueId(id){
+				var defer = $q.defer();
+				var accessToken = sessionStorage['accessToken'];
+				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
+				$http.get(BASE_URL + 'issues/' + id + '/comments', headers)
+					.then(function(success){
+						defer.resolve(success);
+					},
+					function(error){
+						defer.reject(error);
+					});
+				
+				return defer.promise;
+			}
+			
+			function addCommentInIssue(id, comment){
+				var defer = $q.defer();
+				var accessToken = sessionStorage['accessToken'];
+				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
+				$http.post(BASE_URL + 'issues/' + id + '/comments', comment, headers)
+					.then(function(success){
+						defer.resolve(success);
+					},
+					function(error){
+						defer.reject(error);
+					});
+				
+				return defer.promise;
+			}
+			
 			function changeIssueStatus(id, statusId, issue){
 				var defer = $q.defer();
 				var accessToken = sessionStorage['accessToken'];
@@ -101,6 +131,8 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [])
 				getMyIssues: getMyIssues,
 				getUserIssues: getUserIssues,
 				getIssueById: getIssueById,
+				getCommentsByIssueId: getCommentsByIssueId,
+				addCommentInIssue: addCommentInIssue,
 				changeIssueStatus: changeIssueStatus,
 				editIssue: editIssue,
 				addIssue: addIssue

@@ -1,4 +1,8 @@
-<div class="row">
+<!--error message-->
+<div class="row text-center" ng-if="!isAdmin()" ng-include="'app/common/partial/admin-warning-msg.html'"></div>
+<!--end error message-->
+<!--edit project form-->
+<div class="row" ng-if="isAdmin()">
 	<div class="col-md-6 col-md-offset-3">
 		<h2>Edit Project</h2>
 		<form name="editProjectForm">
@@ -46,17 +50,36 @@
 					</span>
 				</div>
 			</div>
+			<!--get users to make a Leader-->
 			<div class="form-group">
-				<label for="editedLeader">Leader<span class="red">*</span></label>
+				<h3>Change Leader:</h3>
 				<p>Curent leader is: <strong>{{project.Lead.Username}}</strong></p>
-				<p>To change the leader search user by Username:</p>
+				<label for="searchLeader">Search user by filter: "Username"<span class="red">*</span>:</label>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-search" aria-hidden="true"></i>
+					<input type="text" ng-model="user.Username" id="searchLeader" name="searchLeader" class="form-control">
+				</div>
+			</div>
+			<div class="col-md-12">
+				<button class="btn btn-success" 
+					ng-disabled="editProjectForm.searchLeader==false" 
+					ng-click="getAllUsers()">
+					Get Users By Filter
+				</button>
+			</div>
+			<div class="form-group">
+				<label for="editedLeader">Select Leader</label>
+				<p>To change the leader select user by Username:</p>
+				<div class="inner-addon left-addon">
+					<i class="fa fa-user" aria-hidden="true"></i>
 					<select ng-model="editedProject.LeadId" id="editedLeader" name="editedLeadId" class="form-control">
-						<option  ng-repeat="user in usersForLeader | orderBy: 'Username'" value="{{user.Id}}">{{user.Username}}</option>
+						<option  ng-repeat="user in users | orderBy: 'Username' | filter: user.Username" value="{{user.Id}}">
+							{{user.Username}}
+						</option>
 					</select>
 				</div>
 			</div>
+			<!--end-->
 			<div class="form-group">
 				<label for="editedDescription">Description<span class="red">*</span></label>
 				<textarea type="text" ng-model="editedProject.Description" rows="5"
@@ -105,6 +128,7 @@
 			</div>
 			<div class="form-group">
 				<label for="editedLabels">Labels</label>
+				<p>Current Labels: {{editedProject.Labels}}</p>
 				<p>Add labels separated by a dot-comma and an white-space:</p>
 				<p class="red">[label1; label2; ...]</p>
 				<input type="text" ng-model="editedProject.Labels" 

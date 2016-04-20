@@ -20,12 +20,18 @@
   <script src="app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body ng-controller="MainController">
+<!--notifications-->
+<div ng-if="isError()" ng-include="'app/common/partial/errorMsg.html'"></div>
+<div ng-if="isSuccess()" ng-include="'app/common/partial/successMsg.html'"></div>
+<!--end notifications-->
+<!--loading bar-->
+<div id="loading-bar-container" class="row text-center"></div>
+<!--end loading bar-->
 <!--navbar-->
-<div class="navbar navbar-default navbar-fixed-top" ng-include="'app/home/partial/navbar.html'"></div>
+<div class="navbar navbar-default navbar-fixed-top" ng-include="'app/home/templates/partial/navbar.html'"></div>
 <!--end navbar-->
 <!--main-->
 <div class="container">
-  <div id="loading-bar-container" class="row text-center"></div>
   <div ng-view></div>
 </div>
 <div class="well"></div>

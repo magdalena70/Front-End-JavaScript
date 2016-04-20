@@ -1,0 +1,23 @@
+<!--project info-->
+<div class="text-center">
+	<p ng-if="isAdmin()||isLeader"><a href="#/projects/{{project.Id}}/add-issue"><strong>Add New Issue In This Project </strong></a></p>
+	<p ng-if="isAdmin()"><a href="#/projects/{{project.Id}}/edit"><strong> Edit Project</strong></a></p>
+</div>
+<ul id="project-info">
+	<li><strong>Id:</strong> <em>{{project.Id}}</em></li>
+	<li><strong>project Name:</strong> <em>&#34;{{project.Name}}&#34;</em></li>
+	<li><strong>Project Key:</strong> <em>{{project.ProjectKey}}</em></li>
+	<li><strong>Description:</strong> <em>{{project.Description}}</em></li>
+	<li class="red"><strong>Leader:</strong> 
+		<ul>
+			<small>
+				<li><strong>Username:</strong> <em>{{project.Lead.Username}}</em></li>
+				<li ng-if="isAdmin()"><strong>User-Id:</strong> <em>{{project.Lead.Id}}</em></li>
+				<li><strong>isAdmin:</strong> <em>{{project.Lead.isAdmin}}</em></li>
+			</small>
+		</ul>
+	</li>
+	<li><strong>Transition Scheme Id:</strong> <em>{{project.TransitionSchemeId}}</em></li>
+	<li><strong>Labels:</strong> <em>{{project.Labels}}</em></li>
+	<li><strong>Priorities:</strong> <em>{{project.Priorities}}</em></li>
+</ul>

@@ -1,10 +1,14 @@
 <!--error message-->
-<!--<div class="row text-center" ng-if="!isAdmin() || !isLeader" ng-include="'app/common/partial/admin-warning-msg.html'"></div>-->
+<div class="row text-center" 
+	ng-if="!isLeader&&!isAdmin()" ng-include="'app/common/partial/add-issue-in-project-warning-msg.html'">
+</div>
 <!--end error message-->
-<!--edit-issue-->
-<div class="row">
+<!--add isuue in current project-->
+<div class="row" ng-if="isLeader || isAdmin()">
+	<h2>Add Issue In Project:</h2>
+	<h2><em>"{{project.Name}}"</em></h2>
 	<div class="col-md-6 col-md-offset-3">
-		<form name="editIssueForm">
+		<form name="addIssueForm">
 			<div class="form-group">
 				<label for="issueTitle">Issue Title<span class="red">*</span></label>
 				<input type="text" ng-model="issue.Title" 
@@ -15,14 +19,14 @@
 					ng-maxlength="100"
 					placeholder="[Min-length: 3] [Max-length: 50]"
 					class="form-control"/>
-				<p class="red" ng-show="editIssueForm.issueTitle.$error.required">
+				<p class="red" ng-show="addIssueForm.issueTitle.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i> Issue Title is required!</small>
 				</p>
 				<div role="alert">
-					<span class="red" ng-show="editIssueForm.issueTitle.$error.minlength">
+					<span class="red" ng-show="addIssueForm.issueTitle.$error.minlength">
 						<small>[Min-length: 3 simbols]</small>
 					</span>
-					<span class="error" ng-show="editIssueForm.issueTitle.$error.maxlength">
+					<span class="error" ng-show="addIssueForm.issueTitle.$error.maxlength">
 						<small>[Max-length: 100 simbols]</small>
 					</span>
 				</div>
@@ -37,14 +41,14 @@
 					ng-maxlength="1000"
 					placeholder="[Min-length: 3] [Max-length: 1000]"
 					class="form-control"></textarea>
-				<p class="red" ng-show="editIssueForm.description.$error.required">
+				<p class="red" ng-show="addIssueForm.description.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i> Description is required!</small>
 				</p>
 				<div role="alert">
-					<span class="red" ng-show="editIssueForm.description.$error.minlength">
+					<span class="red" ng-show="addIssueForm.description.$error.minlength">
 						<small>[Min-length: 3 simbols]</small>
 					</span>
-					<span class="error" ng-show="editIssueForm.description.$error.maxlength">
+					<span class="error" ng-show="addIssueForm.description.$error.maxlength">
 						<small>[Max-length: 1000 simbols]</small>
 					</span>
 				</div>
@@ -56,34 +60,56 @@
 					name="dueDate"
 					required="required"
 					class="form-control"/>
-				<p class="red" ng-show="editIssueForm.dueDate.$error.required">
+				<p class="red" ng-show="addIssueForm.dueDate.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i>Due Date is required!</small>
 				</p>
 			</div>
 			<div class="form-group">
 				<label for="priority">Priority<span class="red">*</span></label>
-				<p>Available Priorities: {{issue.AvailablePriorities}}</p>
-				<p>To change Priority enter priority's Id from Available Priorities</p>
+				<p>Available Priorities: {{project.AvailablePriorities}}</p>
+				<p>To add Priority enter priority's Id from Available Priorities</p>
 				<input type="text" ng-model="issue.PriorityId" 
 					id="priority" 
 					name="priority"
 					required="required"
 					class="form-control"/>
-				<p class="red" ng-show="editIssueForm.priority.$error.required">
+				<p class="red" ng-show="addIssueForm.priority.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i>Due Date is required!</small>
 				</p>
 			</div>
+			<!--get users to make Assignee-->
 			<div class="form-group">
-				<label for="assignee">Assignee <span class="red">*</span></label>
-				<p>Curent Assignee  is: <strong>{{issue.Assignee.Username}}</strong></p>
-				<p>To change the assignee  search user by Username:</p>
+				<h3>Add Assignee:</h3>
+				<label for="searchAssignee">Search user by filter: "Username"<span class="red">*</span>:</label>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-search" aria-hidden="true"></i>
-					<select ng-model="issue.AssigneeId" on-click="getAllUsersToMakeAssignee()" id="assignee" name="assigneeId" class="form-control">
-						<option  ng-repeat="user in usersForAssignee | orderBy: 'Username'" value="{{user.Id}}">{{user.Username}}</option>
+					<input type="text" ng-model="user.Username" id="searchAssignee" name="searchAssignee" required="required" class="form-control">
+				</div>
+				<p class="red" ng-show="addIssueForm.searchAssignee.$error.required">
+					<small><i class="fa fa-exclamation-triangle"></i> Filter by "Username" is required</small>
+				</p>
+			</div>
+			<div class="col-md-12">
+				<button class="btn btn-success" 
+					ng-disabled="addIssueForm.searchAssignee.$invalid" 
+					ng-click="getAllUsers()">
+					Get Users By Filter
+				</button>
+			</div>
+			<div class="form-group">
+				<label for="assignee">Select Assignee <span class="red">*</span></label>
+				<p>To get the assignee  search user by Username:</p>
+				<div class="inner-addon left-addon">
+					<i class="fa fa-user" aria-hidden="true"></i>
+					<select ng-model="issue.AssigneeId" id="assignee" name="assigneeId" required="required" class="form-control">
+						<option  ng-repeat="user in users | orderBy: 'Username'" value="{{user.Id}}">{{user.Username}}</option>
 					</select>
 				</div>
+				<p class="red" ng-show="addIssueForm.assigneeId.$error.required">
+					<small><i class="fa fa-exclamation-triangle"></i> Assignee is required!</small>
+				</p>
 			</div>
+			<!--end-->
 			<div class="form-group">
 				<label for="issueLabels">Labels</label>
 				<p>Add labels separated by a dot-comma and an white-space:</p>
@@ -101,9 +127,9 @@
 				</div>
 			</div>
 			<button type="submit" class="btn btn-success" 
-				ng-disabled="editIssueForm.$invalid" 
-				ng-click="editIssue(issue)">
-					Edit Issue
+				ng-disabled="addIssueForm.$invalid" 
+				ng-click="addIssueInCurrentProject(issue)">
+					Add Issue
 			</button>
 		</form>
 	</div>

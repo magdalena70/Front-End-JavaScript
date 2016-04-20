@@ -4,7 +4,7 @@
         <a ng-if="!isAuthenticated()" href="#/" class="navbar-brand">Issue Tracking System</a>
 		<a ng-if="isAuthenticated()" href="#/profile" class="navbar-brand">
 			<i class="fa fa-user" aria-hidden="true"></i>
-			<span class="red">{{username}}</span>
+			<span class="red" ng-if="getCurrentUserUsername()">{{username}}</span>
 		</a>
         <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
@@ -22,8 +22,8 @@
 					<i class="fa fa-cogs" aria-hidden="true"></i><span ng-if="isAdmin()"> Admin</span> Settings <span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu" aria-labelledby="download">
-					<li><a href="#/profile">Edit User Profile</a></li>
-					<li><a href="#/profile/password">Change User Password</a></li>
+					<li><a href="#/profile">Edit My Profile</a></li>
+					<li><a href="#/profile/password">Change My Password</a></li>
 					<li class="divider"></li>
 					<li ng-if="isAdmin()"><a href="#/admin/makeAdmin">Make Admin</a></li>
 					<li ng-if="isAdmin()"><a href="#/admin/users/all">All Users</a></li>

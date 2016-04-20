@@ -1,0 +1,57 @@
+<!--all users-->
+<!--error message-->
+<div class="row text-center" ng-if="!isAdmin()" ng-include="'app/common/partial/admin-warning-msg.html'"></div>
+<!--end error message-->
+<div class="row" ng-if="isAdmin()">
+	<h2>All Users: <span class="blue">{{usersCount}}</span></h2>
+	<!--search users form-->
+	<div class="col-md-8 col-md-offset-2">
+		<form name="getUsersForm">
+			<div class="form-group">
+				<label for="search-user">Search user by Username<span class="red">*</span>:</label>
+				<div class="inner-addon left-addon">
+					<i class="fa fa-search" aria-hidden="true"></i>
+					<input type="text" ng-model="user.Username" id="searchUserByUsername" name="searchUserByUsername" required="required" class="form-control">
+				</div>
+				<p class="red" ng-show="getUsersForm.searchUserByUsername.$error.required">
+					<small><i class="fa fa-exclamation-triangle"></i> Filter by "Username" is required</small>
+				</p>
+			</div>
+			<div class="form-group">
+				<label for="search-user">Search user by isAdmin: [ true or false ]</label>
+				<div class="inner-addon left-addon">
+					<i class="fa fa-search" aria-hidden="true"></i>
+					<input type="text" ng-model="user.isAdmin" 
+						id="searchUserByIsAdmin" 
+						name="searchUserByIsAdmin" 
+						class="form-control">
+				</div>
+			</div>
+			<button class="btn btn-success" ng-disabled="getUsersForm.$invalid" ng-click="getAllUsers()">
+				Get Users
+			</button>
+		</form>
+		<!--end-serach users form-->
+		<!--list users-->
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th width="60%">Username</th>
+					<th width="25%">isAdmin</th>
+					<th width="15%">More Info</th>
+				</tr>
+			</thead>
+			</tbody>
+				<tr ng-repeat="user in users | filter : user.Username | filter: user.isAdmin">
+					<td width="60%">{{user.Username}}</td>
+					<td width="25%">{{user.isAdmin}}</td>
+					<td width="15%" class="text-center">
+						<a href="#/admin/users/{{user.Username}}/info">
+							<i class="fa fa-info-circle blue" aria-hidden="true"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

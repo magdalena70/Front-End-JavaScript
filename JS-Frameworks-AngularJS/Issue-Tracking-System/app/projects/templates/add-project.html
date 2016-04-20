@@ -51,21 +51,38 @@
 					</span>
 				</div>
 			</div>
+			<!--get users to make a Leader-->
 			<div class="form-group">
-				<label for="leader">Leader<span class="red">*</span></label>
+				<h3>Add Leader:</h3>
+				<label for="searchToAddLeader">Search user by filter: "Username"<span class="red">*</span>:</label>
+				<div class="inner-addon left-addon">
+					<i class="fa fa-search" aria-hidden="true"></i>
+					<input type="text" ng-model="user.Username" id="searchToAddLeader" name="searchToAddLeader" class="form-control">
+				</div>
+			</div>
+			<div class="col-md-12">
+				<button class="btn btn-success" 
+					ng-disabled="addProjectForm.searchToAddLeader==false" 
+					ng-click="getAllUsers()">
+					Get Users By Filter
+				</button>
+			</div>
+			<div class="form-group">
+				<label for="leader">Select Leader<span class="red">*</span></label>
 				<p>Search user by Username:</p>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-search" aria-hidden="true"></i>
-					<select ng-model="project.LeadId" id="leader" name="leadId" required="required" class="form-control">
-						<option  ng-repeat="user in usersForLeader | orderBy: 'Username'"
+					<select ng-model="project.LeadId" id="newLeader" name="newLeadId" required="required" class="form-control">
+						<option  ng-repeat="user in users | orderBy: 'Username' | filter: user.Username"
 							value="{{user.Id}}">{{user.Username}}
 						</option>
 					</select>
 				</div>
-				<p class="red" ng-show="addProjectForm.leadId.$error.required">
+				<p class="red" ng-show="addProjectForm.newLeadId.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i> Leader is required!</small>
 				</p>
 			</div>
+			<!--end-->
 			<div class="form-group">
 				<label for="description">Description<span class="red">*</span></label>
 				<textarea type="text" ng-model="project.Description" rows="5"

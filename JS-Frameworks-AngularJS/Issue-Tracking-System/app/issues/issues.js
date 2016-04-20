@@ -2,21 +2,17 @@
 
 angular.module('issueTrackingSystemApp.issues', [
 		'issueTrackingSystemApp.issues.issueServices',
-		'issueTrackingSystemApp.admin.adminSettings'
+		'issueTrackingSystemApp.admin.adminSettings',
+		'issueTrackingSystemApp.projects.projectServices'
 	])
 	.config(['$routeProvider', function($routeProvider){
-		$routeProvider.when('/projects/:id/add-issue', {
-			templateUrl: 'app/issues/add-issue.html',
-			controller: 'IssuesController'
-		});
-		
 		$routeProvider.when('/issues/:id/edit', {
-			templateUrl: 'app/issues/edit-issue.html',
+			templateUrl: 'app/issues/templates/edit-issue.html',
 			controller: 'IssuesController'
 		});
 		
 		$routeProvider.when('/issues/:id', {
-			templateUrl: 'app/issues/issue-details.html',
+			templateUrl: 'app/issues/templates/issue-details.html',
 			controller: 'IssuesController'
 		});
 	}])
@@ -26,17 +22,83 @@ angular.module('issueTrackingSystemApp.issues', [
 		'$location',
 		'issueServices',
 		'adminSettings',
-		function($scope, $routeParams, $location, issueServices, adminSettings){
+		'projectServices',
+		function($scope, $routeParams, $location, issueServices, adminSettings, projectServices){
+			
+			function getIssueById(){
+				var issueId = $routeParams.id;
+				
+				issueServices.getIssueById(issueId)
+					.then(function(issueData){
+						$scope.issue = issueData.data;
+						$scope.issue.DueDate = new Date($scope.issue.DueDate);
+						$scope.issue.PriorityId = $scope.issue.Priority.Id;
+						$scope.issue.AvailablePriorities = sessionStorage['availablePriorities'];
+						$scope.issue.Labels = makeToString($scope.issue.Labels);
+						if($scope.issue.Assignee.Id === sessionStorage['userId']){
+							$scope.isAssignee = true;
+						}else{
+							$scope.isAssignee = false;
+						}
+						
+						// check if current user is project leader
+						var projectId = $scope.issue.Project.Id;
+						projectServices.getProjectById(projectId)
+							.then(function(projectData){
+								if(projectData.data.Lead.Id === sessionStorage['userId']){
+									$scope.isLeader = true;
+								}else{
+									$scope.isLeader = false;
+								}
+							});
+					});
+			}
+			if(Number($routeParams.id)){
+				getIssueById();
+			}
+			
+			$scope.getIssueComments = function(){
+				var issueId = $routeParams.id;
+				
+				issueServices.getCommentsByIssueId(issueId)
+					.then(function(commentsData){
+						if(commentsData.data.length){
+							$scope.comments = commentsData.data;
+							commentsData.count = commentsData.data.length;
+							$scope.commentsCount = commentsData.count;
+						}else{
+							$scope.commentsCount = 'No comments';
+						}
+					},
+					function(error){
+						sessionStorage['errorMsg'] = error.data.Message;
+					});
+			}
+			
+			$scope.addCommentInIssue = function(comment){
+				var issueId = $routeParams.id;
+				
+				issueServices.addCommentInIssue(issueId, comment)
+					.then(function(commentData, comment){
+						sessionStorage['successMsg'] = 'Added comment successfuly';
+						$scope.newComment = commentData.data;
+						// show comments
+						$scope.getIssueComments();
+					},
+					function(error){
+						sessionStorage['errorMsg'] = error.data.Message;
+					});
+			}
 			
 			$scope.changeIssueStatus = function(statusId, issue){
 				var issueId = $routeParams.id;
 				
-				console.log(statusId);
-				console.log(issue);
 				issueServices.changeIssueStatus(issueId, statusId, issue)
-					.then(function(issueData){
-						console.log(issueData);
-						$location.path('/issues/issue.Id');
+					.then(function(statusData){
+						sessionStorage['successMsg'] = 'Changed status successfuly';
+					},
+					function(error){
+						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
 			
@@ -46,19 +108,7 @@ angular.module('issueTrackingSystemApp.issues', [
 						$scope.usersForAssignee =  usersData.data;
 					},
 					function(error){
-						console.log(error);
-					});
-			}
-			$scope.getAllUsersToMakeAssignee();
-			
-			$scope.addIssue = function(issue){
-				issue.Labels = makeToAsociativeArr(issue.Labels, '; ');
-				issue.ProjectId = $routeParams.id;
-				console.log(issue);
-				issueServices.addIssue(issue)
-					.then(function(issueData){
-						console.log(issueData);
-						$location.path('/issues/' + issue.Id);
+						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
 			
@@ -71,10 +121,15 @@ angular.module('issueTrackingSystemApp.issues', [
 				
 				issueServices.editIssue(issueId, issue)
 					.then(function(issueData){
-						console.log(issueData);
+						//console.log(issueData);
+						sessionStorage['successMsg'] = 'Edited issue successfuly';
 						$location.path('/issues/' + issueId);
+					},
+					function(error){
+						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
+			//---------------------------------------------
 			
 			function makeToAsociativeArr(str, splitBy){
 				var strToArr = str.split(splitBy),  arr = [];
@@ -96,24 +151,4 @@ angular.module('issueTrackingSystemApp.issues', [
 						});
 				return str;
 			}
-			
-			function getIssueById(){
-				var issueId = $routeParams.id;
-				
-				issueServices.getIssueById(issueId)
-					.then(function(issueData){
-						console.log(issueData);
-						$scope.issue = issueData.data;
-						$scope.issue.DueDate = new Date($scope.issue.DueDate);
-						$scope.issue.PriorityId = $scope.issue.Priority.Id;
-						$scope.issue.AvailablePriorities = sessionStorage['availablePriorities'];
-						$scope.issue.Labels = makeToString($scope.issue.Labels);
-						if($scope.issue.Assignee.Username === sessionStorage['currentUserUsername']){
-							$scope.isAssignee = true;
-						}else{
-							$scope.isAssignee = false;
-						}
-					});
-			}
-			getIssueById();
 	}]);

@@ -1,5 +1,7 @@
 <!--issues-->
-<h3>Issues in this project:</h3>
+<h3>Issues in this project: <span class="blue">{{issuesCount}}</span></h3>
+
+<!--filters-->
 <div id="issues-filters">
 	<div class="col-md-3">
 		<div class="form-group">
@@ -38,45 +40,33 @@
 		</div>
 	</div>
 </div>
+<!--end filters-->
+<!--issues data-->
 <div class="col-md-12">
 	<button class="btn btn-success" ng-click="getIssuesByProjectId()">Get Project's Issues</button>
 </div>
-<table class="table table-hover table-bordered issue-table">
+<table class="table table-hover table-bordered">
 	<thead>
 		<tr>
-			<th>Title</th>
-			<th>Issue Key</th>
-			<th>Description</th>
-			<th>Due Date</th>
-			<th>Author</th>
-			<th>Assignee</th>
-			<th>Priority</th>
-			<th>Status</th>
-			<th>Labels</th>
-			<th>Available Statuses</th>
+			<th width="18%">Title</th>
+			<th width="30%">Description</th>
+			<th width="8%">Due Date</th>
+			<th width="15%">Author</th>
+			<th width="15%">Assignee</th>
+			<th width="9%">Status</th>
+			<th width="5%">Edit</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr ng-repeat="issue in issuesInProject | orderBy:issue.DueDate |
 				filter:issue.Assignee.Username | filter:issue.Author.Username | filter:issue.Title | filter:issue.Labels.Name">
-			<td><a href="#/issues/{{issue.Id}}">{{issue.Title}}</a></td>
-			<td>{{issue.IssueKey}}</td>
-			<td>{{issue.Description}}</td>
-			<td>{{issue.DueDate | date: 'dd/MM/yyyy'}}</td>
-			<td>{{issue.Author.Username}}</td>
-			<td>{{issue.Assignee.Username}}</td>
-			<td>{{issue.Priority.Name}}</td>
-			<td>{{issue.Status.Name}}</td>
-			<td>
-				<ul class="list-unstyled" ng-repeat="label in issue.Labels">
-					<li>{{label.Name}}</li>
-				</ul>
-			</td>
-			<td>
-				<ul class="list-unstyled" ng-repeat="status in issue.AvailableStatuses">
-					<li>{{status.Name}}</li>
-				</ul>
-			</td>
+			<td width="18%"><a href="#/issues/{{issue.Id}}">{{issue.Title}}</a></td>
+			<td width="30%">{{issue.Description}}</td>
+			<td width="8%">{{issue.DueDate | date: 'dd/MM/yyyy'}}</td>
+			<td width="15%">{{issue.Author.Username}}</td>
+			<td width="15%">{{issue.Assignee.Username}}</td>
+			<td width="9%">{{issue.Status.Name}}</td>
+			<td width="5%"><a href="#/issues/{{issue.Id}}/edit" ng-if="isAdmin() || isLeader"><i class="fa fa-pencil-square-o blue" aria-hidden="true"></a></i></td>
 		</tr>
 	</tbody>
 </table>
