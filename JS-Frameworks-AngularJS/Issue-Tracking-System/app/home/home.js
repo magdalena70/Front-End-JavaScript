@@ -76,6 +76,10 @@ angular.module('issueTrackingSystemApp.home', [
 					});
 			}
 			
+			// pagination
+			$scope.curPage = 0;
+			$scope.pageSize = 10;
+			
 			$scope.getMyProjects = function(){
 				var username = sessionStorage['currentUserUsername'];
 	
@@ -86,6 +90,12 @@ angular.module('issueTrackingSystemApp.home', [
 							$scope.myProjectsCount = $scope.myProjects.length;
 						}else{
 							$scope.myProjectsCount = 'No projects';
+						}
+						
+						if($scope.myProjects.length){
+							$scope.numberOfPages = function(){
+								return Math.ceil($scope.myProjects.length / $scope.pageSize);
+							}
 						}
 					},
 					function(error){
@@ -107,4 +117,12 @@ angular.module('issueTrackingSystemApp.home', [
 						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
-	}]);
+	}])
+	.filter('pagination', function(){
+		return function(input, start){
+			if(input){
+				start = +start;
+				return input.slice(start);
+			}
+		}
+	});

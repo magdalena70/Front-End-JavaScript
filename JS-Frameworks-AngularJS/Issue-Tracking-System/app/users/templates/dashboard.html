@@ -11,8 +11,28 @@
 				<button class="btn btn-success" ng-click="getMyProjects()">Get My Projects</button>
 			</div>
 			<div class="col-md-8 text-center">
-				<p ng-repeat="project in myProjects | filter:project.Name">
-					<a href="#/projects/{{project.Id}}">{{project.Name}}</a>
+				<!--Pagination div-->
+				<div class="col-md-12">
+					<div class="col-md-4 col-md-offset-4 text-center" id="projectsPagination" ng-show="myProjects.length">
+						<div>
+							<button ng-disabled="curPage == 0" ng-click="curPage=curPage-1">
+								<i class="fa fa-angle-double-left" aria-hidden="true"></i>
+							</button>
+						</div>
+						<div>
+							<span>Page {{curPage+1}} of {{ numberOfPages() }}</span>
+						</div>
+						<div>
+							<button ng-disabled="curPage >= myProjects.length/pageSize - 1" ng-click="curPage = curPage + 1">
+								<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<!--end pagination-->
+				<p id="myProjects" ng-repeat="project in myProjects | pagination: curPage * pageSize |
+					limitTo: pageSize | filter:project.Name">
+						<a href="#/projects/{{project.Id}}">{{project.Name}}</a>
 				</p>
 			</div>
 		</div>

@@ -71,7 +71,7 @@ angular.module('issueTrackingSystemApp.projects', [
 			
 			//------all projects-----
 			// pagination
-			$scope.curPage = 1;
+			$scope.curPage = 0;
 			$scope.pageSize = 10;
 			
 			$scope.getProjects = function(){

@@ -46,8 +46,8 @@
 				</div>
 			</div>
 		</div>
+		<!--Pagination div-->
 		<div class="col-md-12">
-			<!--Pagination div-->
 				<div class="col-md-2 col-md-offset-5 text-center" id="projectsPagination" ng-show="projects.length">
 					<div>
 						<button ng-disabled="curPage == 0" ng-click="curPage=curPage-1">
@@ -55,7 +55,7 @@
 						</button>
 					</div>
 					<div>
-						<span>Page {{curPage}} of {{ numberOfPages() }}</span>
+						<span>Page {{curPage+1}} of {{ numberOfPages() }}</span>
 					</div>
 					<div>
 						<button ng-disabled="curPage >= projects.length/pageSize - 1" ng-click="curPage = curPage + 1">
@@ -63,8 +63,8 @@
 						</button>
 					</div>
 				</div>
-			<!--end pagination-->
 		</div>
+		<!--end pagination-->
 		<table class="table table-hover table-bordered project-table">
 			<thead>
 			  <tr>
