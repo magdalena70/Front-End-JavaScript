@@ -5,9 +5,8 @@
 <div class="row" ng-if="isAdmin()">
 <h2><i class="fa fa-info-circle" aria-hidden="true"></i> User Info</h2>
 	<div class="col-md-6">
-	<h2>User Projects</h2>
+	<h2>User Projects: <span class="blue">{{projectsCount}}</span></h2>
 	<button class="btn btn-success" ng-click="getUserProjects()">Get User Projects</button>
-	<p class="blue">{{projectMessage}}</p>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -28,9 +27,8 @@
 		</table>
 	</div>
 	<div class="col-md-6">
-	<h2>User Issues</h2>
+	<h2>User Issues: <span class="blue">{{issuesCount}}</span></h2>
 	<button class="btn btn-success" ng-click="getUserIssues()">Get User Issues</button>
-	<p class="blue">{{issueMessage}}</p>
 		<table class="table table-bordered">
 			<thead>
 				<tr>

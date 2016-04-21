@@ -7,12 +7,12 @@ angular.module('issueTrackingSystemApp.projects.projectServices', [])
 		'BASE_URL',
 		function($http, $q, BASE_URL){
 			
-			//to do
-			function getAllProjects(){
+			function getAllProjects(pageSize){
 				var defer = $q.defer();
 				var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
-				$http.get(BASE_URL + 'projects?pageSize={pageSize}&pageNumber={pageNumber}&filter={filter}', headers)
+				$http.get(BASE_URL + 'projects?pageSize=' + pageSize +
+					'&pageNumber=1&filter=TransitionSchemeId==1' , headers)
 					.then(function(success){
 						defer.resolve(success);
 					},
@@ -27,7 +27,7 @@ angular.module('issueTrackingSystemApp.projects.projectServices', [])
 				var defer = $q.defer();
 				var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
-				$http.get(BASE_URL + 'projects?pageSize=10&pageNumber=1&filter=Lead.Username=="' + username + '"', headers)
+				$http.get(BASE_URL + 'projects?pageSize=300&pageNumber=1&filter=Lead.Username=="' + username + '"', headers)
 					.then(function(success){
 						defer.resolve(success);
 					},

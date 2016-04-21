@@ -69,17 +69,31 @@ angular.module('issueTrackingSystemApp.projects', [
 				getProjectById();
 			}
 			
-			//to do
+			//------all projects-----
+			// pagination
+			$scope.curPage = 1;
+			$scope.pageSize = 10;
+			
 			$scope.getProjects = function(){
-				projectServices.getAllProjects()
+				var pageSize = 300;
+				
+				projectServices.getAllProjects(pageSize)
 					.then(function(projectsData){
-						console.log(projectsData);
-						$scope.projects = projectsData.data;
+						//console.log(projectsData);
+						$scope.projects = projectsData.data.Projects;
+						$scope.totalCount = projectsData.data.TotalCount;
+						
+						if($scope.projects.length){
+							$scope.numberOfPages = function(){
+								return Math.ceil($scope.projects.length / $scope.pageSize);
+							}
+						}
 					},
 					function(error){
 						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
+			//------------------------
 			
 			$scope.getIssuesByProjectId = function(){
 				var projectId = $routeParams.id;
@@ -185,4 +199,12 @@ angular.module('issueTrackingSystemApp.projects', [
 						});
 				return str;
 			}
-	}]);
+	}])
+	.filter('pagination', function(){
+		return function(input, start){
+			if(input){
+				start = +start;
+				return input.slice(start);
+			}
+		}
+	});

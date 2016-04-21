@@ -95,7 +95,7 @@ a{
 }
 
 #successMsgBtn:hover, #errorMsgBtn:hover{
-	background-color: #000;
+	background-color: rgba(0, 0, 0, 0.6);
 	color: #fff;
 }
 
@@ -113,6 +113,23 @@ a{
 #project-info{
 	padding-bottom: 20px;
 	border-bottom: dashed 1px #333;
+}
+
+#projectsPagination, #projectsPagination  button{
+	font-size: 18px;
+	font-weight: bold;
+	text-shadow: 1px 3px 6px #333;
+}
+
+#projectsPagination button{
+	border: none;
+	border-radius: 4px;
+	box-shadow: 2px 3px 10px #333;
+}
+
+#projectsPagination button:hover{
+	background-color: #333;
+	color: #fff;
 }
 
 button, .btn-success{

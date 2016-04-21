@@ -1,7 +1,8 @@
 <!--projects-->
 <div class="row">
 	<div class="col-md-12">
-		<h2>All Projects</h2>
+		<button class="btn btn-success" ng-click="getProjects()">Get All Projects</button>
+		<h2>All Projects Total Count: <span class="blue">{{totalCount}}</span></h2>
 		<p class="text-center"><a href="#/projects/add">Add New Project</a></p>
 		<div id="projects-filters">
 			<div class="col-md-3">
@@ -45,7 +46,25 @@
 				</div>
 			</div>
 		</div>
-		<button class="btn btn-success" ng-click="getProjects()">Get Projects</button>
+		<div class="col-md-12">
+			<!--Pagination div-->
+				<div class="col-md-2 col-md-offset-5 text-center" id="projectsPagination" ng-show="projects.length">
+					<div>
+						<button ng-disabled="curPage == 0" ng-click="curPage=curPage-1">
+							<i class="fa fa-angle-double-left" aria-hidden="true"></i>
+						</button>
+					</div>
+					<div>
+						<span>Page {{curPage}} of {{ numberOfPages() }}</span>
+					</div>
+					<div>
+						<button ng-disabled="curPage >= projects.length/pageSize - 1" ng-click="curPage = curPage + 1">
+							<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+						</button>
+					</div>
+				</div>
+			<!--end pagination-->
+		</div>
 		<table class="table table-hover table-bordered project-table">
 			<thead>
 			  <tr>
@@ -58,12 +77,14 @@
 			  </tr>
 			</thead>
 			<tbody>
-			  <tr ng-repeat="project in projects | filter:project.Name | filter:project.Lead.Username |
+			  <tr ng-repeat="project in projects | pagination: curPage * pageSize |
+				limitTo: pageSize | orderBy: 'Lead.Username' |
+				filter:project.Name | filter:project.Lead.Username |
 				filter:project.Labels.Name | filter:project.Priorities.Name">
 				<td><a href="#/projects/{{project.Id}}" class="red"><i class="fa fa-info-circle" aria-hidden="true"></i></a></td>
-				<td>{{project.Name}}</td>
+				<td><a href="#/projects/{{project.Id}}">{{project.Name}}</a></td>
 				<td>{{project.Description}}</td>
-				<td><a href="#/profile/{{project.Lead.Username}}">{{project.Lead.Username}}</a></td>
+				<td><a href="#/admin/users/{{project.Lead.Username}}/info">{{project.Lead.Username}}</a></td>
 				<td>
 					<div class="inner-addon left-addon">
 						<i class="fa fa-tags" aria-hidden="true"></i>

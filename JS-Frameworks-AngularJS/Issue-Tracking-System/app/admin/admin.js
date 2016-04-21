@@ -59,9 +59,9 @@ angular.module('issueTrackingSystemApp.admin', [
 					.then(function(userProjectsData){
 						$scope.userProjects = userProjectsData.data.Projects;
 						if($scope.userProjects.length){
-							$scope.projectMessage = '';
+							$scope.projectsCount = $scope.userProjects.length;
 						}else{
-							$scope.projectMessage = 'No projects';
+							$scope.projectsCount = 'No projects';
 						}
 					},
 					function(error){
@@ -76,9 +76,9 @@ angular.module('issueTrackingSystemApp.admin', [
 					.then(function(userIssuesData){
 						$scope.userIssues = userIssuesData.data.Issues;
 						if($scope.userIssues.length){
-							$scope.issueMessage = '';
+							$scope.issuesCount = $scope.userIssues.length;
 						}else{
-							$scope.issueMessage = 'No issues';
+							$scope.issuesCount = 'No issues';
 						}
 					},
 					function(error){
