@@ -30,16 +30,26 @@ angular.module('issueTrackingSystemApp.admin', [
 		'issueServices',
 		function($scope, $location, $routeParams, adminSettings, projectServices, issueServices){
 			
+			// pagination
+			$scope.curPage = 0;
+			$scope.pageSize = 10;
 			$scope.getAllUsers = function(){
 				adminSettings.getUsers()
 					.then(function(usersData){
 						$scope.users = usersData.data;
 						$scope.usersCount = usersData.data.length;
+						
+						if($scope.users.length){
+							$scope.numberOfPages = function(){
+								return Math.ceil($scope.users.length / $scope.pageSize);
+							}
+						}
 					},
 					function(error){
 						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
+			//------------
 			
 			$scope.makeAdmin = function(user){
 				adminSettings.makeAdmin({"userId": user.userId})

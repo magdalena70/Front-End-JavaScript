@@ -4,13 +4,14 @@
 		<button class="btn btn-success" ng-click="getProjects()">Get All Projects</button>
 		<h2>All Projects Total Count: <span class="blue">{{totalCount}}</span></h2>
 		<p class="text-center"><a href="#/projects/add">Add New Project</a></p>
-		<div id="projects-filters">
+		<!--projects filters-->
+		<div id="projects-filters" ng-show="projects.length">
 			<div class="col-md-3">
 				<div class="form-group">
 					<label for="search-user">Search project by Project Name:</label>
 					<div class="inner-addon left-addon">
 						<i class="fa fa-search" aria-hidden="true"></i>
-						<input type="text" ng-model="project.Name" id="search-project-by-name" class="form-control">
+						<input type="search" ng-model="project.Name" id="search-project-by-name" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -19,7 +20,7 @@
 					<label for="search-user">Search project by Leader Username:</label>
 					<div class="inner-addon left-addon">
 						<i class="fa fa-search" aria-hidden="true"></i>
-						<input type="text" ng-model="project.Lead.Username" id="search-project-by-leader" class="form-control">
+						<input type="search" ng-model="project.Lead.Username" id="search-project-by-leader" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -28,7 +29,7 @@
 					<label for="search-user">Search project by Labels:</label>
 					<div class="inner-addon left-addon">
 						<i class="fa fa-search" aria-hidden="true"></i>
-						<input type="text" ng-model="project.Labels.Name" 
+						<input type="search" ng-model="project.Labels.Name" 
 							id="search-project-by-labels"  
 							class="form-control">
 					</div>
@@ -39,16 +40,64 @@
 					<label for="search-user">Search project by Priorities:</label>
 					<div class="inner-addon left-addon">
 						<i class="fa fa-search" aria-hidden="true"></i>
-						<input type="text" ng-model="project.Priorities.Name" 
+						<input type="search" ng-model="project.Priorities.Name" 
 							id="search-project-by-priorities"  
 							class="form-control">
 					</div>
 				</div>
 			</div>
 		</div>
-		<!--Pagination div-->
-		<div class="col-md-12">
-				<div class="col-md-2 col-md-offset-5 text-center" id="projectsPagination" ng-show="projects.length">
+		<!--end projects filters-->
+		<!-- all projects view selected by filters withouth pagination-->
+		<div ng-show="projects.length&&project.Name||project.Lead.Username||project.Labels.Name||project.Priorities.Name">
+			<table class="table table-hover table-bordered">
+				<thead>
+					  <tr>
+							<th width="7%">Details</th>
+							<th width="15%">Name</th>
+							<th width="28%">Description</th>
+							<th width="20%">Leader</th>
+							<th width="15%">Labels</th>
+							<th width="15%">Priorities</th>
+					  </tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="project in projects | orderBy: 'Name' |
+						filter: project.Name | filter: project.Lead.Username |
+						filter: project.Labels.Name | filter: project.Priorities.Name">
+							<td width="7%"><a href="#/projects/{{project.Id}}" class="red"><i class="fa fa-info-circle" aria-hidden="true"></i></a></td>
+							<td width="15%"><a href="#/projects/{{project.Id}}">{{project.Name}}</a></td>
+							<td width="28%">{{project.Description}}</td>
+							<td width="20%"><a href="#/admin/users/{{project.Lead.Username}}/info">{{project.Lead.Username}}</a></td>
+							<td width="15%">
+								<div class="inner-addon left-addon">
+									<i class="fa fa-tags" aria-hidden="true"></i>
+									<select class="style-select">
+										<option></option>
+										<option ng-repeat="label in project.Labels">{{label.Name}}</option>
+									</select>
+								</div>
+							</td>
+							<td width="15%">
+								<div class="inner-addon left-addon">
+									<i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+									<select class="style-select">
+										<option></option>
+										<option ng-repeat="priority in project.Priorities">{{priority.Name}}</option>
+									</select>
+								</div>
+							</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!--end filtered projects view-->
+		
+		<!--all projects view with pagination withouth filters-->
+		<div ng-show="projects.length&&!project.Name&&!project.Lead.Username&&!project.Labels.Name&&!project.Priorities.Name">
+			<!--pagination div-->
+			<div class="col-md-12">
+				<div class="col-md-2 col-md-offset-5 text-center" id="projectsPagination">
 					<div>
 						<button ng-disabled="curPage == 0" ng-click="curPage=curPage-1">
 							<i class="fa fa-angle-double-left" aria-hidden="true"></i>
@@ -63,48 +112,47 @@
 						</button>
 					</div>
 				</div>
+			</div >
+			<!--end pagination div-->
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th width="7%">Details</th>
+						<th width="15%">Name</th>
+						<th width="28%">Description</th>
+						<th width="20%">Leader</th>
+						<th width="15%">Labels</th>
+						<th width="15%">Priorities</th>
+					 </tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="project in projects | pagination: curPage * pageSize | limitTo: pageSize | orderBy: 'Name'">
+						<td width="7%"><a href="#/projects/{{project.Id}}" class="red"><i class="fa fa-info-circle" aria-hidden="true"></i></a></td>
+						<td width="15%"><a href="#/projects/{{project.Id}}">{{project.Name}}</a></td>
+						<td width="28%">{{project.Description}}</td>
+						<td width="20%"><a href="#/admin/users/{{project.Lead.Username}}/info">{{project.Lead.Username}}</a></td>
+						<td width="15%">
+							<div class="inner-addon left-addon">
+								<i class="fa fa-tags" aria-hidden="true"></i>
+								<select class="style-select">
+									<option></option>
+									<option ng-repeat="label in project.Labels">{{label.Name}}</option>
+								</select>
+							</div>
+						</td>
+						<td width="15%">
+							<div class="inner-addon left-addon">
+								<i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+								<select class="style-select">
+									<option></option>
+									<option ng-repeat="priority in project.Priorities">{{priority.Name}}</option>
+								</select>
+							</div>
+						</td>
+					 </tr>
+				</tbody>
+			</table>
 		</div>
-		<!--end pagination-->
-		<table class="table table-hover table-bordered project-table">
-			<thead>
-			  <tr>
-				<th>Details</th>
-				<th>Name</th>
-				<th>Description</th>
-				<th>Leader</th>
-				<th>Labels</th>
-				<th>Priorities</th>
-			  </tr>
-			</thead>
-			<tbody>
-			  <tr ng-repeat="project in projects | pagination: curPage * pageSize |
-				limitTo: pageSize | orderBy: 'Lead.Username' |
-				filter:project.Name | filter:project.Lead.Username |
-				filter:project.Labels.Name | filter:project.Priorities.Name">
-				<td><a href="#/projects/{{project.Id}}" class="red"><i class="fa fa-info-circle" aria-hidden="true"></i></a></td>
-				<td><a href="#/projects/{{project.Id}}">{{project.Name}}</a></td>
-				<td>{{project.Description}}</td>
-				<td><a href="#/admin/users/{{project.Lead.Username}}/info">{{project.Lead.Username}}</a></td>
-				<td>
-					<div class="inner-addon left-addon">
-						<i class="fa fa-tags" aria-hidden="true"></i>
-						<select class="style-select">
-							<option></option>
-							<option ng-repeat="label in project.Labels">{{label.Name}}</option>
-						</select>
-					</div>
-				</td>
-				<td>
-					<div class="inner-addon left-addon">
-						<i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-						<select class="style-select">
-							<option></option>
-							<option ng-repeat="priority in project.Priorities">{{priority.Name}}</option>
-						</select>
-					</div>
-				</td>
-			  </tr>
-			</tbody>
-	  </table>
+		<!--end all projects view with pagination withouth filters-->
 	</div>
 </div>

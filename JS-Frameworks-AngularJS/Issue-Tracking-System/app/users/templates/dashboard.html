@@ -1,19 +1,30 @@
 <!--dashboard-->
 	<div class="col-md-12">
 		<h2>My Projects: <span class="blue">{{myProjectsCount}}</span></h2>
+		<button class="btn btn-success" ng-click="getMyProjects()">Get My Projects</button>
 		<div class="col-md-10 col-md-offset-1">
-			<div class="col-md-4 form-group">
+			<!--filter div-->
+			<div class="col-md-4 form-group" ng-show="myProjects.length">
 				<label for="search-project-by-name">Search project by Name:</label>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-search" aria-hidden="true"></i>
-					<input type="text" ng-model="project.Name" id="search-project-by-name" class="form-control">
+					<input type="search" ng-model="project.Name" id="search-project-by-name" class="form-control">
 				</div>
-				<button class="btn btn-success" ng-click="getMyProjects()">Get My Projects</button>
 			</div>
-			<div class="col-md-8 text-center">
+			<!--end filter div-->
+			<!--all projects view withouth pagination with filter-->
+			<div class="col-md-8 text-center" ng-show="myProjects.length&&project.Name">
+				<p id="myProjects" ng-repeat="project in myProjects | filter:project.Name">
+						<a href="#/projects/{{project.Id}}">{{project.Name}}</a>
+				</p>
+			</div>
+			<!--end all projects view withouth pagination with filter-->
+			
+			<!--all my projects view with pagination withouth filter-->
+			<div class="col-md-8 text-center" ng-show="myProjects.length&&!project.Name">
 				<!--Pagination div-->
 				<div class="col-md-12">
-					<div class="col-md-4 col-md-offset-4 text-center" id="projectsPagination" ng-show="myProjects.length">
+					<div class="col-md-4 col-md-offset-4 text-center" id="projectsPagination">
 						<div>
 							<button ng-disabled="curPage == 0" ng-click="curPage=curPage-1">
 								<i class="fa fa-angle-double-left" aria-hidden="true"></i>
@@ -30,11 +41,12 @@
 					</div>
 				</div>
 				<!--end pagination-->
-				<p id="myProjects" ng-repeat="project in myProjects | pagination: curPage * pageSize |
-					limitTo: pageSize | filter:project.Name">
-						<a href="#/projects/{{project.Id}}">{{project.Name}}</a>
+				<p id="myProjects" ng-repeat="project in myProjects | pagination: curPage * pageSize | limitTo: pageSize">
+					<a href="#/projects/{{project.Id}}">{{project.Name}}</a>
 				</p>
 			</div>
+			<!--end all my projects view with pagination withouth filter-->
+			
 		</div>
 	</div>
 	<div class="col-md-12">
@@ -45,7 +57,7 @@
 					<label for="search-issue-by-title">Search issue by Title:</label>
 					<div class="inner-addon left-addon">
 						<i class="fa fa-search" aria-hidden="true"></i>
-						<input type="text" ng-model="issue.Title" id="search-issue-by-title" class="form-control">
+						<input type="search" ng-model="issue.Title" id="search-issue-by-title" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -54,7 +66,7 @@
 					<label for="search-issue-by-project">Search issue by Project:</label>
 					<div class="inner-addon left-addon">
 						<i class="fa fa-search" aria-hidden="true"></i>
-						<input type="text" ng-model="issue.Project" id="search-issue-by-project" class="form-control">
+						<input type="search" ng-model="issue.Project" id="search-issue-by-project" class="form-control">
 					</div>
 				</div>
 			</div>
@@ -63,7 +75,7 @@
 					<label for="search-issue-by-date">Search issue by Due Date:</label>
 					<div class="inner-addon left-addon">
 						<i class="fa fa-search" aria-hidden="true"></i>
-						<input type="text" ng-model="issue.DueDate" 
+						<input type="search" ng-model="issue.DueDate" 
 							id="search-issue-by-date" 
 							placeholder="yyyy-MM-ddThh-mm-ss" 
 							class="form-control">
@@ -78,20 +90,20 @@
 			<thead>
 			  <tr>
 				<th width="22%">Title</th>
-				<th width="30%">Description</th>
+				<th width="28%">Description</th>
 				<th width="15%">Project</th>
 				<th width="15%">Due date</th>
-				<th width="8%">Status</th>
+				<th width="10%">Status</th>
 			  </tr>
 			</thead>
 			<tbody>
 			  <tr ng-repeat="issue in issues | filter:issue.Title | filter: issue.Project | filter:issue.DueDate">
 				<td width="22%"><a href="#issues/{{issue.Id}}">{{issue.Title}}</a></td>
-				<td width="30%">{{issue.Description}}</td>
+				<td width="28%">{{issue.Description}}</td>
 				<td ng-if="isAdmin()" width="15%"><a href="#/projects/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>
 				<td ng-if="!isAdmin()" width="15%">{{issue.Project.Name}}</td>
 				<td width="15%">{{issue.DueDate}}</td>
-				<td width="8%">{{issue.Status.Name}}</td>
+				<td width="10%">{{issue.Status.Name}}</td>
 			  </tr>
 			</tbody>
 	    </table>

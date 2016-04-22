@@ -1,57 +1,112 @@
-<!--all users-->
 <!--error message-->
 <div class="row text-center" ng-if="!isAdmin()" ng-include="'app/common/partial/admin-warning-msg.html'"></div>
 <!--end error message-->
+<!--all users-->
 <div class="row" ng-if="isAdmin()">
 	<h2>All Users: <span class="blue">{{usersCount}}</span></h2>
-	<!--search users form-->
-	<div class="col-md-8 col-md-offset-2">
-		<form name="getUsersForm">
+	<div>
+		<button class="btn btn-success" ng-click="getAllUsers()">
+			Get All Users
+		</button>
+	</div>
+	<!--users view by filter withouth paination-->
+	<div class="col-md-8 col-md-offset-2" ng-show="users.length">
+		<!--users filters-->
+		<div id="usersFilters">
 			<div class="form-group">
-				<label for="search-user">Search user by Username<span class="red">*</span>:</label>
+				<label for="search-user">Search user by Username:</label>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-search" aria-hidden="true"></i>
-					<input type="text" ng-model="user.Username" id="searchUserByUsername" name="searchUserByUsername" required="required" class="form-control">
+					<input type="search" ng-model="User.Username" 
+						id="searchUserByUsername" 
+						name="searchUserByUsername" 
+						class="form-control">
 				</div>
-				<p class="red" ng-show="getUsersForm.searchUserByUsername.$error.required">
-					<small><i class="fa fa-exclamation-triangle"></i> Filter by "Username" is required</small>
-				</p>
 			</div>
 			<div class="form-group">
 				<label for="search-user">Search user by isAdmin: [ true or false ]</label>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-search" aria-hidden="true"></i>
-					<input type="text" ng-model="user.isAdmin" 
+					<input type="search" ng-model="User.isAdmin" 
 						id="searchUserByIsAdmin" 
 						name="searchUserByIsAdmin" 
 						class="form-control">
 				</div>
 			</div>
-			<button class="btn btn-success" ng-disabled="getUsersForm.$invalid" ng-click="getAllUsers()">
-				Get Users
-			</button>
-		</form>
-		<!--end-serach users form-->
+		</div>
+		<!--end users filters-->
 		<!--list users-->
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th width="60%">Username</th>
-					<th width="25%">isAdmin</th>
-					<th width="15%">More Info</th>
-				</tr>
-			</thead>
-			</tbody>
-				<tr ng-repeat="user in users | filter : user.Username | filter: user.isAdmin">
-					<td width="60%">{{user.Username}}</td>
-					<td width="25%">{{user.isAdmin}}</td>
-					<td width="15%" class="text-center">
-						<a href="#/admin/users/{{user.Username}}/info">
-							<i class="fa fa-info-circle blue" aria-hidden="true"></i>
-						</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<div ng-show="User.Username||User.isAdmin">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th width="60%">Username</th>
+						<th width="25%">isAdmin</th>
+						<th width="15%">More Info</th>
+					</tr>
+				</thead>
+				</tbody>
+					<tr ng-repeat="user in users | orderBy: 'Username' | filter: User.Username | filter: User.isAdmin">
+						<td width="60%">{{user.Username}}</td>
+						<td width="25%">{{user.isAdmin}}</td>
+						<td width="15%" class="text-center">
+							<a href="#/admin/users/{{user.Username}}/info">
+								<i class="fa fa-info-circle blue" aria-hidden="true"></i>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!--end list-->
 	</div>
+	<!--end users view by filter withouth paination-->
+	
+	<!-- all users view with pagination withouth filters-->
+	<div class="col-md-8 col-md-offset-2" ng-hide="!users.length||User.Username||User.isAdmin">
+		<div>
+			<!--pagination div-->
+			<div class="col-md-12">
+				<div class="col-md-4 col-md-offset-4 text-center" id="usersPagination">
+					<div>
+						<button ng-disabled="curPage == 0" ng-click="curPage=curPage-1">
+							<i class="fa fa-angle-double-left" aria-hidden="true"></i>
+						</button>
+					</div>
+					<div>
+						<span>Page {{curPage+1}} of {{ numberOfPages() }}</span>
+					</div>
+					<div>
+						<button ng-disabled="curPage >= users.length/pageSize - 1" ng-click="curPage = curPage + 1">
+							<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+						</button>
+					</div>
+				</div>
+			</div >
+			<!--end pagination div-->
+			<!--list users-->
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th width="60%">Username</th>
+						<th width="25%">isAdmin</th>
+						<th width="15%">More Info</th>
+					</tr>
+				</thead>
+				</tbody>
+					<tr ng-repeat="user in users | pagination: curPage * pageSize | limitTo: pageSize">
+						<td width="60%">{{user.Username}}</td>
+						<td width="25%">{{user.isAdmin}}</td>
+						<td width="15%" class="text-center">
+							<a href="#/admin/users/{{user.Username}}/info">
+								<i class="fa fa-info-circle blue" aria-hidden="true"></i>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<!--end list users-->
+		</div>
+	</div>
+	<!--end all users view with pagination withouth filters-->
 </div>

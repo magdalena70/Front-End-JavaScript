@@ -18,6 +18,10 @@ div, td, li, p, a{
 	word-break: break-all;
 }
 
+table th, table td{
+	text-align: center;
+}
+
 a{
 	font-weight: bold;
 }
@@ -148,17 +152,17 @@ button, .btn-success:hover{
 }
 
 .warning{
-	color: red;
+	color: #FF0000;
 	font-size: 140px;
 }
 
 .red{
-	color: red;
+	color: #FF0000;
 	font-size: 20px;
 }
 
 .blue{
-	color: blue;
+	color: #135CB0;
 	font-size: 23px;
 }
 
@@ -173,11 +177,6 @@ button, .btn-success:hover{
 	margin: 5px;
 	border-top: solid 1px #999;
 	border-bottom: solid 1px #999;
-}
-
-.project-table th, .project-table td{
-	width: 16.6%;
-	text-align: center;
 }
 
 .style-select{
