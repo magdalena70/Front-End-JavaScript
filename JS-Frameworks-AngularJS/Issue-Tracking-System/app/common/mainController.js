@@ -4,7 +4,7 @@ angular.module('issueTrackingSystemApp.common', [])
 	.controller('MainController', [
 		'$scope', 
 		'BASE_URL',
-		function($scope, authentication, BASE_URL){
+		function($scope, authentication, BASE_URL){ 
 			
 			$scope.getCurrentUserUsername = function(){
 				if(sessionStorage['currentUserUsername']){

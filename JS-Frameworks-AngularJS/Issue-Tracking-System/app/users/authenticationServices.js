@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('issueTrackingSystemApp.users.authentication', [])
-	.factory('authentication', [
+angular.module('issueTrackingSystemApp.users.authenticationServices', [])
+	.factory('authenticationServices', [
 		'$http',
 		'$q',
 		'BASE_URL',

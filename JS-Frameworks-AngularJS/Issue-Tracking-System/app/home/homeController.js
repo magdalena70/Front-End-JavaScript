@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('issueTrackingSystemApp.home', [
-		'issueTrackingSystemApp.users.authentication',
+		'issueTrackingSystemApp.users.authenticationServices',
 		'issueTrackingSystemApp.projects.projectServices',
 		'issueTrackingSystemApp.issues.issueServices'
 	])
@@ -19,15 +19,15 @@ angular.module('issueTrackingSystemApp.home', [
 	.controller('HomeController', [
 		'$scope',
 		'$location',
-		'authentication',
+		'authenticationServices',
 		'projectServices',
 		'issueServices',
-		function($scope, $location, authentication, projectServices, issueServices) {
+		function($scope, $location, authenticationServices, projectServices, issueServices) {
 		
 			$scope.register = function(user){
 				$scope.registerUserData = user;
 				$scope.registerUserData.username = user.email;
-				authentication.registerUser(user)
+				authenticationServices.registerUser(user)
 					.then(function(){
 						$scope.login($scope.registerUserData);
 					},
@@ -37,7 +37,7 @@ angular.module('issueTrackingSystemApp.home', [
 			}
 			
 			$scope.login = function(user){
-				authentication.loginUser("username=" + user.username + "&password=" + user.password + "&grant_type=password")
+				authenticationServices.loginUser("username=" + user.username + "&password=" + user.password + "&grant_type=password")
 					.then(function(loggedInUser){
 						sessionStorage['accessToken'] = loggedInUser.access_token;
 						$scope.getUserInfo();
@@ -51,7 +51,7 @@ angular.module('issueTrackingSystemApp.home', [
 			
 			//get isAdmin
 			$scope.getUserInfo = function(){
-				authentication.getUserInfo()
+				authenticationServices.getUserInfo()
 					.then(function(userData){
 						sessionStorage['userId'] = userData.data.Id;
 						sessionStorage['currentUserUsername'] = userData.data.Username;
@@ -65,7 +65,7 @@ angular.module('issueTrackingSystemApp.home', [
 			}
 			
 			$scope.logout = function(){
-				authentication.logout()
+				authenticationServices.logout()
 					.then(function(success){
 						sessionStorage.clear();
 						sessionStorage['successMsg'] = 'Logout successfuly';

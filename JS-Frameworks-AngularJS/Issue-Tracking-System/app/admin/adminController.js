@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('issueTrackingSystemApp.admin', [
-		'issueTrackingSystemApp.admin.adminSettings',
+		'issueTrackingSystemApp.admin.adminServices',
 		'issueTrackingSystemApp.projects.projectServices',
 		'issueTrackingSystemApp.issues.issueServices'
 	])
@@ -25,16 +25,16 @@ angular.module('issueTrackingSystemApp.admin', [
 		'$scope',
 		'$location',
 		'$routeParams',
-		'adminSettings',
+		'adminServices',
 		'projectServices',
 		'issueServices',
-		function($scope, $location, $routeParams, adminSettings, projectServices, issueServices){
+		function($scope, $location, $routeParams, adminServices, projectServices, issueServices){
 			
 			// pagination
 			$scope.curPage = 0;
 			$scope.pageSize = 10;
 			$scope.getAllUsers = function(){
-				adminSettings.getUsers()
+				adminServices.getUsers()
 					.then(function(usersData){
 						$scope.users = usersData.data;
 						$scope.usersCount = usersData.data.length;
@@ -52,7 +52,7 @@ angular.module('issueTrackingSystemApp.admin', [
 			//------------
 			
 			$scope.makeAdmin = function(user){
-				adminSettings.makeAdmin({"userId": user.userId})
+				adminServices.makeAdmin({"userId": user.userId})
 					.then(function(response){
 						sessionStorage['successMsg'] = 'Made admin successfuly';
 						$location.path('/admin/users/all');

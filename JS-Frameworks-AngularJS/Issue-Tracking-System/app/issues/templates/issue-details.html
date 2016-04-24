@@ -30,7 +30,7 @@
 				</button>
 			</form>
 		</div>
-		<div class="col-md-12">
+		<div class="col-md-12" id="addComment">
 			<h3><i class="fa fa-commenting-o" aria-hidden="true"></i> Add Comment:</h3>
 			<p class="red"><small>
 				Only user who is either a project leader or has a assigned issue in this project can add comments.
@@ -46,7 +46,7 @@
 						<small><i class="fa fa-exclamation-triangle"></i> Text is required! Comment can not be empty!</small>
 					</p>
 				</div>
-				<button class="btn btn-success" 
+				<button clear-input-value class="btn btn-success" 
 					ng-disabled="addCommentForm.text.$invalid"
 					ng-click="addCommentInIssue(comment)">
 						Add

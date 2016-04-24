@@ -7,12 +7,12 @@ angular.module('issueTrackingSystemApp.projects.projectServices', [])
 		'BASE_URL',
 		function($http, $q, BASE_URL){
 			
-			function getAllProjects(pageSize){
+			function getAllProjects(pageSize, pageNumber){
 				var defer = $q.defer();
 				var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 				$http.get(BASE_URL + 'projects?pageSize=' + pageSize +
-					'&pageNumber=1&filter=TransitionSchemeId==1' , headers)
+					'&pageNumber=' + pageNumber + '&filter=' , headers)
 					.then(function(success){
 						defer.resolve(success);
 					},

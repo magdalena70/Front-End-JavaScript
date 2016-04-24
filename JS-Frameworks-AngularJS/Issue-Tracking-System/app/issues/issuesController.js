@@ -2,7 +2,7 @@
 
 angular.module('issueTrackingSystemApp.issues', [
 		'issueTrackingSystemApp.issues.issueServices',
-		'issueTrackingSystemApp.admin.adminSettings',
+		'issueTrackingSystemApp.admin.adminServices',
 		'issueTrackingSystemApp.projects.projectServices'
 	])
 	.config(['$routeProvider', function($routeProvider){
@@ -21,9 +21,9 @@ angular.module('issueTrackingSystemApp.issues', [
 		'$routeParams',
 		'$location',
 		'issueServices',
-		'adminSettings',
+		'adminServices',
 		'projectServices',
-		function($scope, $routeParams, $location, issueServices, adminSettings, projectServices){
+		function($scope, $routeParams, $location, issueServices, adminServices, projectServices){
 			
 			function getIssueById(){
 				var issueId = $routeParams.id;
@@ -103,7 +103,7 @@ angular.module('issueTrackingSystemApp.issues', [
 			}
 			
 			$scope.getAllUsersToMakeAssignee = function(){
-				adminSettings.getUsers()
+				adminServices.getUsers()
 					.then(function(usersData){
 						$scope.usersForAssignee =  usersData.data;
 					},

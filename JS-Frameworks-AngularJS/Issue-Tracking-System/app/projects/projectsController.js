@@ -3,7 +3,8 @@
 angular.module('issueTrackingSystemApp.projects', [
 		'issueTrackingSystemApp.projects.projectServices',
 		'issueTrackingSystemApp.issues.issueServices',
-		'issueTrackingSystemApp.admin.adminSettings'
+		'issueTrackingSystemApp.admin.adminServices',
+		'issueTrackingSystemApp.labels.labelServices'
 	])
 	.config(['$routeProvider', function($routeProvider){
 		$routeProvider.when('/projects', {
@@ -33,12 +34,14 @@ angular.module('issueTrackingSystemApp.projects', [
 	}])
 	.controller('ProjectsController', [
 		'$scope',
+		'$rootScope',
 		'$routeParams',
 		'$location',
 		'projectServices',
 		'issueServices',
-		'adminSettings',
-		function($scope, $routeParams, $location, projectServices, issueServices, adminSettings){
+		'labelServices',
+		'adminServices',
+		function($scope, $rootScope, $routeParams, $location, projectServices, issueServices, labelServices, adminServices){
 			
 			function getProjectById(){
 				var projectId = $routeParams.id;
@@ -69,23 +72,18 @@ angular.module('issueTrackingSystemApp.projects', [
 				getProjectById();
 			}
 			
-			//------all projects-----
-			// pagination
-			$scope.curPage = 0;
-			$scope.pageSize = 10;
-			
-			$scope.getProjects = function(){
-				var pageSize = 300;
+			$scope.getAllProjects = function(pageSize, curPage){
+				$scope.pageSize = pageSize;
+				$rootScope.curPage = curPage;
 				
-				projectServices.getAllProjects(pageSize)
+				projectServices.getAllProjects($scope.pageSize, $rootScope.curPage)
 					.then(function(projectsData){
-						//console.log(projectsData);
 						$scope.projects = projectsData.data.Projects;
 						$scope.totalCount = projectsData.data.TotalCount;
 						
 						if($scope.projects.length){
 							$scope.numberOfPages = function(){
-								return Math.ceil($scope.projects.length / $scope.pageSize);
+								return Math.ceil($scope.totalCount / $scope.pageSize);
 							}
 						}
 					},
@@ -93,7 +91,6 @@ angular.module('issueTrackingSystemApp.projects', [
 						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
-			//------------------------
 			
 			$scope.getIssuesByProjectId = function(){
 				var projectId = $routeParams.id;
@@ -128,14 +125,25 @@ angular.module('issueTrackingSystemApp.projects', [
 					});
 			}
 			
+			$scope.getLabelsToAddInProject = function(){
+				var labelFilter = ' ';
+				labelServices.getLabels(labelFilter)
+					.then(function(labelsData){
+						$scope.labels = labelsData.data;
+					},
+					function(error){
+						sessionStorage['errorMsg'] = error.data.Message;
+					});
+			}
+			$scope.getLabelsToAddInProject();
+			
 			$scope.addProject = function(project){
+				console.log(project);
 				project.Priorities = makeToAsociativeArr(project.Priorities, '; ');
-				project.Labels = makeToAsociativeArr(project.Labels, '; ');
 				projectServices.addProject(project)
 					.then(function(projectData){
 						//console.log(projectData);
 						project.Priorities = makeToString(project.Priorities);
-						project.Labels = makeToString(project.Labels);
 						sessionStorage['successMsg'] = 'Added project successfuly';
 						$location.path('/projects/' + projectData.data.Id);
 					},
@@ -168,7 +176,7 @@ angular.module('issueTrackingSystemApp.projects', [
 			
 			// get user to make Leader or Assignee
 			$scope.getAllUsers = function(){
-				adminSettings.getUsers()
+				adminServices.getUsers()
 					.then(function(usersData){
 						$scope.users =  usersData.data;
 						sessionStorage['successMsg'] = 'You got users successfuly. Now select user.';

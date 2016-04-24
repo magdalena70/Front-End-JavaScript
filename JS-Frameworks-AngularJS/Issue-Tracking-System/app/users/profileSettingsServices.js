@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('issueTrackingSystemApp.users.profileSettings', [])
-	.factory('profileSettings', [
+angular.module('issueTrackingSystemApp.users.profileSettingsServices', [])
+	.factory('profileSettingsServices', [
 		'$http',
 		'$q',
 		'BASE_URL',

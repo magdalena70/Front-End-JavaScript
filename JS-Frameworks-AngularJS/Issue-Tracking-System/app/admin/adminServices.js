@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('issueTrackingSystemApp.admin.adminSettings', [])
-	.factory('adminSettings', [
+angular.module('issueTrackingSystemApp.admin.adminServices', [])
+	.factory('adminServices', [
 		'$http',
 		'$q',
 		'BASE_URL',

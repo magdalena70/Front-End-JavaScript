@@ -1,11 +1,12 @@
 <!--projects-->
 <div class="row">
 	<div class="col-md-12">
-		<button class="btn btn-success" ng-click="getProjects()">Get All Projects</button>
 		<h2>All Projects Total Count: <span class="blue">{{totalCount}}</span></h2>
 		<p class="text-center"><a href="#/projects/add">Add New Project</a></p>
+		<button hide-element class="btn btn-success" ng-click="getAllProjects(500, 1)">Search Projects By Filter</button>
+		<button ng-if="!projects.length||projects.length>3" class="btn btn-success" ng-click="getAllProjects(3, 1)" ng-model="allProjects">Get All Projects</button>
 		<!--projects filters-->
-		<div id="projects-filters" ng-show="projects.length">
+		<div id="projects-filters" ng-show="projects.length>10">
 			<div class="col-md-3">
 				<div class="form-group">
 					<label for="search-user">Search project by Project Name:</label>
@@ -49,7 +50,7 @@
 		</div>
 		<!--end projects filters-->
 		<!-- all projects view selected by filters withouth pagination-->
-		<div ng-show="projects.length&&project.Name||project.Lead.Username||project.Labels.Name||project.Priorities.Name">
+		<div ng-show="projects.length>10&&project.Name||project.Lead.Username||project.Labels.Name||project.Priorities.Name">
 			<table class="table table-hover table-bordered">
 				<thead>
 					  <tr>
@@ -70,6 +71,7 @@
 							<td width="28%">{{project.Description}}</td>
 							<td width="20%"><a href="#/admin/users/{{project.Lead.Username}}/info">{{project.Lead.Username}}</a></td>
 							<td width="15%">
+								<p>Count: {{project.Labels.length}}</p>
 								<div class="inner-addon left-addon">
 									<i class="fa fa-tags" aria-hidden="true"></i>
 									<select class="style-select">
@@ -79,6 +81,7 @@
 								</div>
 							</td>
 							<td width="15%">
+								<p>Count: {{project.Priorities.length}}</p>
 								<div class="inner-addon left-addon">
 									<i class="fa fa-exclamation-circle" aria-hidden="true"></i>
 									<select class="style-select">
@@ -99,16 +102,16 @@
 			<div class="col-md-12">
 				<div class="col-md-2 col-md-offset-5 text-center" id="projectsPagination">
 					<div>
-						<button ng-disabled="curPage == 0" ng-click="curPage=curPage-1">
-							<i class="fa fa-angle-double-left" aria-hidden="true"></i>
+						<button ng-show="curPage > 1" ng-click="getAllProjects(3, curPage-1)">
+							<i class="fa fa-angle-double-left" aria-hidden="true"></i> Prev
 						</button>
 					</div>
 					<div>
-						<span>Page {{curPage+1}} of {{ numberOfPages() }}</span>
+						<span>Page {{curPage}} of {{ numberOfPages() }}</span>
 					</div>
 					<div>
-						<button ng-disabled="curPage >= projects.length/pageSize - 1" ng-click="curPage = curPage + 1">
-							<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+						<button ng-show="curPage < numberOfPages()" ng-click="getAllProjects(3, curPage+1)">
+							Next <i class="fa fa-angle-double-right" aria-hidden="true"></i>
 						</button>
 					</div>
 				</div>
@@ -126,12 +129,13 @@
 					 </tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="project in projects | pagination: curPage * pageSize | limitTo: pageSize | orderBy: 'Name'">
+					<tr ng-repeat="project in projects | orderBy: 'Name'">
 						<td width="7%"><a href="#/projects/{{project.Id}}" class="red"><i class="fa fa-info-circle" aria-hidden="true"></i></a></td>
 						<td width="15%"><a href="#/projects/{{project.Id}}">{{project.Name}}</a></td>
 						<td width="28%">{{project.Description}}</td>
 						<td width="20%"><a href="#/admin/users/{{project.Lead.Username}}/info">{{project.Lead.Username}}</a></td>
 						<td width="15%">
+							<p>Count: {{project.Labels.length}}</p>
 							<div class="inner-addon left-addon">
 								<i class="fa fa-tags" aria-hidden="true"></i>
 								<select class="style-select">
@@ -141,6 +145,7 @@
 							</div>
 						</td>
 						<td width="15%">
+							<p>Count: {{project.Priorities.length}}</p>
 							<div class="inner-addon left-addon">
 								<i class="fa fa-exclamation-circle" aria-hidden="true"></i>
 								<select class="style-select">

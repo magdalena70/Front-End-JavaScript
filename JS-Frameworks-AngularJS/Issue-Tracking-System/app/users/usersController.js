@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('issueTrackingSystemApp.users', [
-		'issueTrackingSystemApp.users.profileSettings'
+		'issueTrackingSystemApp.users.profileSettingsServices'
 	])
 	.config(['$routeProvider', function($routeProvider){
 		$routeProvider.when('/profile', {
@@ -17,11 +17,11 @@ angular.module('issueTrackingSystemApp.users', [
 	.controller('UsersController', [
 		'$scope',
 		'$location',
-		'profileSettings',
-		function($scope, $location, profileSettings){
+		'profileSettingsServices',
+		function($scope, $location, profileSettingsServices){
 			
 			$scope.changePassword = function(user){
-				profileSettings.changePassword(user)
+				profileSettingsServices.changePassword(user)
 					.then(function(success){
 						sessionStorage['successMsg'] = 'Changed password successfuly';
 						$location.path('/');
@@ -33,7 +33,7 @@ angular.module('issueTrackingSystemApp.users', [
 			
 			$scope.editProfile = function(user){
 				console.log(user);
-				profileSettings.editProfile(user)
+				profileSettingsServices.editProfile(user)
 					.then(function(success){
 						//console.log(success);
 						sessionStorage['successMsg'] = 'Edited profile successfuly';

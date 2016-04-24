@@ -129,24 +129,19 @@
 					</span>
 				</div>
 			</div>
+			<!--Labels-->
 			<div class="form-group">
-				<label for="labels">Labels</label>
-				<p>Add labels separated by a dot-comma and an white-space:</p>
-				<p class="red">[label1; label2; ...]</p>
-				<input type="text" ng-model="project.Labels" 
-					id="labels"
-					name="labels"
-					ng-minlength="3"
-					ng-maxlength="100"
-					placeholder="[Min-length: 3] [Max-length: 100]"
-					class="form-control"/>
-				<div role="alert">
-					<span class="red" ng-show="addProjectForm.labels.$error.minlength">
-						<small>[Min-length: 3 simbols]</small>
-					</span>
-					<span class="error" ng-show="addProjectForm.labels.$error.maxlength">
-						<small>[Max-length: 100 simbols]</small>
-					</span>
+				<h3>Labels</h3>
+				<label for="addLabels">Select Labels</label>
+				<p>You can select more than one label by holding key [Ctrl] and mark the selected labels</p>
+				<div class="inner-addon left-addon">
+					<i class="fa fa-tags" aria-hidden="true"></i>
+					<select multiple ng-model="project.Labels" 
+						ng-options="label as label.Name for label in labels | orderBy: 'Name'"
+						name="addLabels"
+						id="addLabels"
+						class="form-control"></select>
+					<p class="red">{{project.Labels | json}}</p>
 				</div>
 			</div>
 			<button type="submit" class="btn btn-success" 
