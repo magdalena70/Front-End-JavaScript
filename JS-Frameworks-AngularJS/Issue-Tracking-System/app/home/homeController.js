@@ -49,7 +49,7 @@ angular.module('issueTrackingSystemApp.home', [
 					});
 			}
 			
-			//get isAdmin
+			//get isAdmin for current user
 			$scope.getUserInfo = function(){
 				authenticationServices.getUserInfo()
 					.then(function(userData){

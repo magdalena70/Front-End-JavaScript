@@ -72,10 +72,14 @@
 				<p>Search user by Username:</p>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-search" aria-hidden="true"></i>
-					<select ng-model="project.LeadId" id="newLeader" name="newLeadId" required="required" class="form-control">
-						<option  ng-repeat="user in users | orderBy: 'Username' | filter: user.Username"
-							value="{{user.Id}}">{{user.Username}}
-						</option>
+					<select ng-model="project.LeadId" 
+						id="newLeader" 
+						name="newLeadId" 
+						required="required" 
+						class="form-control">
+							<option  ng-repeat="user in users | orderBy: 'Username' | filter: user.Username"
+								value="{{user.Id}}">{{user.Username}}
+							</option>
 					</select>
 				</div>
 				<p class="red" ng-show="addProjectForm.newLeadId.$error.required">
@@ -144,6 +148,7 @@
 					<p class="red">{{project.Labels | json}}</p>
 				</div>
 			</div>
+			<!--end labels-->
 			<button type="submit" class="btn btn-success" 
 				ng-disabled="addProjectForm.$invalid" 
 				ng-click="addProject(project)">

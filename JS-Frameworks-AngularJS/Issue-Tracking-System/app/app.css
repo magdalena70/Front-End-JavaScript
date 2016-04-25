@@ -77,13 +77,13 @@ a{
 
 .successMsg, .errorMsg {
     position: fixed;
-    width: 70%;
-    left: 15%;
+    width: 78%;
+    left: 11%;
     top: 20%;
 	padding: 5px;
 	border-radius: 8px;
 	box-shadow: 4px 9px 10px #333;
-	font-size: 22px;
+	font-size: 20px;
 	font-weight: bold;
 	color: #000;
 	text-align: center;
@@ -95,7 +95,7 @@ a{
 	border-radius: 5px;
 	margin: 3px;
 	color: #000;
-	font-size: 20px;
+	font-size: 18px;
 }
 
 #successMsgBtn:hover, #errorMsgBtn:hover{
@@ -119,19 +119,28 @@ a{
 	border-bottom: dashed 1px #333;
 }
 
-#projectsPagination, #projectsPagination  button{
+#projectsPagination, #projectsPagination  button,
+#myProjectsPagination, #myProjectsPagination button,
+#adminsPagination, #adminsPagination button,
+#usersPagination, #usersPagination button{
 	font-size: 18px;
 	font-weight: bold;
 	text-shadow: 1px 3px 6px #333;
 }
 
-#projectsPagination button{
+#projectsPagination button,
+#myProjectsPagination button,
+#adminsPagination button,
+#usersPagination button{
 	border: none;
 	border-radius: 4px;
 	box-shadow: 2px 3px 10px #333;
 }
 
-#projectsPagination button:hover{
+#projectsPagination button:hover,
+#myProjectsPagination button:hover,
+#adminsPagination button:hover,
+#usersPagination button:hover{
 	background-color: #333;
 	color: #fff;
 }

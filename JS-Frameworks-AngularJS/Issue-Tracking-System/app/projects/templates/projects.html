@@ -1,10 +1,23 @@
+<!--error message-->
+<div class="row text-center" ng-if="!isAdmin()" ng-include="'app/common/partial/admin-warning-msg.html'"></div>
+<!--end error message-->
 <!--projects-->
-<div class="row">
+<div class="row" ng-if="isAdmin()">
 	<div class="col-md-12">
 		<h2>All Projects Total Count: <span class="blue">{{totalCount}}</span></h2>
 		<p class="text-center"><a href="#/projects/add">Add New Project</a></p>
-		<button hide-element class="btn btn-success" ng-click="getAllProjects(500, 1)">Search Projects By Filter</button>
-		<button ng-if="!projects.length||projects.length>3" class="btn btn-success" ng-click="getAllProjects(3, 1)" ng-model="allProjects">Get All Projects</button>
+		<!--using custom directive 'hideElement'-->
+		<button hide-element 
+			class="btn btn-success" 
+			ng-click="getAllProjects(500, 1)">
+				Search Projects By Filter
+		</button>
+		<button ng-if="!projects.length||projects.length>3" 
+			class="btn btn-success" 
+			ng-click="getAllProjects(3, 1)" 
+			ng-model="allProjects">
+				Get All Projects
+		</button>
 		<!--projects filters-->
 		<div id="projects-filters" ng-show="projects.length>10">
 			<div class="col-md-3">

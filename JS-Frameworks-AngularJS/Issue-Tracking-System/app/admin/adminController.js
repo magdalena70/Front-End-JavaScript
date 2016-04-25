@@ -30,14 +30,35 @@ angular.module('issueTrackingSystemApp.admin', [
 		'issueServices',
 		function($scope, $location, $routeParams, adminServices, projectServices, issueServices){
 			
+			$scope.getUserToMakeAdmin = function(filterUsername){
+				adminServices.getUserToMakeAdmin(filterUsername)
+					.then(function(userData){
+						console.log(userData);
+						if(userData.data.length == 1){
+							$scope.userToMakeAdmin = userData.data[0];
+							if($scope.userToMakeAdmin.isAdmin===true){
+								sessionStorage['errorMsg'] = 'Selected user is an Admin!'
+							}else{
+								sessionStorage['successMsg'] = 'Selected user: ' + JSON.stringify($scope.userToMakeAdmin);
+							}
+						}else{
+							sessionStorage['errorMsg'] = 'No user with username: ' + filterUsername;
+						}
+					},
+					function(error){
+						sessionStorage['errorMsg'] = error.data.Message;
+					});
+			}
+			
 			// pagination
 			$scope.curPage = 0;
 			$scope.pageSize = 10;
+			
 			$scope.getAllUsers = function(){
 				adminServices.getUsers()
 					.then(function(usersData){
 						$scope.users = usersData.data;
-						$scope.usersCount = usersData.data.length;
+						$scope.usersCount = usersData.data.length? usersData.data.length: 'No Users';
 						
 						if($scope.users.length){
 							$scope.numberOfPages = function(){

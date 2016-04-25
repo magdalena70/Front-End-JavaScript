@@ -53,7 +53,6 @@ angular.module('issueTrackingSystemApp.projects', [
 						var editedProject = projectData.data;
 						editedProject.AvailablePriorities = JSON.stringify(editedProject.Priorities);
 						editedProject.Priorities = makeToString(editedProject.Priorities);
-						editedProject.Labels = makeToString(editedProject.Labels);
 						
 						if(editedProject.Lead.Id === sessionStorage['userId']){
 							$scope.isLeader = true;
@@ -110,12 +109,9 @@ angular.module('issueTrackingSystemApp.projects', [
 			}
 			
 			$scope.addIssueInCurrentProject = function(newIssue){
-				newIssue.Labels = makeToAsociativeArr(newIssue.Labels, '; ');
 				newIssue.ProjectId = $routeParams.id;
-				//console.log(newIssue);
 				issueServices.addIssue(newIssue)
 					.then(function(issueData){
-						//console.log(issueData.data);
 						$scope.issue = issueData.data;
 						sessionStorage['successMsg'] = 'Added issue successfuly';
 						$location.path('/issues/' + $scope.issue.Id);
@@ -138,11 +134,9 @@ angular.module('issueTrackingSystemApp.projects', [
 			$scope.getLabelsToAddInProject();
 			
 			$scope.addProject = function(project){
-				console.log(project);
 				project.Priorities = makeToAsociativeArr(project.Priorities, '; ');
 				projectServices.addProject(project)
 					.then(function(projectData){
-						//console.log(projectData);
 						project.Priorities = makeToString(project.Priorities);
 						sessionStorage['successMsg'] = 'Added project successfuly';
 						$location.path('/projects/' + projectData.data.Id);
@@ -156,16 +150,15 @@ angular.module('issueTrackingSystemApp.projects', [
 				var projectId = $routeParams.id;
 				
 				editedProject.Priorities = makeToAsociativeArr(editedProject.Priorities, '; ');
-				editedProject.Labels = makeToAsociativeArr(editedProject.Labels, '; ');
+				editedProject.Labels = editedProject.Labels.selectedLabels;
 				if(!editedProject.LeadId){
 					editedProject.LeadId = editedProject.Lead.Id;
 				}
-				//console.log(editedProject);
+				console.log(editedProject);
 				projectServices.editProject(editedProject, projectId)
 					.then(function(projectData){
 						//console.log(projectData);
-						editedProject.Priorities = makeToString(editedProject.Priorities);
-						editedProject.Labels = makeToString(editedProject.Labels);
+						//editedProject.Priorities = makeToString(editedProject.Priorities);
 						sessionStorage['successMsg'] = 'Edited project successfuly';
 						$location.path('/projects/' + $routeParams.id);
 					},

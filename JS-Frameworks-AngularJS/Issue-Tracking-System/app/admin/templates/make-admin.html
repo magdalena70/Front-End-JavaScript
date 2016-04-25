@@ -1,48 +1,61 @@
-<!--make admin page-->
 <!--error message-->
 <div class="row text-center" ng-if="!isAdmin()" ng-include="'app/common/partial/admin-warning-msg.html'"></div>
 <!--end error message-->
+<!--make admin page-->
 <div class="row" ng-if="isAdmin()">
-	<div class="col-md-6 col-md-offset-1">
+	<div class="col-md-8 col-md-offset-2">
 		<h2>Make Admin</h2>
 		<form name="makeAdminForm">
 			<div class="form-group">
-				<label for="searchUser">Search user by filter: "Username"<span class="red">*</span>:</label>
+				<label for="searchUserToMakeAdmin">Search user by filter: "Username"<span class="red">*</span>:</label>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-search" aria-hidden="true"></i>
-					<input type="text" ng-model="user.Username" id="searchUser" name="searchUser" required="required" class="form-control">
+					<input type="email" ng-model="user.Username" 
+						ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i"
+						id="searchUserToMakeAdmin" 
+						name="searchUserToMakeAdmin"
+						required="required"
+						class="form-control">
 				</div>
-				<p class="red" ng-show="makeAdminForm.searchUser.$error.required">
-					<small><i class="fa fa-exclamation-triangle"></i> Filter by "Username" is required</small>
+				<p class="red" ng-show="makeAdminForm.searchUserToMakeAdmin.$error.required">
+					<small><i class="fa fa-exclamation-triangle"></i>Search By Username is required!</small>
+				</p>
+				<p class="red" ng-show="makeAdminForm.searchUserToMakeAdmin!=false &&
+					makeAdminForm.searchUserToMakeAdmin.$invalid &&
+					makeAdminForm.searchUserToMakeAdmin.$dirty">
+						<small>Invalid Username</small>
 				</p>
 			</div>
 			<div class="col-md-12">
-				<button class="btn btn-success" ng-disabled="makeAdminForm.searchUser.$invalid" ng-click="getAllUsers()">Get Users By Filter</button>
+				<button class="btn btn-success" 
+					ng-disabled="makeAdminForm.searchUserToMakeAdmin.$invalid" 
+					ng-click="getUserToMakeAdmin(user.Username)">
+						Get User By Filter
+				</button>
 			</div>
 			<div class="form-group">
-				<label for="user-id">Select User<span class="red">*</span></label>
+				<label for="userToMakeAdmin">Select User To make admin<span class="red">*</span></label>
 				<div class="inner-addon left-addon">
-					<i class="fa fa-users" aria-hidden="true"></i>
-					<select ng-model="user.userId" id="userId" required="required" class="form-control">
-						<option ng-repeat="user in users | orderBy: 'Username' | filter: 'isAdmin'==false | filter: user.Username"  value="{{user.Id}}">
-							{{user.Username}} - isAdmin: {{user.isAdmin}}
-						</option>
+					<i class="fa fa-user" aria-hidden="true"></i>
+					<select ng-model="userToMakeAdmin.userId" 
+						id="userToMakeAdmin" 
+						name="userToMakeAdmin" 
+						class="form-control">
+							<option value="{{userToMakeAdmin.Id}}" selected="selected">
+								{{userToMakeAdmin.Username}}
+							</option>
 					</select>
 				</div>
+				<p class="red" ng-show="!userToMakeAdmin || userToMakeAdmin.isAdmin===true">
+					<small><i class="fa fa-exclamation-triangle"></i>You must select a user who is not an Аdmin!</small>
+				</p>
 			</div>
 			<button type="submit" class="btn btn-success" 
-				ng-disabled="makeAdminForm.$invalid" 
-				ng-click="makeAdmin(user)">
+				ng-disabled="!userToMakeAdmin || userToMakeAdmin.isAdmin===true" 
+				ng-click="makeAdmin(userToMakeAdmin)">
 					Make Admin
 			</button>
 		</form>
 	</div>
-	<div class="col-md-4 col-md-offset-1">
-		<h2>All Admins</h2>
-		<ul class="list-unstyled">
-			<li ng-repeat="admin in users | orderBy: 'Username' | filter: 'isAdmin'!=false">
-				<strong>{{admin.Username}}</strong><em> - isAdmin: {{admin.isAdmin}}</em>
-			</li>
-		</ul>
-	</div>
+	<!--end make admin-->
 </div>

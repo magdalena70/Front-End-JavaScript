@@ -24,20 +24,18 @@
 			<div class="col-md-8 text-center" ng-show="myProjects.length&&!project.Name">
 				<!--Pagination div-->
 				<div class="col-md-12">
-					<div class="col-md-4 col-md-offset-4 text-center" id="projectsPagination">
-						<div>
+					<div class="text-center" id="myProjectsPagination">
+						<span>
 							<button ng-disabled="curPage == 0" ng-click="curPage=curPage-1">
 								<i class="fa fa-angle-double-left" aria-hidden="true"></i>
 							</button>
-						</div>
-						<div>
-							<span>Page {{curPage+1}} of {{ numberOfPages() }}</span>
-						</div>
-						<div>
-							<button ng-disabled="curPage >= myProjects.length/pageSize - 1" ng-click="curPage = curPage + 1">
+						</span>
+						<span>Page {{curPage+1}} of {{ numberOfPages() }}</span>
+						<span>
+							<button ng-disabled="curPage >= myProjects.length/pageSize-1" ng-click="curPage = curPage + 1">
 								<i class="fa fa-angle-double-right" aria-hidden="true"></i>
 							</button>
-						</div>
+						</span>
 					</div>
 				</div>
 				<!--end pagination-->

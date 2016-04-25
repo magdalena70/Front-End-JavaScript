@@ -64,7 +64,7 @@
 			</div>
 			<div class="form-group">
 				<label for="priority">Priority<span class="red">*</span></label>
-				<p>Available Priorities: {{issue.AvailablePriorities}}</p>
+				<p class="red">Available Priorities: {{issue.AvailablePriorities}}</p>
 				<p>To change Priority enter priority's Id from Available Priorities</p>
 				<input type="text" ng-model="issue.PriorityId" 
 					id="priority" 
@@ -78,7 +78,7 @@
 			<!--get users to make Assignee-->
 			<div class="form-group">
 				<h3>Change Assignee:</h3>
-				<p>Curent Assignee  is: <strong>{{issue.Assignee.Username}}</strong></p>
+				<p class="red">Curent Assignee  is: <strong>{{issue.Assignee.Username}}</strong></p>
 				<label for="searchToChangeAssignee">Search user by filter: "Username"<span class="red">*</span>:</label>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-search" aria-hidden="true"></i>
@@ -104,22 +104,22 @@
 				</div>
 			</div>
 			<!--end-->
+			<!--Labels-->
 			<div class="form-group">
-				<label for="issueLabels">Labels</label>
-				<p>Add labels separated by a dot-comma and an white-space:</p>
-				<p class="red">[label1; label2; ...]</p>
-				<input type="text" ng-model="issue.Labels" 
-					id="issueLabels"
-					name="issueLabels"					
-					ng-minlength="3"
-					placeholder="[Min-length: 3]"
-					class="form-control"/>
-				<div role="alert">
-					<span class="red" ng-show="editIssueForm.issueLabels.$error.minlength">
-						<small>[Min-length: 3 simbols]</small>
-					</span>
+				<h3>Labels</h3>
+				<label for="editedIssueLabels">Select Labels</label>
+				<p>You can select more than one label by holding key [Ctrl] and mark the selected labels</p>
+				<div class="inner-addon left-addon">
+					<i class="fa fa-tags" aria-hidden="true"></i>
+					<select multiple ng-model="issue.Labels" 
+						ng-options="label as label.Name for label in labels | orderBy: 'Name'"
+						name="editedIssueLabels"
+						id="editedIssueLabels"
+						class="form-control"></select>
+					<p class="red">{{issue.Labels | json}}</p>
 				</div>
 			</div>
+			<!--end labels-->
 			<button type="submit" class="btn btn-success" 
 				ng-disabled="editIssueForm.$invalid" 
 				ng-click="editIssue(issue)">

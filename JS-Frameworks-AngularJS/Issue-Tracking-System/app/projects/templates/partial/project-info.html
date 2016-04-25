@@ -1,7 +1,7 @@
 <!--project info-->
 <div class="text-center">
 	<p ng-if="isAdmin()||isLeader"><a href="#/projects/{{project.Id}}/add-issue"><strong>Add New Issue In This Project </strong></a></p>
-	<p ng-if="isAdmin()"><a href="#/projects/{{project.Id}}/edit"><strong> Edit Project</strong></a></p>
+	<p ng-if="isAdmin()||isLeader"><a href="#/projects/{{project.Id}}/edit"><strong> Edit Project</strong></a></p>
 </div>
 <ul id="project-info">
 	<li><strong>Id:</strong> <em>{{project.Id}}</em></li>
@@ -18,6 +18,6 @@
 		</ul>
 	</li>
 	<li><strong>Transition Scheme Id:</strong> <em>{{project.TransitionSchemeId}}</em></li>
-	<li><strong>Labels:</strong> <em>{{project.Labels}}</em></li>
+	<li><strong>Labels:</strong> <em>{{project.Labels | json}}</em></li>
 	<li><strong>Priorities:</strong> <em>{{project.Priorities}}</em></li>
 </ul>

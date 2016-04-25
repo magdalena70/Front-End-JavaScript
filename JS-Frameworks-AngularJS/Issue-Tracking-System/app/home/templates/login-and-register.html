@@ -2,14 +2,20 @@
 		<h2>Register</h2>
 		<form name="registerUserForm">
 			<div class="form-group">
-				<label for="register-email">Email<span class="red">*</span></label>
+				<label for="registerEmail">Email<span class="red">*</span></label>
 				<input type="email" ng-model="registerUser.email" 
-					id="register-email" 
-					name="email"
+					ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i"
+					id="registerEmail" 
+					name="registerEmail"
 					required="required" 
 					class="form-control"/>
-				<p class="red" ng-show="registerUserForm.email.$error.required">
+				<p class="red" ng-show="registerUserForm.registerEmail.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i>Email is required!</small>
+				</p>
+				<p class="red" ng-show="loginUserForm.registerEmail!=false &&
+					loginUserForm.registerEmail.$invalid &&
+					loginUserForm.registerEmail.$dirty">
+						<small>Invalid Email</small>
 				</p>
 			</div>
 			<div class="form-group">
@@ -68,13 +74,19 @@
 		<form name="loginUserForm">
 			<div class="form-group">
 				<label for="login-email">Email<span class="red">*</span></label>
-				<input type="email" ng-model="loginUser.username" 
+				<input type="email" ng-model="loginUser.username"
+					ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i"
 					id="login-email" 
 					name="loginEmail"
 					required="required" 
 					class="form-control"/>
 				<p class="red" ng-show="loginUserForm.loginEmail.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i>Email is required!</small>
+				</p>
+				<p class="red" ng-show="loginUserForm.loginEmail!=false &&
+					loginUserForm.loginEmail.$invalid &&
+					loginUserForm.loginEmail.$dirty">
+						<small>Invalid Email</small>
 				</p>
 			</div>
 			<div class="form-group">

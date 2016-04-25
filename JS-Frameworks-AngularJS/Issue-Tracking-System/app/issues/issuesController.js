@@ -2,6 +2,7 @@
 
 angular.module('issueTrackingSystemApp.issues', [
 		'issueTrackingSystemApp.issues.issueServices',
+		'issueTrackingSystemApp.labels.labelServices',
 		'issueTrackingSystemApp.admin.adminServices',
 		'issueTrackingSystemApp.projects.projectServices'
 	])
@@ -21,9 +22,10 @@ angular.module('issueTrackingSystemApp.issues', [
 		'$routeParams',
 		'$location',
 		'issueServices',
+		'labelServices',
 		'adminServices',
 		'projectServices',
-		function($scope, $routeParams, $location, issueServices, adminServices, projectServices){
+		function($scope, $routeParams, $location, issueServices, labelServices, adminServices, projectServices){
 			
 			function getIssueById(){
 				var issueId = $routeParams.id;
@@ -34,7 +36,6 @@ angular.module('issueTrackingSystemApp.issues', [
 						$scope.issue.DueDate = new Date($scope.issue.DueDate);
 						$scope.issue.PriorityId = $scope.issue.Priority.Id;
 						$scope.issue.AvailablePriorities = sessionStorage['availablePriorities'];
-						$scope.issue.Labels = makeToString($scope.issue.Labels);
 						if($scope.issue.Assignee.Id === sessionStorage['userId']){
 							$scope.isAssignee = true;
 						}else{
@@ -56,6 +57,19 @@ angular.module('issueTrackingSystemApp.issues', [
 			if(Number($routeParams.id)){
 				getIssueById();
 			}
+			
+			// using for addIssue and editIssue
+			function getLabelsToAddInIssue(){
+				var labelFilter = ' ';
+				labelServices.getLabels(labelFilter)
+					.then(function(labelsData){
+						$scope.labels = labelsData.data;
+					},
+					function(error){
+						sessionStorage['errorMsg'] = error.data.Message;
+					});
+			}
+			getLabelsToAddInIssue();
 			
 			$scope.getIssueComments = function(){
 				var issueId = $routeParams.id;
@@ -114,14 +128,12 @@ angular.module('issueTrackingSystemApp.issues', [
 			
 			$scope.editIssue = function(issue){
 				var issueId = $routeParams.id;
-				issue.Labels = makeToAsociativeArr(issue.Labels, '; ');
 				if(!issue.AssigneeId){
 					issue.AssigneeId = issue.Assignee.Id;
 				}
 				
 				issueServices.editIssue(issueId, issue)
 					.then(function(issueData){
-						//console.log(issueData);
 						sessionStorage['successMsg'] = 'Edited issue successfuly';
 						$location.path('/issues/' + issueId);
 					},
