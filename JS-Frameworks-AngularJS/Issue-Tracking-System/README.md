@@ -13,7 +13,7 @@ Public:
 - Login and Register User Screen: Route: '#/'
 
 Authorized users only ( else redirect the user to the Login and Register screen ):
-- User Dashboard: Route: '#/'
+- User Dashboard ( includes the user’s assigned issues and all the projects that user has an assigned issue or he is a project's leader): Route: '#/'
 - Project's Details Page ( includes project's all issues for admin only and assigned issues for user ): Route: '#/projects/:id'
 - Edit Project Page ( project's leader and admin only; project's leader can not change the leader ): Route: '#/projects/:id/edit'
 - Add Issue in Current Project Page ( project’s leader and admin only ): Route: '#/projects/:id/add-issue'
@@ -26,10 +26,10 @@ Authorized users only ( else redirect the user to the Login and Register screen 
 
 Administrator only:
 - Administrator Dashboard ( includes add new project link ): Route: '#/'
-- All Projects Page: Route: '#/projects'
+- All Projects Page ( includes project's details link and leader info link ): Route: '#/projects'
 - Add Project Page: Route: '#/projects/add'
 - Edit Project Page ( only admin can  change the leader ): Route: '#/projects/:id/edit'
 - Make Admin Page: Route: '#/admin/makeAdmin'
-- All Users Page: Route: '#/admin/users/all'
+- All Users Page ( includes user info link ): Route: '#/admin/users/all'
 - User Info Page ( includes user's projects and user's issues ): Route: '#/admin/users/:username/info'
 
