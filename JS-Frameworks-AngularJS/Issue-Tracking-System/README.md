@@ -12,7 +12,7 @@
 
 <h3>Public:</h3>
 - Public nav-bar
-- Login and Register User Screen: Route: '#/'
+- Login and Register User Screen: Route: <strong>'#/'</strong>
 
 <h3>Authorized users only ( else redirect the user to the Login and Register screen ):</h3>
 - Normal User nav-bar
