@@ -1,19 +1,20 @@
-<h1>Issue Tracking System – AngularJS Practical Project</h1>
+<h1>Issue Tracking System</h1>
+<p>AngularJS Practical Project</p>
 
-1.Issue Tracker REST Services:
+<h2>1.Issue Tracker REST Services:</h2>
 - Services base URL (in the Windows Azure cloud): http://softuni-issue-tracker.azurewebsites.net
 - Services help page (online documentation): http://softuni-issue-tracker.azurewebsites.net/help 
 
-2.Web Design: Bootstrap<br/>
-3.SPA Application: AngularJS
+<h2>2.Web Design: Bootstrap</h2>
+<h2>3.SPA Application: AngularJS</h2>
 
-4.Project Screens:
+<h2>4.Project Screens:</h2>
 
-Public:
+<h3>Public:</h3>
 - Public nav-bar
 - Login and Register User Screen: Route: '#/'
 
-Authorized users only ( else redirect the user to the Login and Register screen ):
+<h3>Authorized users only ( else redirect the user to the Login and Register screen ):</h3>
 - Normal User nav-bar
 - User Dashboard ( includes the user’s assigned issues and all the projects that user has an assigned issue or he is a project's leader): Route: '#/'
 - Project's Details Page ( includes project's all issues for admin only and assigned issues for user ): Route: '#/projects/:id'
@@ -26,7 +27,7 @@ Authorized users only ( else redirect the user to the Login and Register screen 
 - Change My Password Page: Route: '#/profile/password'
 - Logout: Route: '#/logout'
 
-Administrator only:
+<h3>Administrator only:</h3>
 - Admin nav-bar
 - Administrator Dashboard ( same as normal user and includes add new project link ): Route: '#/'
 - All Projects Page ( includes project's details link and leader info link ): Route: '#/projects'
