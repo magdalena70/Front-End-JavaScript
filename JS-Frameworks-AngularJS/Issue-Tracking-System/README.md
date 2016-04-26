@@ -4,7 +4,7 @@ Issue Tracking System – AngularJS Practical Project
 - Services base URL (in the Windows Azure cloud): http://softuni-issue-tracker.azurewebsites.net
 - Services help page (online documentation): http://softuni-issue-tracker.azurewebsites.net/help 
 
-2.Web Design: Bootstrap
+2.Web Design: Bootstrap<br/>
 3.SPA Application: AngularJS
 
 4.Project Screens:
