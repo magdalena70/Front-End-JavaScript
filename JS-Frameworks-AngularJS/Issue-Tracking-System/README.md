@@ -10,9 +10,11 @@ Issue Tracking System – AngularJS Practical Project
 4.Project Screens:
 
 Public:
+- Public nav-bar
 - Login and Register User Screen: Route: '#/'
 
 Authorized users only ( else redirect the user to the Login and Register screen ):
+- Normal User nav-bar
 - User Dashboard ( includes the user’s assigned issues and all the projects that user has an assigned issue or he is a project's leader): Route: '#/'
 - Project's Details Page ( includes project's all issues for admin only and assigned issues for user ): Route: '#/projects/:id'
 - Edit Project Page ( project's leader and admin only; project's leader can not change the leader ): Route: '#/projects/:id/edit'
@@ -25,7 +27,8 @@ Authorized users only ( else redirect the user to the Login and Register screen 
 - Logout: Route: '#/logout'
 
 Administrator only:
-- Administrator Dashboard ( includes add new project link ): Route: '#/'
+- Admin nav-bar
+- Administrator Dashboard ( same as normal user and includes add new project link ): Route: '#/'
 - All Projects Page ( includes project's details link and leader info link ): Route: '#/projects'
 - Add Project Page: Route: '#/projects/add'
 - Edit Project Page ( only admin can  change the leader ): Route: '#/projects/:id/edit'
