@@ -1,4 +1,4 @@
-Issue Tracking System – AngularJS Practical Project
+<h1>Issue Tracking System – AngularJS Practical Project</h1>
 
 1.Issue Tracker REST Services:
 - Services base URL (in the Windows Azure cloud): http://softuni-issue-tracker.azurewebsites.net
