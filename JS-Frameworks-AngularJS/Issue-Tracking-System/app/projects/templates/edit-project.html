@@ -8,7 +8,7 @@
 	<div class="col-md-6 col-md-offset-3">
 		<h2>Edit Project</h2>
 		<form name="editProjectForm">
-			<div ng-if="isAdmin()" class="form-group">
+			<div class="form-group">
 				<label for="editedProjectName">Project Name<span class="red">*</span></label>
 				<input type="text" ng-model="editedProject.Name" 
 					id="editedProjectName" 
@@ -31,6 +31,7 @@
 				</div>
 			</div>
 			<!--get users to make a Leader-->
+			<div ng-if="isAdmin()">
 			<div class="form-group">
 				<h3>Change Leader:</h3>
 				<p class="red">Curent leader is: <strong>{{project.Lead.Username}}</strong></p>
@@ -59,8 +60,9 @@
 					</select>
 				</div>
 			</div>
+			</div>
 			<!--end-->
-			<div ng-if="isAdmin()" class="form-group">
+			<div class="form-group">
 				<label for="editedDescription">Description<span class="red">*</span></label>
 				<textarea type="text" ng-model="editedProject.Description" rows="5"
 					id="description"
@@ -82,7 +84,7 @@
 					</span>
 				</div>
 			</div>
-			<div ng-if="isAdmin()" class="form-group">
+			<div class="form-group">
 				<label for="editedPriorities">Priorities <span class="red">*</span></label>
 				<p>Add new priorities separated by a dot-comma and an white-space:</p>
 				<p class="red">[priority1; priority2; ...]</p>
@@ -107,7 +109,7 @@
 				</div>
 			</div>
 			<!--Labels-->
-			<div ng-if="isAdmin()" class="form-group">
+			<div class="form-group">
 				<h3>Labels</h3>
 				<p class="red">Current Labels: {{editedProject.Labels | json}}</p>
 				<label for="editLabels">Select From Existing Labels</label>
