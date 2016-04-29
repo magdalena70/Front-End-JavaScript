@@ -4,7 +4,7 @@
         <a ng-if="!isAuthenticated()" href="#/" class="navbar-brand">Issue Tracking System</a>
 		<a ng-if="isAuthenticated()" href="#/profile" class="navbar-brand">
 			<i class="fa fa-user" aria-hidden="true"></i>
-			<span class="red" ng-if="getCurrentUserUsername()">{{username}}</span>
+			<span class="important" ng-if="getCurrentUserUsername()">{{username}}</span>
 		</a>
         <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>

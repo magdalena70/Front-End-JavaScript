@@ -2,24 +2,24 @@
 		<h2>Register</h2>
 		<form name="registerUserForm">
 			<div class="form-group">
-				<label for="registerEmail">Email<span class="red">*</span></label>
+				<label for="registerEmail">Email<span class="important">*</span></label>
 				<input type="email" ng-model="registerUser.email" 
 					ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i"
 					id="registerEmail" 
 					name="registerEmail"
 					required="required" 
 					class="form-control"/>
-				<p class="red" ng-show="registerUserForm.registerEmail.$error.required">
+				<p class="important" ng-show="registerUserForm.registerEmail.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i>Email is required!</small>
 				</p>
-				<p class="red" ng-show="loginUserForm.registerEmail!=false &&
+				<p class="important" ng-show="loginUserForm.registerEmail!=false &&
 					loginUserForm.registerEmail.$invalid &&
 					loginUserForm.registerEmail.$dirty">
 						<small>Invalid Email</small>
 				</p>
 			</div>
 			<div class="form-group">
-				<label for="register-pass">Password<span class="red">*</span></label>
+				<label for="register-pass">Password<span class="important">*</span></label>
 				<input type="password" ng-model="registerUser.password" 
 					id="register-pass" 
 					name="password"
@@ -28,11 +28,11 @@
 					max-length="100"
 					placeholder="[Min-length: 6] [Max-length: 100]"
 					class="form-control"/>
-				<p class="red" ng-show="registerUserForm.password.$error.required">
+				<p class="important" ng-show="registerUserForm.password.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i>Password is required!</small>
 				</p>
 				<div role="alert">
-					<span class="red" ng-show="registerUserForm.password.$error.minlength">
+					<span class="important" ng-show="registerUserForm.password.$error.minlength">
 						<small>[Min-length: 6 simbols]</small>
 					</span>
 					<span class="error" ng-show="registerUserForm.password.$error.maxlength">
@@ -41,7 +41,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="confirm-register-pass">Confirm password<span class="red">*</span></label>
+				<label for="confirm-register-pass">Confirm password<span class="important">*</span></label>
 				<input type="password" ng-model="registerUser.confirmPassword" 
 					id="confirm-register-pass"
 					name="confirmPassword"					
@@ -50,11 +50,11 @@
 					ng-maxlength="100"	
 					placeholder="[Min-length: 6] [Max-length: 100]"				
 					class="form-control"/>
-				<p class="red" ng-show="registerUserForm.confirmPassword.$error.required">
+				<p class="important" ng-show="registerUserForm.confirmPassword.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i>Confirm password is required!</small>
 				</p>
 				<div role="alert">
-					<span class="red" ng-show="registerUserForm.confirmPassword.$error.minlength">
+					<span class="important" ng-show="registerUserForm.confirmPassword.$error.minlength">
 						<small>[Min-length: 6 simbols]</small>
 					</span>
 					<span class="error" ng-show="registerUserForm.confirmPassword.$error.maxlength">
@@ -73,24 +73,24 @@
 		<h2>Login</h2>
 		<form name="loginUserForm">
 			<div class="form-group">
-				<label for="login-email">Email<span class="red">*</span></label>
+				<label for="login-email">Email<span class="important">*</span></label>
 				<input type="email" ng-model="loginUser.username"
 					ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i"
 					id="login-email" 
 					name="loginEmail"
 					required="required" 
 					class="form-control"/>
-				<p class="red" ng-show="loginUserForm.loginEmail.$error.required">
+				<p class="important" ng-show="loginUserForm.loginEmail.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i>Email is required!</small>
 				</p>
-				<p class="red" ng-show="loginUserForm.loginEmail!=false &&
+				<p class="important" ng-show="loginUserForm.loginEmail!=false &&
 					loginUserForm.loginEmail.$invalid &&
 					loginUserForm.loginEmail.$dirty">
 						<small>Invalid Email</small>
 				</p>
 			</div>
 			<div class="form-group">
-				<label for="login-pass">Password<span class="red">*</span></label>
+				<label for="login-pass">Password<span class="important">*</span></label>
 				<input type="password" ng-model="loginUser.password" 
 					id="login-pass"
 					name="loginPassword"
@@ -99,11 +99,11 @@
 					ng-maxlength="100"
 					placeholder="[Min-length: 6] [Max-length: 100]"
 					class="form-control"/>
-				<p class="red" ng-show="loginUserForm.loginPassword.$error.required">
+				<p class="important" ng-show="loginUserForm.loginPassword.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i>Password is required!</small>
 				</p>
 				<div role="alert">
-					<span class="red" ng-show="loginUserForm.loginPassword.$error.minlength">
+					<span class="important" ng-show="loginUserForm.loginPassword.$error.minlength">
 						<small>[Min-length: 6 simbols]</small>
 					</span>
 					<span class="error" ng-show="loginUserForm.loginPassword.$error.maxlength">

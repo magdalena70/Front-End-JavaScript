@@ -8,7 +8,7 @@
 	<li><strong>project Name:</strong> <em>&#34;{{project.Name}}&#34;</em></li>
 	<li><strong>Project Key:</strong> <em>{{project.ProjectKey}}</em></li>
 	<li><strong>Description:</strong> <em>{{project.Description}}</em></li>
-	<li class="red"><strong>Leader:</strong> 
+	<li class="important"><strong>Leader:</strong> 
 		<ul>
 			<small>
 				<li><strong>Username:</strong> <em>{{project.Lead.Username}}</em></li>
@@ -18,6 +18,6 @@
 		</ul>
 	</li>
 	<li><strong>Transition Scheme Id:</strong> <em>{{project.TransitionSchemeId}}</em></li>
-	<li><strong>Labels:</strong> <em>{{project.Labels | json}}</em></li>
+	<li><strong>Labels:</strong> <em>{{project.Labels}}</em></li>
 	<li><strong>Priorities:</strong> <em>{{project.Priorities}}</em></li>
 </ul>

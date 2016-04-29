@@ -41,6 +41,7 @@ angular.module('issueTrackingSystemApp.issues', [
 						}else{
 							$scope.isAssignee = false;
 						}
+						$scope.issue.Labels = makeToString($scope.issue.Labels);
 						
 						// check if current user is project leader
 						var projectId = $scope.issue.Project.Id;
@@ -57,19 +58,6 @@ angular.module('issueTrackingSystemApp.issues', [
 			if(Number($routeParams.id)){
 				getIssueById();
 			}
-			
-			// using for addIssue and editIssue
-			function getLabelsToAddInIssue(){
-				var labelFilter = ' ';
-				labelServices.getLabels(labelFilter)
-					.then(function(labelsData){
-						$scope.labels = labelsData.data;
-					},
-					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
-					});
-			}
-			getLabelsToAddInIssue();
 			
 			$scope.getIssueComments = function(){
 				var issueId = $routeParams.id;
@@ -119,7 +107,10 @@ angular.module('issueTrackingSystemApp.issues', [
 			$scope.getAllUsersToMakeAssignee = function(){
 				adminServices.getUsers()
 					.then(function(usersData){
-						$scope.usersForAssignee =  usersData.data;
+						if(usersData.data.length){
+							$scope.usersForAssignee =  usersData.data;
+							sessionStorage['successMsg'] = 'Got users by filter successfuly. Now select user!';
+						}
 					},
 					function(error){
 						sessionStorage['errorMsg'] = error.data.Message;
@@ -132,6 +123,7 @@ angular.module('issueTrackingSystemApp.issues', [
 					issue.AssigneeId = issue.Assignee.Id;
 				}
 				
+				issue.Labels = makeToAsociativeArr(issue.Labels, ';')
 				issueServices.editIssue(issueId, issue)
 					.then(function(issueData){
 						sessionStorage['successMsg'] = 'Edited issue successfuly';
@@ -148,8 +140,9 @@ angular.module('issueTrackingSystemApp.issues', [
 				
 				angular.forEach(strToArr, function(elem){
 					if(elem != false){
-					var obj = {"Name": elem};
-					arr.push(obj);
+						elem = elem.trim();
+						var obj = {"Name": elem};
+						arr.push(obj);
 					}
 				});
 				

@@ -12,7 +12,8 @@
   <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/main.css">
   <link rel="stylesheet" href="app/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel='stylesheet' href='app/bower_components/angular-loading-bar/build/loading-bar.min.css' type='text/css' media='all' />
+  <link rel="stylesheet" href='app/bower_components/angular-loading-bar/build/loading-bar.min.css' type='text/css' media='all' />
+  <link rel="stylesheet" href="app/bower_components/jquery-ui/themes/sunny/jquery-ui.min.css" />
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="app/app.css">
@@ -28,7 +29,7 @@
 <div id="loading-bar-container" class="row text-center"></div>
 <!--end loading bar-->
 <!--navbar-->
-<div class="navbar navbar-default navbar-fixed-top" ng-include="'app/home/templates/partial/navbar.html'"></div>
+<div class="navbar navbar-default navbar-fixed-top" ng-include="'app/common/partial/navbar.html'"></div>
 <!--end navbar-->
 <!--main-->
 <div class="container">
@@ -37,6 +38,7 @@
 <div class="well"></div>
 <!--end main-->
   <script src="app/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="app/bower_components/jquery-ui/jquery-ui.min.js"></script>
   <script src="app/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="app/bower_components/angular/angular.js"></script>
   <script src="app/bower_components/angular-route/angular-route.js"></script>
@@ -45,6 +47,8 @@
   <script src="app/app.js"></script>
   
   <script src="app/common/mainController.js"></script>
+  <script src="app/common/datepickerDirective.js"></script>
+  <script src="app/common/dialogModalDirective.js"></script>
   <script src="app/common/clearInputValueDirective.js"></script>
   <script src="app/common/hideElementDirective.js"></script>
   

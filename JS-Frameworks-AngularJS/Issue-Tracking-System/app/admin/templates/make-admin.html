@@ -7,7 +7,7 @@
 		<h2>Make Admin</h2>
 		<form name="makeAdminForm">
 			<div class="form-group">
-				<label for="searchUserToMakeAdmin">Search user by filter: "Username"<span class="red">*</span>:</label>
+				<label for="searchUserToMakeAdmin">Search user by filter: "Username"<span class="important">*</span>:</label>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-search" aria-hidden="true"></i>
 					<input type="email" ng-model="user.Username" 
@@ -17,10 +17,10 @@
 						required="required"
 						class="form-control">
 				</div>
-				<p class="red" ng-show="makeAdminForm.searchUserToMakeAdmin.$error.required">
+				<p class="important" ng-show="makeAdminForm.searchUserToMakeAdmin.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i>Search By Username is required!</small>
 				</p>
-				<p class="red" ng-show="makeAdminForm.searchUserToMakeAdmin!=false &&
+				<p class="important" ng-show="makeAdminForm.searchUserToMakeAdmin!=false &&
 					makeAdminForm.searchUserToMakeAdmin.$invalid &&
 					makeAdminForm.searchUserToMakeAdmin.$dirty">
 						<small>Invalid Username</small>
@@ -34,7 +34,7 @@
 				</button>
 			</div>
 			<div class="form-group">
-				<label for="userToMakeAdmin">Select User To make admin<span class="red">*</span></label>
+				<label for="userToMakeAdmin">Select User To make admin<span class="important">*</span></label>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-user" aria-hidden="true"></i>
 					<select ng-model="userToMakeAdmin.userId" 
@@ -46,7 +46,7 @@
 							</option>
 					</select>
 				</div>
-				<p class="red" ng-show="!userToMakeAdmin || userToMakeAdmin.isAdmin===true">
+				<p class="important" ng-show="!userToMakeAdmin || userToMakeAdmin.isAdmin===true">
 					<small><i class="fa fa-exclamation-triangle"></i>You must select a user who is not an Аdmin!</small>
 				</p>
 			</div>

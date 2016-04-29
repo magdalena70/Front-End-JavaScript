@@ -1,4 +1,4 @@
-<!--dashboard-->
+<!--dashboard for user and admin-->
 	<div class="col-md-12">
 		<h2>My Projects: <span class="blue">{{myProjectsCount}}</span></h2>
 		<button class="btn btn-success" ng-click="getMyProjects()">Get My Projects</button>
@@ -89,7 +89,7 @@
 			  <tr>
 				<th width="22%">Title</th>
 				<th width="28%">Description</th>
-				<th width="15%">Project</th>
+				<th width="15%">Associated with Project</th>
 				<th width="15%">Due date</th>
 				<th width="10%">Status</th>
 			  </tr>
@@ -98,8 +98,7 @@
 			  <tr ng-repeat="issue in issues | filter:issue.Title | filter: issue.Project | filter:issue.DueDate">
 				<td width="22%"><a href="#issues/{{issue.Id}}">{{issue.Title}}</a></td>
 				<td width="28%">{{issue.Description}}</td>
-				<td ng-if="isAdmin()" width="15%"><a href="#/projects/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>
-				<td ng-if="!isAdmin()" width="15%">{{issue.Project.Name}}</td>
+				<td width="15%"><a href="#/projects/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>
 				<td width="15%">{{issue.DueDate}}</td>
 				<td width="10%">{{issue.Status.Name}}</td>
 			  </tr>

@@ -9,7 +9,7 @@
 		<h2>Edit Project</h2>
 		<form name="editProjectForm">
 			<div class="form-group">
-				<label for="editedProjectName">Project Name<span class="red">*</span></label>
+				<label for="editedProjectName">Project Name<span class="important">*</span></label>
 				<input type="text" ng-model="editedProject.Name" 
 					id="editedProjectName" 
 					name="editedProjectName"
@@ -18,11 +18,11 @@
 					ng-maxlength="50"
 					placeholder="[Min-length: 3] [Max-length: 50]"
 					class="form-control"/>
-				<p class="red" ng-show="editProjectForm.editedProjectName.$error.required">
+				<p class="important" ng-show="editProjectForm.editedProjectName.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i> Project Name is required!</small>
 				</p>
 				<div role="alert">
-					<span class="red" ng-show="editProjectForm.editedProjectName.$error.minlength">
+					<span class="important" ng-show="editProjectForm.editedProjectName.$error.minlength">
 						<small>[Min-length: 3 simbols]</small>
 					</span>
 					<span class="error" ng-show="editProjectForm.editedProjectName.$error.maxlength">
@@ -34,8 +34,8 @@
 			<div ng-if="isAdmin()">
 			<div class="form-group">
 				<h3>Change Leader:</h3>
-				<p class="red">Curent leader is: <strong>{{project.Lead.Username}}</strong></p>
-				<label for="searchLeader">Search user by filter: "Username"<span class="red">*</span>:</label>
+				<p class="important">Curent leader is: <strong>{{project.Lead.Username}}</strong></p>
+				<label for="searchLeader">Search user by filter: "Username"<span class="important">*</span>:</label>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-search" aria-hidden="true"></i>
 					<input type="text" ng-model="user.Username" id="searchLeader" name="searchLeader" class="form-control">
@@ -63,7 +63,7 @@
 			</div>
 			<!--end-->
 			<div class="form-group">
-				<label for="editedDescription">Description<span class="red">*</span></label>
+				<label for="editedDescription">Description<span class="important">*</span></label>
 				<textarea type="text" ng-model="editedProject.Description" rows="5"
 					id="description"
 					name="editedDescription"
@@ -72,11 +72,11 @@
 					ng-maxlength="1000"
 					placeholder="[Min-length: 3] [Max-length: 100]"
 					class="form-control"></textarea>
-				<p class="red" ng-show="editProjectForm.editedDescription.$error.required">
+				<p class="important" ng-show="editProjectForm.editedDescription.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i> Description is required!</small>
 				</p>
 				<div role="alert">
-					<span class="red" ng-show="editProjectForm.editedDescription.$error.minlength">
+					<span class="important" ng-show="editProjectForm.editedDescription.$error.minlength">
 						<small>[Min-length: 3 simbols]</small>
 					</span>
 					<span class="error" ng-show="editProjectForm.editedDescription.$error.maxlength">
@@ -85,9 +85,9 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="editedPriorities">Priorities <span class="red">*</span></label>
+				<label for="editedPriorities">Priorities <span class="important">*</span></label>
 				<p>Add new priorities separated by a dot-comma and an white-space:</p>
-				<p class="red">[priority1; priority2; ...]</p>
+				<p class="important">[priority1; priority2; ...]</p>
 				<input type="text" ng-model="editedProject.Priorities" 
 					id="editedPriorities "
 					name="editedPriorities"
@@ -96,11 +96,11 @@
 					ng-maxlength="100"
 					placeholder="[Min-length: 3] [Max-length: 100]"
 					class="form-control"/>
-				<p class="red" ng-show="editProjectForm.editedPriorities.$error.required">
+				<p class="important" ng-show="editProjectForm.editedPriorities.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i> Priorities is required!</small>
 				</p>
 				<div role="alert">
-					<span class="red" ng-show="editProjectForm.editedPriorities.$error.minlength">
+					<span class="important" ng-show="editProjectForm.editedPriorities.$error.minlength">
 						<small>[Min-length: 3 simbols]</small>
 					</span>
 					<span class="error" ng-show="editProjectForm.editedPriorities.$error.maxlength">
@@ -109,40 +109,27 @@
 				</div>
 			</div>
 			<!--Labels-->
-			<div class="form-group">
 				<h3>Labels</h3>
-				<p class="red">Current Labels: {{editedProject.Labels | json}}</p>
-				<label for="editLabels">Select From Existing Labels</label>
-				<p>You can select more than one label by holding key [Ctrl] and mark the selected labels</p>
+			<div class="form-group">
+				<label for="newLabels">Edit Labels</label>
+				<p>Add new labels separated by a dot-comma:</p>
+				<p class="important">[label1; label2;...]</p>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-tags" aria-hidden="true"></i>
-					<select multiple ng-model="editedProject.Labels.selectedLabels" 
-						ng-options="label as label.Name for label in labels | orderBy: 'Name'"
-						name="editLabels"
-						id="editLabels"
-						class="form-control"></select>
-					<p class="red">Edited Labels: {{editedProject.Labels.selectedLabels | json}}</p>
+					<input type="text" ng-model="editedProject.Labels" 
+						id="newLabels"
+						name="newLabels"					
+						ng-minlength="3"
+						placeholder="[Min-length: 3]"
+						class="form-control"/>
 				</div>
-			</div>
-			<!--end labels-->
-			<!--<div class="form-group">
-				<label for="newLabels">New Labels</label>
-				<p>Add new labels separated by a dot-comma and an white-space:</p>
-				<p class="red">[label1; label2; ...]</p>
-				<input type="text" ng-model="editedProject.Labels.newLabels" 
-					id="newLabels"
-					name="newLabels"					
-					ng-minlength="3"
-					placeholder="[Min-length: 3]"
-					class="form-control"/>
 				<div role="alert">
-					<span class="red" ng-show="editProjectForm.editedLabels.$error.minlength">
+					<span class="important" ng-show="editProjectForm.editedLabels.$error.minlength">
 						<small>[Min-length: 3 simbols]</small>
 					</span>
 				</div>
-				<p class="red">New Labels: {{editedProject.Labels.newLabels}}</p>
 			</div>
-			<p>All edited labels: {{editedProject.Labels.selectedLabels | json}} +{{editedProject.Labels.newLabels}}</p>-->
+			<!--end labels-->
 			<button type="submit" class="btn btn-success" 
 				ng-disabled="editProjectForm.$invalid" 
 				ng-click="editProject(editedProject)">

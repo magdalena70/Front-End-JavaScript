@@ -28,10 +28,11 @@ angular.module('issueTrackingSystemApp.common', [])
 				}
 			}
 			
+			// for success messages
 			$scope.isSuccess = function(){
 				if(sessionStorage['successMsg']){
 					$scope.messageBoxStyle = {
-						"background-color": "rgba(144, 238, 144, 0.8)"
+						"background-color": "rgba(254, 238, 189, 0.6)"
 					};
 					$scope.successMsg = sessionStorage['successMsg'];
 					return true;
@@ -45,10 +46,11 @@ angular.module('issueTrackingSystemApp.common', [])
 				};
 			}
 			
+			// for error messages
 			$scope.isError = function(){
 				if(sessionStorage['errorMsg']){
 					$scope.messageBoxStyle = {
-						"background-color": "rgba(255, 0, 0, 0.8)"
+						"background-color": "rgba(212, 10, 0, 0.6)"
 					};
 					$scope.errorMsg = sessionStorage['errorMsg'];
 					return true;

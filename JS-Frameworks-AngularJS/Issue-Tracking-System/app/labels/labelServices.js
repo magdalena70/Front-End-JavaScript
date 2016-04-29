@@ -12,7 +12,7 @@ angular.module('issueTrackingSystemApp.labels.labelServices', [])
 				var defer = $q.defer();
 				var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
-				$http.get(BASE_URL + 'labels/?filter=' + labelFilter , headers)
+				$http.get(BASE_URL + 'labels/?filter=' + labelFilter, headers)
 					.then(function(success){
 						defer.resolve(success);
 					},

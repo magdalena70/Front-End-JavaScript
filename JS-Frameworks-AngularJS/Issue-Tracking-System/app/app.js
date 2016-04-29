@@ -4,6 +4,8 @@ angular.module('issueTrackingSystemApp', [
 		'angular-loading-bar',
 		'ngRoute',
 		'issueTrackingSystemApp.common',
+		'issueTrackingSystemApp.common.datepicker',
+		'issueTrackingSystemApp.common.dialogModal',
 		'issueTrackingSystemApp.common.clearInputValue',
 		'issueTrackingSystemApp.common.hideElement',
 		'issueTrackingSystemApp.home',
