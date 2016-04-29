@@ -43,8 +43,8 @@
 			</div>
 			<div class="col-md-12">
 				<button class="btn btn-success" 
-					ng-disabled="editProjectForm.searchLeader" 
-					ng-click="getAllUsers()">
+					ng-disabled="!user.Username" 
+					ng-click="getAllUsersToMakeLeaderOrAssignee()">
 					Get Users By Filter
 				</button>
 			</div>
@@ -54,7 +54,7 @@
 				<div class="inner-addon left-addon">
 					<i class="fa fa-user" aria-hidden="true"></i>
 					<select ng-model="editedProject.LeadId" id="editedLeader" name="editedLeadId" class="form-control">
-						<option  ng-repeat="user in users | orderBy: 'Username' | filter: user.Username" value="{{user.Id}}">
+						<option  ng-repeat="user in usersForLeader | orderBy: 'Username' | filter: user.Username" value="{{user.Id}}">
 							{{user.Username}}
 						</option>
 					</select>

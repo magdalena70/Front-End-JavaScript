@@ -67,14 +67,12 @@
 			</div>
 			<div class="form-group">
 				<label for="priority">Priority<span class="important">*</span></label>
-				<p class="important">Available Priorities: {{project.AvailablePriorities}}</p>
+				<p class="important">Available Priorities: {{project.AvailablePriorities | json}}</p>
 				<p>To add Priority enter priority's Id</p>
-				<p>You can add only one priority from Available Priorities</p>
-				<input type="number" ng-model="issue.PriorityId" 
-					id="priority" 
-					name="priority"
-					required="required"
-					class="form-control"/>
+				<p>Select only one priority:</p>
+				<select ng-model="issue.PriorityId" id="priority" name="priority" required="required" class="form-control">
+					<option ng-repeat="priority in project.AvailablePriorities" value="{{priority.Id}}">{{priority.Name}}</option>
+				</select>
 				<p class="important" ng-show="addIssueForm.priority.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i>Priority is required!</small>
 				</p>

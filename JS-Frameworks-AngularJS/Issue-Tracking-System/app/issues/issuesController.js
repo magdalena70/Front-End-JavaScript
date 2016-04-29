@@ -4,7 +4,8 @@ angular.module('issueTrackingSystemApp.issues', [
 		'issueTrackingSystemApp.issues.issueServices',
 		'issueTrackingSystemApp.labels.labelServices',
 		'issueTrackingSystemApp.admin.adminServices',
-		'issueTrackingSystemApp.projects.projectServices'
+		'issueTrackingSystemApp.projects.projectServices',
+		'issueTrackingSystemApp.common.projectsAndIssuesHelpers'
 	])
 	.config(['$routeProvider', function($routeProvider){
 		$routeProvider.when('/issues/:id/edit', {
@@ -25,8 +26,10 @@ angular.module('issueTrackingSystemApp.issues', [
 		'labelServices',
 		'adminServices',
 		'projectServices',
-		function($scope, $routeParams, $location, issueServices, labelServices, adminServices, projectServices){
+		'projectsAndIssuesHelpers',
+		function($scope, $routeParams, $location, issueServices, labelServices, adminServices, projectServices, projectsAndIssuesHelpers){
 			
+			// '/issues/:id/edit'
 			function getIssueById(){
 				var issueId = $routeParams.id;
 				
@@ -35,13 +38,13 @@ angular.module('issueTrackingSystemApp.issues', [
 						$scope.issue = issueData.data;
 						$scope.issue.DueDate = new Date($scope.issue.DueDate);
 						$scope.issue.PriorityId = $scope.issue.Priority.Id;
-						$scope.issue.AvailablePriorities = sessionStorage['availablePriorities'];
+						$scope.issue.AvailablePriorities = JSON.parse(sessionStorage['availablePriorities']);
 						if($scope.issue.Assignee.Id === sessionStorage['userId']){
 							$scope.isAssignee = true;
 						}else{
 							$scope.isAssignee = false;
 						}
-						$scope.issue.Labels = makeToString($scope.issue.Labels);
+						$scope.issue.Labels = projectsAndIssuesHelpers.makeToString($scope.issue.Labels);
 						
 						// check if current user is project leader
 						var projectId = $scope.issue.Project.Id;
@@ -57,6 +60,18 @@ angular.module('issueTrackingSystemApp.issues', [
 			}
 			if(Number($routeParams.id)){
 				getIssueById();
+			}
+			
+			$scope.changeIssueStatus = function(statusId, issue){
+				var issueId = $routeParams.id;
+				
+				issueServices.changeIssueStatus(issueId, statusId, issue)
+					.then(function(statusData){
+						sessionStorage['successMsg'] = 'Changed status successfuly';
+					},
+					function(error){
+						sessionStorage['errorMsg'] = error.data.Message;
+					});
 			}
 			
 			$scope.getIssueComments = function(){
@@ -91,19 +106,10 @@ angular.module('issueTrackingSystemApp.issues', [
 						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
+			// end
 			
-			$scope.changeIssueStatus = function(statusId, issue){
-				var issueId = $routeParams.id;
-				
-				issueServices.changeIssueStatus(issueId, statusId, issue)
-					.then(function(statusData){
-						sessionStorage['successMsg'] = 'Changed status successfuly';
-					},
-					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
-					});
-			}
 			
+			// '/issues/:id/edit'
 			$scope.getAllUsersToMakeAssignee = function(){
 				adminServices.getUsers()
 					.then(function(usersData){
@@ -123,7 +129,7 @@ angular.module('issueTrackingSystemApp.issues', [
 					issue.AssigneeId = issue.Assignee.Id;
 				}
 				
-				issue.Labels = makeToAsociativeArr(issue.Labels, ';')
+				issue.Labels = projectsAndIssuesHelpers.makeToAsociativeArr(issue.Labels, ';')
 				issueServices.editIssue(issueId, issue)
 					.then(function(issueData){
 						sessionStorage['successMsg'] = 'Edited issue successfuly';
@@ -133,27 +139,5 @@ angular.module('issueTrackingSystemApp.issues', [
 						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
-			//---------------------------------------------
-			
-			function makeToAsociativeArr(str, splitBy){
-				var strToArr = str.split(splitBy),  arr = [];
-				
-				angular.forEach(strToArr, function(elem){
-					if(elem != false){
-						elem = elem.trim();
-						var obj = {"Name": elem};
-						arr.push(obj);
-					}
-				});
-				
-				return arr;
-			}
-			
-			function makeToString(asociativeArr){
-				var str = '';
-				angular.forEach(asociativeArr, function(obj){
-							str += obj.Name + '; ';
-						});
-				return str;
-			}
+			// end
 	}]);

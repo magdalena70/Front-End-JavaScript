@@ -24,14 +24,10 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="search-user">Search user by isAdmin: [ true or false ]</label>
-				<div class="inner-addon left-addon">
-					<i class="fa fa-search" aria-hidden="true"></i>
-					<input type="search" ng-model="User.isAdmin" 
-						id="searchUserByIsAdmin" 
-						name="searchUserByIsAdmin" 
-						class="form-control">
-				</div>
+				<label for="userIsAdmin">Search user by isAdmin:
+					<input type="radio" ng-model="User.isAdmin" name="userIsAdmin" value="true" /> True
+					<input type="radio" ng-model="User.isAdmin" name="userIsAdmin" value="false" /> False
+				</label>
 			</div>
 		</div>
 		<!--end users filters-->

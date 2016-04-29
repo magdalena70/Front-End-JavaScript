@@ -30,26 +30,7 @@ angular.module('issueTrackingSystemApp.admin', [
 		'issueServices',
 		function($scope, $location, $routeParams, adminServices, projectServices, issueServices){
 			
-			$scope.getUserToMakeAdmin = function(filterUsername){
-				adminServices.getUserToMakeAdmin(filterUsername)
-					.then(function(userData){
-						console.log(userData);
-						if(userData.data.length == 1){
-							$scope.userToMakeAdmin = userData.data[0];
-							if($scope.userToMakeAdmin.isAdmin===true){
-								sessionStorage['errorMsg'] = 'Selected user is an Admin!'
-							}else{
-								sessionStorage['successMsg'] = 'Selected user: ' + JSON.stringify($scope.userToMakeAdmin);
-							}
-						}else{
-							sessionStorage['errorMsg'] = 'No user with username: ' + filterUsername;
-						}
-					},
-					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
-					});
-			}
-			
+			// '/admin/users/all'
 			// pagination
 			$scope.curPage = 0;
 			$scope.pageSize = 10;
@@ -70,7 +51,28 @@ angular.module('issueTrackingSystemApp.admin', [
 						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
-			//------------
+			// end
+			
+			// '/admin/makeAdmin'
+			$scope.getUserToMakeAdmin = function(filterUsername){
+				adminServices.getUserToMakeAdmin(filterUsername)
+					.then(function(userData){
+						console.log(userData);
+						if(userData.data.length == 1){
+							$scope.userToMakeAdmin = userData.data[0];
+							if($scope.userToMakeAdmin.isAdmin===true){
+								sessionStorage['errorMsg'] = 'Selected user is an Admin!'
+							}else{
+								sessionStorage['successMsg'] = 'Selected user: ' + JSON.stringify($scope.userToMakeAdmin);
+							}
+						}else{
+							sessionStorage['errorMsg'] = 'No user with username: ' + filterUsername;
+						}
+					},
+					function(error){
+						sessionStorage['errorMsg'] = error.data.Message;
+					});
+			}
 			
 			$scope.makeAdmin = function(user){
 				adminServices.makeAdmin({"userId": user.userId})
@@ -82,7 +84,9 @@ angular.module('issueTrackingSystemApp.admin', [
 						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
+			// end
 			
+			// '/admin/users/:username/info'
 			$scope.getUserProjects = function(){
 				var username = $routeParams.username;
 				
@@ -116,5 +120,6 @@ angular.module('issueTrackingSystemApp.admin', [
 						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
+			// end
 			
 	}]);

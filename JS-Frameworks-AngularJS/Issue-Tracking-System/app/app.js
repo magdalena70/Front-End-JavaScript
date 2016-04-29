@@ -8,6 +8,7 @@ angular.module('issueTrackingSystemApp', [
 		'issueTrackingSystemApp.common.dialogModal',
 		'issueTrackingSystemApp.common.clearInputValue',
 		'issueTrackingSystemApp.common.hideElement',
+		'issueTrackingSystemApp.common.paginationFilter',
 		'issueTrackingSystemApp.home',
 		'issueTrackingSystemApp.users',
 		'issueTrackingSystemApp.projects',

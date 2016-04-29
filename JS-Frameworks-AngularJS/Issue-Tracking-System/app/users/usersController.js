@@ -20,6 +20,7 @@ angular.module('issueTrackingSystemApp.users', [
 		'profileSettingsServices',
 		function($scope, $location, profileSettingsServices){
 			
+			// '/profile/password'
 			$scope.changePassword = function(user){
 				profileSettingsServices.changePassword(user)
 					.then(function(success){
@@ -30,12 +31,13 @@ angular.module('issueTrackingSystemApp.users', [
 						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
+			// end
 			
+			// '/profile' - TODO
 			$scope.editProfile = function(user){
 				console.log(user);
 				profileSettingsServices.editProfile(user)
 					.then(function(success){
-						//console.log(success);
 						sessionStorage['successMsg'] = 'Edited profile successfuly';
 						$location.path('/');
 					},
@@ -43,4 +45,5 @@ angular.module('issueTrackingSystemApp.users', [
 						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
+			// end
 	}]);

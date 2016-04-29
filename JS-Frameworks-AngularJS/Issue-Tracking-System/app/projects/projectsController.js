@@ -4,7 +4,8 @@ angular.module('issueTrackingSystemApp.projects', [
 		'issueTrackingSystemApp.projects.projectServices',
 		'issueTrackingSystemApp.issues.issueServices',
 		'issueTrackingSystemApp.admin.adminServices',
-		'issueTrackingSystemApp.labels.labelServices'
+		'issueTrackingSystemApp.labels.labelServices',
+		'issueTrackingSystemApp.common.projectsAndIssuesHelpers'
 	])
 	.config(['$routeProvider', function($routeProvider){
 		$routeProvider.when('/projects', {
@@ -41,8 +42,10 @@ angular.module('issueTrackingSystemApp.projects', [
 		'issueServices',
 		'labelServices',
 		'adminServices',
-		function($scope, $rootScope, $routeParams, $location, projectServices, issueServices, labelServices, adminServices){
+		'projectsAndIssuesHelpers',
+		function($scope, $rootScope, $routeParams, $location, projectServices, issueServices, labelServices, adminServices, projectsAndIssuesHelpers){
 			
+			// '/projects/:id'
 			function getProjectById(){
 				var projectId = $routeParams.id;
 				
@@ -51,9 +54,9 @@ angular.module('issueTrackingSystemApp.projects', [
 						sessionStorage['availablePriorities'] = JSON.stringify(projectData.data.Priorities);
 					
 						var editedProject = projectData.data;
-						editedProject.AvailablePriorities = JSON.stringify(editedProject.Priorities);
-						editedProject.Priorities = makeToString(editedProject.Priorities);
-						editedProject.Labels = makeToString(editedProject.Labels);
+						editedProject.AvailablePriorities = editedProject.Priorities;
+						editedProject.Priorities = projectsAndIssuesHelpers.makeToString(editedProject.Priorities);
+						editedProject.Labels = projectsAndIssuesHelpers.makeToString(editedProject.Labels);
 						
 						if(editedProject.Lead.Id === sessionStorage['userId']){
 							$scope.isLeader = true;
@@ -72,26 +75,6 @@ angular.module('issueTrackingSystemApp.projects', [
 				getProjectById();
 			}
 			
-			$scope.getAllProjects = function(pageSize, curPage){
-				$scope.pageSize = pageSize;
-				$rootScope.curPage = curPage;
-				
-				projectServices.getAllProjects($scope.pageSize, $rootScope.curPage)
-					.then(function(projectsData){
-						$scope.projects = projectsData.data.Projects;
-						$scope.totalCount = projectsData.data.TotalCount;
-						
-						if($scope.projects.length){
-							$scope.numberOfPages = function(){
-								return Math.ceil($scope.totalCount / $scope.pageSize);
-							}
-						}
-					},
-					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
-					});
-			}
-			
 			$scope.getIssuesByProjectId = function(){
 				var projectId = $routeParams.id;
 				
@@ -108,14 +91,16 @@ angular.module('issueTrackingSystemApp.projects', [
 						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
+			// end
 			
+			// '/projects/:id/add-issue'
 			$scope.addIssueInCurrentProject = function(newIssue){
 				console.log(newIssue);
 				newIssue.ProjectId = $routeParams.id;
 				
 				// labels
 				if(newIssue.Labels){
-					newIssue.Labels = makeToAsociativeArr(newIssue.Labels, ';');
+					newIssue.Labels = projectsAndIssuesHelpers.makeToAsociativeArr(newIssue.Labels, ';');
 				}
 				angular.forEach(newIssue.Labels, function(labelFilter){
 					labelServices.getLabels(labelFilter)
@@ -144,13 +129,37 @@ angular.module('issueTrackingSystemApp.projects', [
 						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			};
+			// end
 			
+			// '/projects'
+			$scope.getAllProjects = function(pageSize, curPage){
+				$scope.pageSize = pageSize;
+				$rootScope.curPage = curPage;
+				
+				projectServices.getAllProjects($scope.pageSize, $rootScope.curPage)
+					.then(function(projectsData){
+						$scope.projects = projectsData.data.Projects;
+						$scope.totalCount = projectsData.data.TotalCount;
+						
+						if($scope.projects.length){
+							$scope.numberOfPages = function(){
+								return Math.ceil($scope.totalCount / $scope.pageSize);
+							}
+						}
+					},
+					function(error){
+						sessionStorage['errorMsg'] = error.data.Message;
+					});
+			}
+			// end
+			
+			// '/projects/add'
 			$scope.addProject = function(project){
 				var projectId = $routeParams.id;
 				
-				project.Priorities = makeToAsociativeArr(project.Priorities, '; ');
+				project.Priorities = projectsAndIssuesHelpers.makeToAsociativeArr(project.Priorities, '; ');
 				// labels
-				project.Labels = makeToAsociativeArr(project.Labels, ';');	
+				project.Labels = projectsAndIssuesHelpers.makeToAsociativeArr(project.Labels, ';');	
 				angular.forEach(project.Labels, function(labelFilter){
 					labelServices.getLabels(labelFilter)
 						.then(function(labelsData){
@@ -170,7 +179,7 @@ angular.module('issueTrackingSystemApp.projects', [
 				//end labels
 				projectServices.addProject(project)
 					.then(function(projectData){
-						project.Priorities = makeToString(project.Priorities);
+						project.Priorities = projectsAndIssuesHelpers.makeToString(project.Priorities);
 						sessionStorage['successMsg'] = 'Added project successfuly';
 						$location.path('/projects/' + projectData.data.Id);
 					},
@@ -179,6 +188,7 @@ angular.module('issueTrackingSystemApp.projects', [
 					});
 			};
 			
+			// '/projects/:id/edit'
 			$scope.editProject = function(editedProject){
 				var projectId = $routeParams.id;
 				
@@ -186,13 +196,12 @@ angular.module('issueTrackingSystemApp.projects', [
 					editedProject.LeadId = editedProject.Lead.Id;
 				}
 				
-				editedProject.Priorities = makeToAsociativeArr(editedProject.Priorities, '; ');
+				editedProject.Priorities = projectsAndIssuesHelpers.makeToAsociativeArr(editedProject.Priorities, '; ');
 				// labels
-				editedProject.Labels = makeToAsociativeArr(editedProject.Labels, ';');	
+				editedProject.Labels = projectsAndIssuesHelpers.makeToAsociativeArr(editedProject.Labels, ';');	
 				angular.forEach(editedProject.Labels, function(labelFilter){
 					labelServices.getLabels(labelFilter)
 						.then(function(labelsData){
-						//--------
 							if(labelsData.data.length){
 								angular.forEach(labelsData.data, function(label){
 									if(label.Name === labelFilter){
@@ -204,7 +213,6 @@ angular.module('issueTrackingSystemApp.projects', [
 							}else{
 								editedProject.Labels.push({'Name': labelFilter});
 							}
-						//-----
 						});
 				});
 				//end labels
@@ -217,6 +225,7 @@ angular.module('issueTrackingSystemApp.projects', [
 						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			};
+			// end
 			
 			// get user to make Leader or Assignee
 			$scope.getAllUsersToMakeLeaderOrAssignee = function(){
@@ -224,6 +233,7 @@ angular.module('issueTrackingSystemApp.projects', [
 					.then(function(usersData){
 						if(usersData.data.length){
 							$scope.usersForAssignee =  usersData.data;
+							$scope.usersForLeader = usersData.data;
 							sessionStorage['successMsg'] = 'Got users by filter successfuly. Now select user!';
 						}else{
 							sessionStorage['errorMsg'] = 'No users';
@@ -233,27 +243,5 @@ angular.module('issueTrackingSystemApp.projects', [
 						sessionStorage['errorMsg'] = error.data.Message;
 					});
 			}
-			//-----------------------------------
-			
-			function makeToAsociativeArr(str, splitBy){
-				var strToArr = str.split(splitBy),  arr = [];
-				
-				angular.forEach(strToArr, function(elem){
-					if(elem != false){
-						elem = elem.trim();
-						var obj = {"Name": elem};
-						arr.push(obj);
-					}
-				});
-				
-				return arr;
-			}
-			
-			function makeToString(asociativeArr){
-				var str = '';
-				angular.forEach(asociativeArr, function(obj){
-							str += obj.Name + '; ';
-						});
-				return str;
-			}
+			//end
 	}]);

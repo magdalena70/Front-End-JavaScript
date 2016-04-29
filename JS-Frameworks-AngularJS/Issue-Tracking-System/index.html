@@ -21,22 +21,23 @@
   <script src="app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body ng-controller="MainController">
-<!--notifications-->
-<div ng-if="isError()" ng-include="'app/common/partial/errorMsg.html'"></div>
-<div ng-if="isSuccess()" ng-include="'app/common/partial/successMsg.html'"></div>
-<!--end notifications-->
-<!--loading bar-->
-<div id="loading-bar-container" class="row text-center"></div>
-<!--end loading bar-->
-<!--navbar-->
-<div class="navbar navbar-default navbar-fixed-top" ng-include="'app/common/partial/navbar.html'"></div>
-<!--end navbar-->
-<!--main-->
-<div class="container">
-  <div ng-view></div>
-</div>
-<div class="well"></div>
+	<!--notifications-->
+	<div ng-if="isError()" ng-include="'app/common/partial/errorMsg.html'"></div>
+	<div ng-if="isSuccess()" ng-include="'app/common/partial/successMsg.html'"></div>
+	<!--end notifications-->
+	<!--loading bar-->
+	<div id="loading-bar-container" class="row text-center"></div>
+	<!--end loading bar-->
+	<!--navbar-->
+	<div class="navbar navbar-default navbar-fixed-top" ng-include="'app/common/partial/navbar.html'"></div>
+	<!--end navbar-->
+	<!--main-->
+	<div class="container">
+		<div ng-view></div>
+	</div>
+	<div id="footer" ng-include="'app/common/partial/footer.html'">Footer</div>
 <!--end main-->
+
   <script src="app/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="app/bower_components/jquery-ui/jquery-ui.min.js"></script>
   <script src="app/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -47,10 +48,12 @@
   <script src="app/app.js"></script>
   
   <script src="app/common/mainController.js"></script>
+  <script src="app/common/projectsAndIssuesHelpers.js"></script>
   <script src="app/common/datepickerDirective.js"></script>
   <script src="app/common/dialogModalDirective.js"></script>
   <script src="app/common/clearInputValueDirective.js"></script>
   <script src="app/common/hideElementDirective.js"></script>
+  <script src="app/common/paginationFilter.js"></script>
   
   <script src="app/home/homeController.js"></script>
   
