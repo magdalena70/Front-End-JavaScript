@@ -129,7 +129,8 @@ angular.module('issueTrackingSystemApp.issues', [
 					issue.AssigneeId = issue.Assignee.Id;
 				}
 				
-				issue.Labels = projectsAndIssuesHelpers.makeToAsociativeArr(issue.Labels, ';')
+				issue.Labels = projectsAndIssuesHelpers.addLabels(issue.Labels);
+				//issue.Labels = projectsAndIssuesHelpers.makeToAsociativeArr(issue.Labels, ';')
 				issueServices.editIssue(issueId, issue)
 					.then(function(issueData){
 						sessionStorage['successMsg'] = 'Edited issue successfuly';

@@ -64,5 +64,29 @@ angular.module('issueTrackingSystemApp.common', [])
 					"background-color": "transparent"
 				};
 			}
+			
+			// if Network is not connected
+			// get from http://stackoverflow.com/questions/28587753/capture-no-internet-connection-in-angularjs
+			function getNetworkStatus(callback, timeout, x){
+				x = new XMLHttpRequest(); 
+				x.timeout = timeout,
+				x.onreadystatechange = function(){
+					x.readyState == 4 && callback(x.status == 200)
+				},
+				x.onerror = function(e){
+					callback(!1)
+				},
+				x.ontimeout = function(){
+					callback(!1)
+				}, 
+				(x.open("GET", "http://ip-api.com/json/"), x.send());
+			}
+
+			getNetworkStatus(function(isOnline){
+				if(!isOnline){
+					sessionStorage['errorMsg'] = "OFFLINE";
+				}
+				//console.log(isOnline ? "ONLINE" : "OFFLINE");
+			},40000);
 			// end error messages
 		}]);

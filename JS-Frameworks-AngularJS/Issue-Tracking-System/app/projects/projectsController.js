@@ -98,27 +98,7 @@ angular.module('issueTrackingSystemApp.projects', [
 				console.log(newIssue);
 				newIssue.ProjectId = $routeParams.id;
 				
-				// labels
-				if(newIssue.Labels){
-					newIssue.Labels = projectsAndIssuesHelpers.makeToAsociativeArr(newIssue.Labels, ';');
-				}
-				angular.forEach(newIssue.Labels, function(labelFilter){
-					labelServices.getLabels(labelFilter)
-						.then(function(labelsData){
-							if(labelsData.data.length){
-								angular.forEach(labelsData.data, function(label){
-									if(label.Name === labelFilter){
-										newIssue.Labels.push(label);
-									}else{
-										newIssue.Labels.push({'Name': labelFilter});
-									}
-								});
-							}else{
-								newIssue.Labels.push({'Name': labelFilter});
-							}
-						});
-				});
-				//end labels
+				newIssue.Labels = projectsAndIssuesHelpers.addLabels(newIssue.Labels);
 				issueServices.addIssue(newIssue)
 					.then(function(issueData){
 						$scope.issue = issueData.data;
@@ -158,25 +138,8 @@ angular.module('issueTrackingSystemApp.projects', [
 				var projectId = $routeParams.id;
 				
 				project.Priorities = projectsAndIssuesHelpers.makeToAsociativeArr(project.Priorities, '; ');
-				// labels
-				project.Labels = projectsAndIssuesHelpers.makeToAsociativeArr(project.Labels, ';');	
-				angular.forEach(project.Labels, function(labelFilter){
-					labelServices.getLabels(labelFilter)
-						.then(function(labelsData){
-							if(labelsData.data.length){
-								angular.forEach(labelsData.data, function(label){
-									if(label.Name === labelFilter){
-										project.Labels.push(label);
-									}else{
-										project.Labels.push({'Name': labelFilter});
-									}
-								});
-							}else{
-								project.Labels.push({'Name': labelFilter});
-							}
-						});
-				});
-				//end labels
+				project.Labels = projectsAndIssuesHelpers.addLabels(project.Labels);
+				
 				projectServices.addProject(project)
 					.then(function(projectData){
 						project.Priorities = projectsAndIssuesHelpers.makeToString(project.Priorities);
@@ -197,25 +160,8 @@ angular.module('issueTrackingSystemApp.projects', [
 				}
 				
 				editedProject.Priorities = projectsAndIssuesHelpers.makeToAsociativeArr(editedProject.Priorities, '; ');
-				// labels
-				editedProject.Labels = projectsAndIssuesHelpers.makeToAsociativeArr(editedProject.Labels, ';');	
-				angular.forEach(editedProject.Labels, function(labelFilter){
-					labelServices.getLabels(labelFilter)
-						.then(function(labelsData){
-							if(labelsData.data.length){
-								angular.forEach(labelsData.data, function(label){
-									if(label.Name === labelFilter){
-										editedProject.Labels.push(label);
-									}else{
-										editedProject.Labels.push({'Name': labelFilter});
-									}
-								});
-							}else{
-								editedProject.Labels.push({'Name': labelFilter});
-							}
-						});
-				});
-				//end labels
+				editedProject.Labels = projectsAndIssuesHelpers.addLabels(editedProject.Labels);
+			
 				projectServices.editProject(editedProject, projectId)
 					.then(function(projectData){
 						sessionStorage['successMsg'] = 'Edited project successfuly';

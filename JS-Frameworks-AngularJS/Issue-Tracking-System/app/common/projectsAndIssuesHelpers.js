@@ -1,8 +1,11 @@
 'use strict'
 
-angular.module('issueTrackingSystemApp.common.projectsAndIssuesHelpers', [])
+angular.module('issueTrackingSystemApp.common.projectsAndIssuesHelpers', [
+		'issueTrackingSystemApp.labels.labelServices'
+	])
 	.factory('projectsAndIssuesHelpers', [
-		function(){
+		'labelServices',
+		function(labelServices){
 			// using for project.Labels, project.Priorities, issue.Labels, issue.Priorities
 			function makeToAsociativeArr(str, splitBy){
 				var strToArr = str.split(splitBy),  arr = [];
@@ -27,8 +30,34 @@ angular.module('issueTrackingSystemApp.common.projectsAndIssuesHelpers', [])
 			}
 			// end
 			
+			// using for project.Labels and issue.Labels
+			function addLabels(labels){
+				if(labels){
+					labels = makeToAsociativeArr(labels, ';');
+				}
+				angular.forEach(labels, function(labelFilter){
+					labelServices.getLabels(labelFilter)
+						.then(function(labelsData){
+							if(labelsData.data.length){
+								angular.forEach(labelsData.data, function(label){
+									if(label.Name === labelFilter){
+										labels.push(label);
+									}else{
+										labels.push({'Name': labelFilter});
+									}
+								});
+							}else{
+								labels.push({'Name': labelFilter});
+							}
+						});
+				});
+				
+				return labels;
+			}
+			
 			return{
 				makeToAsociativeArr: makeToAsociativeArr,
-				makeToString: makeToString
+				makeToString: makeToString,
+				addLabels: addLabels
 			};
 		}]);
