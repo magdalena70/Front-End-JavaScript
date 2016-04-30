@@ -191,6 +191,85 @@ a:focus, a:hover{
 }
 /* end style input class .form-control */
 
+button,
+.btn-success{
+	background-color: #9C9586;
+	color: #FEFBF1;
+	margin: 10px;
+}
+
+button,
+.btn-success:hover{
+	background-color: rgba(254, 238, 189, 0.4);
+	color: #333;
+}
+
+.warning{
+	color: #FF0000;
+	font-size: 140px;
+}
+
+.important{
+	color: #ED7B19;
+	font-size: 20px;
+}
+
+.blue{
+	color: #135CB0;
+	font-size: 23px;
+}
+
+.list-decimal{
+	 list-style-type: decimal;
+	 padding: 5px;
+	 border: solid 1px #999;
+	 border-left: none;
+}
+
+.list-decimal li{
+	margin: 5px;
+	border-top: solid 1px #999;
+	border-bottom: solid 1px #999;
+}
+
+.style-select{
+	width: 100%;
+	padding: 3px;
+	border-radius: 5px;
+}
+
+/* dialog style */
+.openerBtn{
+	background-color: #FFA800;
+	color: #fff;
+}
+
+.openerBtn:hover{
+	background-color: #A45B13;
+	color: #fff;
+}
+
+.ui-dialog{
+	z-index: 1;
+}
+
+.ui-dialog .ui-dialog-titlebar-close{
+	width: 30px;
+	height: 30px;
+	border-radius: 6px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close:after{
+	content: 'X';
+	color: #fff;
+}
+
+.ui-dialog .ui-dialog-titlebar-close:hover{
+	background-color: #FFA800;
+}
+/* end dialog style */
+
+/* notifications style */
 .successMsg,
 .errorMsg {
     position: fixed;
@@ -229,7 +308,9 @@ a:focus, a:hover{
 	background-color: rgba(0, 0, 0, 0.6);
 	color: #fff;
 }
+/* end notifications style */
 
+/* loading bar style */
 #loading-bar-container{
 	position: fixed;
 	top: 15%;
@@ -240,15 +321,12 @@ a:focus, a:hover{
 	text-shadow: 0 2px 4px #333;
 	z-index: 10;
 }
+/* end loading bar style */
 
-#project-info{
-	padding-bottom: 20px;
-	border-bottom: dashed 1px #333;
-}
-
+/* pagination style */
 #projectsPagination, #projectsPagination  button,
 #myProjectsPagination, #myProjectsPagination button,
-#adminsPagination, #adminsPagination button,
+#myIssuesPagination, #myIssuesPagination button,
 #usersPagination, #usersPagination button{
 	font-size: 18px;
 	font-weight: bold;
@@ -257,7 +335,7 @@ a:focus, a:hover{
 
 #projectsPagination button,
 #myProjectsPagination button,
-#adminsPagination button,
+#myIssuesPagination button,
 #usersPagination button{
 	border: none;
 	border-radius: 4px;
@@ -266,93 +344,18 @@ a:focus, a:hover{
 
 #projectsPagination button:hover,
 #myProjectsPagination button:hover,
-#adminsPagination button:hover,
+#myIssuesPagination button:hover,
 #usersPagination button:hover{
 	background-color: #333;
 	color: #fff;
 }
+/* end pagination style */
+
+#project-info{
+	padding-bottom: 20px;
+	border-bottom: dashed 1px #333;
+}
 
 #myProjects{
 	border-bottom: dashed 1px #999;
-}
-
-button,
-.btn-success{
-	background-color: #9C9586;
-	color: #FEFBF1;
-	margin: 10px;
-}
-
-button,
-.btn-success:hover{
-	background-color: rgba(254, 238, 189, 0.4);
-	color: #333;
-}
-
-.warning{
-	color: #FF0000;
-	font-size: 140px;
-}
-
-.red{
-	color: red;
-}
-
-.important{
-	color: #ED7B19;
-	font-size: 20px;
-}
-
-.blue{
-	color: #135CB0;
-	font-size: 23px;
-}
-
-.list-decimal{
-	 list-style-type: decimal;
-	 padding: 5px;
-	 border: solid 1px #999;
-	 border-left: none;
-}
-
-.list-decimal li{
-	margin: 5px;
-	border-top: solid 1px #999;
-	border-bottom: solid 1px #999;
-}
-
-.style-select{
-	width: 100%;
-	padding: 3px;
-	border-radius: 5px;
-}
-
-/* dialog */
-.openerBtn{
-	background-color: #FFA800;
-	color: #fff;
-}
-
-.openerBtn:hover{
-	background-color: #A45B13;
-	color: #fff;
-}
-
-.ui-dialog{
-	z-index: 1;
-}
-
-.ui-dialog .ui-dialog-titlebar-close{
-	width: 30px;
-	height: 30px;
-	border-radius: 6px;
-}
-
-.ui-dialog .ui-dialog-titlebar-close:after{
-	content: 'X';
-	color: #fff;
-}
-
-.ui-dialog .ui-dialog-titlebar-close:hover{
-	background-color: #FFA800;
 }

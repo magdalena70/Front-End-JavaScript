@@ -76,14 +76,16 @@ angular.module('issueTrackingSystemApp.home', [
 					});
 			}
 			
-			// pagination
-			$scope.curPage = 0;
-			$scope.pageSize = 10;
-			
 			$scope.getMyProjects = function(){
-				var username = sessionStorage['currentUserUsername'];
+				var username = sessionStorage['currentUserUsername'],
+					pageSize = 300,
+					pageNumber = 1;
+					
+				// pagination
+				$scope.myProjectsCurPage = 0;
+				$scope.myProjectsPageSize = 3;
 	
-				projectServices.getUserProjects(username)
+				projectServices.getUserProjects(pageSize, pageNumber, username)
 					.then(function(myProjectsData){
 						$scope.myProjects = myProjectsData.data.Projects;
 						if($scope.myProjects.length){
@@ -92,9 +94,10 @@ angular.module('issueTrackingSystemApp.home', [
 							$scope.myProjectsCount = 'No projects';
 						}
 						
+						// pagination
 						if($scope.myProjects.length){
-							$scope.numberOfPages = function(){
-								return Math.ceil($scope.myProjects.length / $scope.pageSize);
+							$scope.myProjectsNumberOfPages = function(){
+								return Math.ceil($scope.myProjects.length / $scope.myProjectsPageSize);
 							}
 						}
 					},
@@ -104,13 +107,24 @@ angular.module('issueTrackingSystemApp.home', [
 			}
 			
 			$scope.getMyIssues = function(){
+				// pagination
+				$scope.myIssuesCurPage = 0;
+				$scope.myIssuesPageSize = 3;
+				
 				issueServices.getMyIssues()
 					.then(function(issuesData){
-						$scope.issues = issuesData.data.Issues;
-						if($scope.issues.length){
-							$scope.myIssuesCount = $scope.issues.length;
+						$scope.myIssues = issuesData.data.Issues;
+						if($scope.myIssues.length){
+							$scope.myIssuesCount = $scope.myIssues.length;
 						}else{
 							$scope.myIssuesCount = 'No issues';
+						}
+						
+						// pagination
+						if($scope.myIssues.length){
+							$scope.myIssuesNumberOfPages = function(){
+								return Math.ceil($scope.myIssues.length / $scope.myIssuesPageSize);
+							}
 						}
 					},
 					function(error){

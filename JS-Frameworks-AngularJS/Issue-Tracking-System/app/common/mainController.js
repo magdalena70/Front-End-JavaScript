@@ -79,12 +79,12 @@ angular.module('issueTrackingSystemApp.common', [])
 				x.ontimeout = function(){
 					callback(!1)
 				}, 
-				(x.open("GET", "http://ip-api.com/json/"), x.send());
+				(x.open('GET', 'http://ip-api.com/json/'), x.send());
 			}
 
 			getNetworkStatus(function(isOnline){
 				if(!isOnline){
-					sessionStorage['errorMsg'] = "OFFLINE";
+					sessionStorage['errorMsg'] = 'Error: INTERNET DISCONNECTED';
 				}
 				//console.log(isOnline ? "ONLINE" : "OFFLINE");
 			},40000);

@@ -9,7 +9,7 @@ angular.module('issueTrackingSystemApp.projects', [
 	])
 	.config(['$routeProvider', function($routeProvider){
 		$routeProvider.when('/projects', {
-			templateUrl: 'app/projects/templates/projects.html',
+			templateUrl: 'app/projects/templates/all-projects.html',
 			controller: 'ProjectsController'
 		});
 		

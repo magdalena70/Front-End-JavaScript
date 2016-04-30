@@ -23,17 +23,18 @@ angular.module('issueTrackingSystemApp.projects.projectServices', [])
 				return defer.promise;
 			}
 			
-			function getUserProjects(username){
+			function getUserProjects(pageSize, pageNumber, username){
 				var defer = $q.defer();
 				var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
-				$http.get(BASE_URL + 'projects?pageSize=300&pageNumber=1&filter=Lead.Username=="' + username + '"', headers)
-					.then(function(success){
-						defer.resolve(success);
-					},
-					function(error){
-						defer.reject(error);
-					});
+				$http.get(BASE_URL + 'projects?pageSize=' + pageSize + 
+					'&pageNumber=' + pageNumber + '&filter=Lead.Username=="' + username + '"', headers)
+						.then(function(success){
+							defer.resolve(success);
+						},
+						function(error){
+							defer.reject(error);
+						});
 				
 				return defer.promise;
 			}

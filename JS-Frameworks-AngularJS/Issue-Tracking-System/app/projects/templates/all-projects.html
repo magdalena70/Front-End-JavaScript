@@ -7,10 +7,10 @@
 		<h2>All Projects Total Count: <span class="blue">{{totalCount}}</span></h2>
 		<p class="text-center"><a href="#/projects/add">Add New Project</a></p>
 		<!--using custom directive 'hideElement'-->
-		<button hide-element 
+		<button hide-element ng-if="projects.length||projects.length===3"
 			class="btn btn-success" 
 			ng-click="getAllProjects(500, 1)">
-				Search Projects By Filter
+				Search Projects By Filters
 		</button>
 		<button ng-if="!projects.length||projects.length>3" 
 			class="btn btn-success" 
@@ -25,7 +25,9 @@
 					<label for="search-user">Search project by Project Name:</label>
 					<div class="inner-addon left-addon">
 						<i class="fa fa-search" aria-hidden="true"></i>
-						<input type="search" ng-model="project.Name" id="search-project-by-name" class="form-control">
+						<input type="search" ng-model="project.Name" 
+							id="search-project-by-name" 
+							class="form-control">
 					</div>
 				</div>
 			</div>
@@ -34,7 +36,9 @@
 					<label for="search-user">Search project by Leader Username:</label>
 					<div class="inner-addon left-addon">
 						<i class="fa fa-search" aria-hidden="true"></i>
-						<input type="search" ng-model="project.Lead.Username" id="search-project-by-leader" class="form-control">
+						<input type="search" ng-model="project.Lead.Username" 
+							id="search-project-by-leader" 
+							class="form-control">
 					</div>
 				</div>
 			</div>
@@ -79,10 +83,18 @@
 					<tr ng-repeat="project in projects | orderBy: 'Name' |
 						filter: project.Name | filter: project.Lead.Username |
 						filter: project.Labels.Name | filter: project.Priorities.Name">
-							<td width="7%"><a href="#/projects/{{project.Id}}" class="red"><i class="fa fa-info-circle" aria-hidden="true"></i></a></td>
-							<td width="15%"><a href="#/projects/{{project.Id}}">{{project.Name}}</a></td>
+							<td width="7%">
+								<a href="#/projects/{{project.Id}}" class="blue">
+									<i class="fa fa-info-circle" aria-hidden="true"></i>
+								</a>
+							</td>
+							<td width="15%">
+								<a href="#/projects/{{project.Id}}">{{project.Name}}</a>
+							</td>
 							<td width="28%">{{project.Description}}</td>
-							<td width="20%"><a href="#/admin/users/{{project.Lead.Username}}/info">{{project.Lead.Username}}</a></td>
+							<td width="20%">
+								<a href="#/admin/users/{{project.Lead.Username}}/info">{{project.Lead.Username}}</a>
+							</td>
 							<td width="15%">
 								<p>Count: {{project.Labels.length}}</p>
 								<div class="inner-addon left-addon">
@@ -113,20 +125,18 @@
 		<div ng-show="projects.length&&!project.Name&&!project.Lead.Username&&!project.Labels.Name&&!project.Priorities.Name">
 			<!--pagination div-->
 			<div class="col-md-12">
-				<div class="col-md-2 col-md-offset-5 text-center" id="projectsPagination">
-					<div>
+				<div class="col-md-4 col-md-offset-4 text-center" id="projectsPagination">
+					<span>
 						<button ng-show="curPage > 1" ng-click="getAllProjects(3, curPage-1)">
-							<i class="fa fa-angle-double-left" aria-hidden="true"></i> Prev
+							<i class="fa fa-angle-double-left" aria-hidden="true"></i>
 						</button>
-					</div>
-					<div>
-						<span>Page {{curPage}} of {{ numberOfPages() }}</span>
-					</div>
-					<div>
+					</span>
+					<span>Page {{curPage}} of {{ numberOfPages() }}</span>
+					<span>
 						<button ng-show="curPage < numberOfPages()" ng-click="getAllProjects(3, curPage+1)">
-							Next <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+							<i class="fa fa-angle-double-right" aria-hidden="true"></i>
 						</button>
-					</div>
+					</span>
 				</div>
 			</div >
 			<!--end pagination div-->
@@ -143,10 +153,18 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="project in projects | orderBy: 'Name'">
-						<td width="7%"><a href="#/projects/{{project.Id}}" class="red"><i class="fa fa-info-circle" aria-hidden="true"></i></a></td>
-						<td width="15%"><a href="#/projects/{{project.Id}}">{{project.Name}}</a></td>
+						<td width="7%">
+							<a href="#/projects/{{project.Id}}" class="blue">
+								<i class="fa fa-info-circle" aria-hidden="true"></i>
+							</a>
+						</td>
+						<td width="15%">
+							<a href="#/projects/{{project.Id}}">{{project.Name}}</a>
+						</td>
 						<td width="28%">{{project.Description}}</td>
-						<td width="20%"><a href="#/admin/users/{{project.Lead.Username}}/info">{{project.Lead.Username}}</a></td>
+						<td width="20%">
+							<a href="#/admin/users/{{project.Lead.Username}}/info">{{project.Lead.Username}}</a>
+						</td>
 						<td width="15%">
 							<p>Count: {{project.Labels.length}}</p>
 							<div class="inner-addon left-addon">

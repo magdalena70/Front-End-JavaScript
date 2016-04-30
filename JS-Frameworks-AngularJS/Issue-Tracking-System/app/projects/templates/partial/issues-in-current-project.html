@@ -5,37 +5,34 @@
 <div id="issues-filters">
 	<div class="col-md-3">
 		<div class="form-group">
-			<label for="search-issue-by-author">Search issue by Author:</label>
+			<label for="searchIssueInCurrProjectByAuthor">Search issue by Author:</label>
 			<div class="inner-addon left-addon">
 				<i class="fa fa-search" aria-hidden="true"></i>
-				<input type="text" ng-model="issue.Author.Username" id="search-issue-by-author" class="form-control">
+				<input type="text" ng-model="issue.Author.Username" 
+					id="searchIssueInCurrProjectByAuthor" 
+					class="form-control">
 			</div>
 		</div>
 	</div>
 	<div class="col-md-3">
 		<div class="form-group">
-			<label for="search-issue-by-assignee">Search issue by Assignee:</label>
+			<label for="searchIssueInCurrProjectByAssignee">Search issue by Assignee:</label>
 			<div class="inner-addon left-addon">
 				<i class="fa fa-search" aria-hidden="true"></i>
-				<input type="text" ng-model="issue.Assignee.Username" id="search-issue-by-assignee" class="form-control">
+				<input type="text" ng-model="issue.Assignee.Username" 
+					id="searchIssueInCurrProjectByAssignee" 
+					class="form-control">
 			</div>
 		</div>
 	</div>
 	<div class="col-md-3">
 		<div class="form-group">
-			<label for="search-issue-by-title">Search issue by Title:</label>
+			<label for="searchIssueInCurrProjectByTitle">Search issue by Title:</label>
 			<div class="inner-addon left-addon">
 				<i class="fa fa-search" aria-hidden="true"></i>
-				<input type="text" ng-model="issue.Title" id="search-issue-by-title" class="form-control">
-			</div>
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="form-group">
-			<label for="search-issue-by-lable">Search issue by Label:</label>
-			<div class="inner-addon left-addon">
-				<i class="fa fa-search" aria-hidden="true"></i>
-				<input type="text" ng-model="issue.Labels.Name" id="search-issue-by-label" class="form-control">
+				<input type="text" ng-model="issue.Title" 
+					id="searchIssueInCurrProjectByTitle" 
+					class="form-control">
 			</div>
 		</div>
 	</div>
@@ -58,8 +55,8 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="issue in issuesInProject | orderBy:issue.DueDate |
-				filter:issue.Assignee.Username | filter:issue.Author.Username | filter:issue.Title | filter:issue.Labels.Name">
+		<tr ng-repeat="issue in issuesInProject | orderBy:issue.DueDate|
+				filter:issue.Assignee.Username | filter:issue.Author.Username | filter:issue.Title">
 			<td width="18%"><a href="#/issues/{{issue.Id}}">{{issue.Title}}</a></td>
 			<td width="30%">{{issue.Description}}</td>
 			<td width="8%">{{issue.DueDate | date: 'dd/MM/yyyy'}}</td>

@@ -88,9 +88,12 @@ angular.module('issueTrackingSystemApp.admin', [
 			
 			// '/admin/users/:username/info'
 			$scope.getUserProjects = function(){
-				var username = $routeParams.username;
+				var username = $routeParams.username,
+					pageSize = 300,
+					pageNumber = 1;
 				
-				projectServices.getUserProjects(username)
+				
+				projectServices.getUserProjects(pageSize, pageNumber, username)
 					.then(function(userProjectsData){
 						$scope.userProjects = userProjectsData.data.Projects;
 						if($scope.userProjects.length){
