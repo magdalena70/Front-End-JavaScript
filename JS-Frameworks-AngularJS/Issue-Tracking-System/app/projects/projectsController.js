@@ -4,7 +4,6 @@ angular.module('issueTrackingSystemApp.projects', [
 		'issueTrackingSystemApp.projects.projectServices',
 		'issueTrackingSystemApp.issues.issueServices',
 		'issueTrackingSystemApp.admin.adminServices',
-		'issueTrackingSystemApp.labels.labelServices',
 		'issueTrackingSystemApp.common.projectsAndIssuesHelpers'
 	])
 	.config(['$routeProvider', function($routeProvider){
@@ -35,15 +34,13 @@ angular.module('issueTrackingSystemApp.projects', [
 	}])
 	.controller('ProjectsController', [
 		'$scope',
-		'$rootScope',
 		'$routeParams',
 		'$location',
 		'projectServices',
 		'issueServices',
-		'labelServices',
 		'adminServices',
 		'projectsAndIssuesHelpers',
-		function($scope, $rootScope, $routeParams, $location, projectServices, issueServices, labelServices, adminServices, projectsAndIssuesHelpers){
+		function($scope, $routeParams, $location, projectServices, issueServices, adminServices, projectsAndIssuesHelpers){
 			
 			// '/projects/:id'
 			function getProjectById(){
@@ -95,10 +92,9 @@ angular.module('issueTrackingSystemApp.projects', [
 			
 			// '/projects/:id/add-issue'
 			$scope.addIssueInCurrentProject = function(newIssue){
-				console.log(newIssue);
 				newIssue.ProjectId = $routeParams.id;
-				
 				newIssue.Labels = projectsAndIssuesHelpers.addLabels(newIssue.Labels);
+				
 				issueServices.addIssue(newIssue)
 					.then(function(issueData){
 						$scope.issue = issueData.data;
@@ -112,18 +108,24 @@ angular.module('issueTrackingSystemApp.projects', [
 			// end
 			
 			// '/projects'
+			// on this page ->
+			// Step-1. The user call function getAllProjects(3, 1) -> using pagination and takes 3 projects a page,
+			//  so I take Projects TotalCount and then I use it when the user make Step-2;
+			// Step-2. The user call function getAllProjects(totalCount, 1) -> without pagination using filters;
 			$scope.getAllProjects = function(pageSize, curPage){
-				$scope.pageSize = pageSize;
-				$rootScope.curPage = curPage;
+				// pagination
+				$scope.allProjectsPageSize = pageSize;
+				$scope.allProjectsCurPage = curPage;
 				
-				projectServices.getAllProjects($scope.pageSize, $rootScope.curPage)
+				projectServices.getAllProjects($scope.allProjectsPageSize, $scope.allProjectsCurPage)
 					.then(function(projectsData){
 						$scope.projects = projectsData.data.Projects;
 						$scope.totalCount = projectsData.data.TotalCount;
 						
+						// pagination
 						if($scope.projects.length){
-							$scope.numberOfPages = function(){
-								return Math.ceil($scope.totalCount / $scope.pageSize);
+							$scope.allProjectsNumberOfPages = function(){
+								return Math.ceil($scope.totalCount / $scope.allProjectsPageSize);
 							}
 						}
 					},

@@ -1,73 +1,76 @@
 <!--error message-->
 <div class="row text-center" ng-if="!isAdmin()" ng-include="'app/common/partial/admin-warning-msg.html'"></div>
 <!--end error message-->
-<!--projects-->
+<!--all projects-->
 <div class="row" ng-if="isAdmin()">
 	<div class="col-md-12">
 		<h2>All Projects Total Count: <span class="blue">{{totalCount}}</span></h2>
 		<p class="text-center"><a href="#/projects/add">Add New Project</a></p>
 		<!--using custom directive 'hideElement'-->
-		<button hide-element ng-if="projects.length||projects.length===3"
+		<button ng-if="!projects.length || projects.length > 3" 
 			class="btn btn-success" 
-			ng-click="getAllProjects(500, 1)">
-				Search Projects By Filters
-		</button>
-		<button ng-if="!projects.length||projects.length>3" 
-			class="btn btn-success" 
-			ng-click="getAllProjects(3, 1)" 
-			ng-model="allProjects">
+			ng-click="getAllProjects(3, 1)"><!--First: I get 3 projects on a page and find Projects TotalCount-->
 				Get All Projects
 		</button>
+		<button hide-element ng-if="projects.length && projects.length == 3"
+			class="btn btn-warning" 
+			ng-click="getAllProjects(totalCount, 1)"><!--Then: Use Projects TotalCount to get all projects on a page-->
+				Search Projects By Filters
+		</button>
 		<!--projects filters-->
-		<div id="projects-filters" ng-show="projects.length>10">
+		<div id="projects-filters" ng-show="projects.length > 10">
 			<div class="col-md-3">
 				<div class="form-group">
-					<label for="search-user">Search project by Project Name:</label>
+					<label for="searchAllProjectsByName">Search project by Project Name:</label>
 					<div class="inner-addon left-addon">
 						<i class="fa fa-search" aria-hidden="true"></i>
-						<input type="search" ng-model="project.Name" 
-							id="search-project-by-name" 
+						<input type="search" ng-model="searchAllProjects.Name" 
+							id="searchAllProjectsByName"
+							placeholder="Project Name"
 							class="form-control">
 					</div>
 				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="form-group">
-					<label for="search-user">Search project by Leader Username:</label>
+					<label for="searchAllProjectsByLeader">Search project by Leader Username:</label>
 					<div class="inner-addon left-addon">
 						<i class="fa fa-search" aria-hidden="true"></i>
-						<input type="search" ng-model="project.Lead.Username" 
-							id="search-project-by-leader" 
+						<input type="search" ng-model="searchAllProjects.Lead.Username" 
+							id="searchAllProjectsByLeader"
+							placeholder="Leader Username"
 							class="form-control">
 					</div>
 				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="form-group">
-					<label for="search-user">Search project by Labels:</label>
+					<label for="searchAllProjectsByLabel">Search project by Labels:</label>
 					<div class="inner-addon left-addon">
 						<i class="fa fa-search" aria-hidden="true"></i>
-						<input type="search" ng-model="project.Labels.Name" 
-							id="search-project-by-labels"  
+						<input type="search" ng-model="searchAllProjects.Labels.Name" 
+							id="searchAllProjectsByLabel"
+							placeholder="Label Name"
 							class="form-control">
 					</div>
 				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="form-group">
-					<label for="search-user">Search project by Priorities:</label>
+					<label for="searchAllProjectsByPriority">Search project by Priorities:</label>
 					<div class="inner-addon left-addon">
 						<i class="fa fa-search" aria-hidden="true"></i>
-						<input type="search" ng-model="project.Priorities.Name" 
-							id="search-project-by-priorities"  
+						<input type="search" ng-model="searchAllProjects.Priorities.Name" 
+							id="searchAllProjectsByPriority"
+							placeholder="Priority Name"
 							class="form-control">
 					</div>
 				</div>
 			</div>
 		</div>
 		<!--end projects filters-->
-		<!-- all projects view selected by filters withouth pagination-->
-		<div ng-show="projects.length>10&&project.Name||project.Lead.Username||project.Labels.Name||project.Priorities.Name">
+		<!-- all projects view selected by filters without pagination-->
+		<div ng-show="projects.length > 3 || searchAllProjects">
 			<table class="table table-hover table-bordered">
 				<thead>
 					  <tr>
@@ -80,9 +83,7 @@
 					  </tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="project in projects | orderBy: 'Name' |
-						filter: project.Name | filter: project.Lead.Username |
-						filter: project.Labels.Name | filter: project.Priorities.Name">
+					<tr ng-repeat="project in projects | orderBy: 'Name' | filter: searchAllProjects">
 							<td width="7%">
 								<a href="#/projects/{{project.Id}}" class="blue">
 									<i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -121,25 +122,27 @@
 		</div>
 		<!--end filtered projects view-->
 		
-		<!--all projects view with pagination withouth filters-->
-		<div ng-show="projects.length&&!project.Name&&!project.Lead.Username&&!project.Labels.Name&&!project.Priorities.Name">
-			<!--pagination div-->
+		<!--all projects view with pagination without filters-->
+		<div ng-show="projects.length == 3 && !searchAllProjects">
+			<!--all projects pagination-->
 			<div class="col-md-12">
 				<div class="col-md-4 col-md-offset-4 text-center" id="projectsPagination">
 					<span>
-						<button ng-show="curPage > 1" ng-click="getAllProjects(3, curPage-1)">
+						<button ng-show="allProjectsCurPage > 1" 
+						  ng-click="getAllProjects(3, allProjectsCurPage-1)">
 							<i class="fa fa-angle-double-left" aria-hidden="true"></i>
 						</button>
 					</span>
-					<span>Page {{curPage}} of {{ numberOfPages() }}</span>
+					<span>Page {{allProjectsCurPage}} of {{ allProjectsNumberOfPages() }}</span>
 					<span>
-						<button ng-show="curPage < numberOfPages()" ng-click="getAllProjects(3, curPage+1)">
+						<button ng-show="allProjectsCurPage < allProjectsNumberOfPages()" 
+						  ng-click="getAllProjects(3, allProjectsCurPage+1)">
 							<i class="fa fa-angle-double-right" aria-hidden="true"></i>
 						</button>
 					</span>
 				</div>
 			</div >
-			<!--end pagination div-->
+			<!--end pagination-->
 			<table class="table table-hover table-bordered">
 				<thead>
 					<tr>
@@ -189,6 +192,6 @@
 				</tbody>
 			</table>
 		</div>
-		<!--end all projects view with pagination withouth filters-->
+		<!--end all projects view with pagination without filters-->
 	</div>
 </div>

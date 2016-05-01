@@ -31,19 +31,20 @@ angular.module('issueTrackingSystemApp.admin', [
 		function($scope, $location, $routeParams, adminServices, projectServices, issueServices){
 			
 			// '/admin/users/all'
-			// pagination
-			$scope.curPage = 0;
-			$scope.pageSize = 10;
-			
 			$scope.getAllUsers = function(){
+				// pagination
+				$scope.allUsersCurPage = 0;
+				$scope.allusersPageSize = 5;
+			
 				adminServices.getUsers()
 					.then(function(usersData){
 						$scope.users = usersData.data;
 						$scope.usersCount = usersData.data.length? usersData.data.length: 'No Users';
 						
+						// pagination
 						if($scope.users.length){
-							$scope.numberOfPages = function(){
-								return Math.ceil($scope.users.length / $scope.pageSize);
+							$scope.allUsersNumberOfPages = function(){
+								return Math.ceil($scope.users.length / $scope.allusersPageSize);
 							}
 						}
 					},
@@ -87,6 +88,10 @@ angular.module('issueTrackingSystemApp.admin', [
 			// end
 			
 			// '/admin/users/:username/info'
+			if($routeParams.username){
+				$scope.selectedUserUsername = $routeParams.username;
+			}
+			
 			$scope.getUserProjects = function(){
 				var username = $routeParams.username,
 					pageSize = 300,

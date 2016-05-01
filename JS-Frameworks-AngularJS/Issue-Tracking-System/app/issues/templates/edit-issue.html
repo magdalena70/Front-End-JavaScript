@@ -14,17 +14,13 @@
 					id="issueTitle" 
 					name="issueTitle"
 					required="required"
-					ng-minlength="3"
 					ng-maxlength="100"
-					placeholder="[Min-length: 3] [Max-length: 50]"
+					placeholder="Issue Title [Max-length: 100]"
 					class="form-control"/>
 				<p class="important" ng-show="editIssueForm.issueTitle.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i> Issue Title is required!</small>
 				</p>
 				<div role="alert">
-					<span class="important" ng-show="editIssueForm.issueTitle.$error.minlength">
-						<small>[Min-length: 3 simbols]</small>
-					</span>
 					<span class="error" ng-show="editIssueForm.issueTitle.$error.maxlength">
 						<small>[Max-length: 100 simbols]</small>
 					</span>
@@ -32,14 +28,17 @@
 			</div>
 			<div class="form-group">
 				<label for="description">Description<span class="important">*</span></label>
-				<textarea type="text" ng-model="issue.Description" rows="5"
-					id="description"
-					name="description"
-					required="required"
-					ng-minlength="3"
-					ng-maxlength="1000"
-					placeholder="[Min-length: 3] [Max-length: 1000]"
-					class="form-control"></textarea>
+				<div class="inner-addon left-addon">
+					<i class="fa fa-pencil-square" aria-hidden="true"></i>
+					<textarea type="text" ng-model="issue.Description" rows="5"
+						id="description"
+						name="description"
+						required="required"
+						ng-minlength="3"
+						ng-maxlength="1000"
+						placeholder="[Min-length: 3] [Max-length: 1000]"
+						class="form-control"></textarea>
+				</div>
 				<p class="important" ng-show="editIssueForm.description.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i> Description is required!</small>
 				</p>
@@ -54,11 +53,15 @@
 			</div>
 			<div class="form-group">
 				<label for="dueDate">Due Date<span class="important">*</span></label>
-				<input type="text" date-picker ng-model="issue.DueDate" 
-					id="dueDate" 
-					name="dueDate"
-					required="required"
-					class="form-control"/>
+				<div class="inner-addon left-addon">
+					<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
+					<input type="text" date-picker ng-model="issue.DueDate" 
+						id="dueDate" 
+						name="dueDate"
+						required="required"
+						placeholder="Click to add date"
+						class="form-control"/>
+				</div>
 				<p class="important" ng-show="editIssueForm.dueDate.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i>Due Date is required!</small>
 				</p>
@@ -68,9 +71,12 @@
 				<p class="important">Available Priorities: {{issue.AvailablePriorities | json}}</p>
 				<p>To change Priority enter priority's Id from Available Priorities</p>
 				<p>Select only one priority:</p>
-				<select ng-model="issue.PriorityId" id="editPriority" name="editPriority" required="required" class="form-control">
-					<option ng-repeat="editPriority in issue.AvailablePriorities" value="{{editPriority.Id}}">{{editPriority.Name}}</option>
-				</select>
+				<div class="inner-addon left-addon">
+					<i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+					<select ng-model="issue.PriorityId" id="editPriority" name="editPriority" required="required" class="form-control">
+						<option ng-repeat="editPriority in issue.AvailablePriorities" value="{{editPriority.Id}}">{{editPriority.Name}}</option>
+					</select>
+				</div>
 				<p class="important" ng-show="editIssueForm.editPriority.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i>Priority is required!</small>
 				</p>
@@ -82,11 +88,15 @@
 				<label for="searchToChangeAssignee">Search user by filter: "Username"<span class="important">*</span>:</label>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-search" aria-hidden="true"></i>
-					<input type="text" ng-model="user.Username" id="searchToChangeAssignee" name="searchToChangeAssignee" class="form-control">
+					<input type="text" ng-model="editAssignee.Username" 
+						id="searchToChangeAssignee" 
+						name="searchToChangeAssignee"
+						placeholder="Assignee Username"
+						class="form-control">
 				</div>
 			</div>
 			<div class="col-md-12">
-				<button class="btn btn-success"  
+				<button class="btn btn-warning"  
 					ng-click="getAllUsersToMakeAssignee()">
 					Get Users By Filter
 				</button>
@@ -97,7 +107,7 @@
 				<div class="inner-addon left-addon">
 					<i class="fa fa-user" aria-hidden="true"></i>
 					<select ng-model="issue.AssigneeId" id="assignee" name="assigneeId" class="form-control">
-						<option  ng-repeat="user in usersForAssignee | orderBy: 'Username' | filter: user.Username" value="{{user.Id}}">
+						<option  ng-repeat="user in usersForAssignee | orderBy: 'Username' | filter: editAssignee" value="{{user.Id}}">
 							{{user.Username}}
 						</option>
 					</select>
@@ -109,14 +119,14 @@
 			<div class="form-group">
 				<label for="editedIssueLabels">Add Labels</label>
 				<p>Add new labels separated by a dot-comma:</p>
-				<p class="important">[label1; label2;...]</p>
+				<p class="important">[label-1; label-2;...]</p>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-tags" aria-hidden="true"></i>
 					<input type="text" ng-model="issue.Labels" 
 						id="editedIssueLabels"
 						name="editedIssueLabels"					
 						ng-minlength="3"
-						placeholder="[Min-length: 3]"
+						placeholder="label-1;label-2...[Min-length: 3]"
 						class="form-control"/>
 				</div>
 				<div role="alert">

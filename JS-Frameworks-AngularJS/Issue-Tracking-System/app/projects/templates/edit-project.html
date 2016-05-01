@@ -38,23 +38,30 @@
 				<label for="searchLeader">Search user by filter: "Username"<span class="important">*</span>:</label>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-search" aria-hidden="true"></i>
-					<input type="text" ng-model="user.Username" id="searchLeader" name="searchLeader" class="form-control">
+					<input type="search" ng-model="editLeader.Username" 
+						id="searchLeader" 
+						name="searchLeader"
+						placeholder="Leader Username"
+						class="form-control">
 				</div>
 			</div>
 			<div class="col-md-12">
-				<button class="btn btn-success" 
-					ng-disabled="!user.Username" 
+				<button class="btn btn-warning" 
+					ng-disabled="!editLeader" 
 					ng-click="getAllUsersToMakeLeaderOrAssignee()">
 					Get Users By Filter
 				</button>
 			</div>
 			<div class="form-group">
 				<label for="editedLeader">Select Leader</label>
-				<p>To change the leader Get Users By Filter: Username:</p>
+				<p>
+					To change Leader: First Get Users By Filter, then select one 
+					<i class="fa fa-hand-o-down" aria-hidden="true"></i>
+				</p>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-user" aria-hidden="true"></i>
 					<select ng-model="editedProject.LeadId" id="editedLeader" name="editedLeadId" class="form-control">
-						<option  ng-repeat="user in usersForLeader | orderBy: 'Username' | filter: user.Username" value="{{user.Id}}">
+						<option  ng-repeat="user in usersForLeader | orderBy: 'Username' | filter: editLeader" value="{{user.Id}}">
 							{{user.Username}}
 						</option>
 					</select>
@@ -64,14 +71,17 @@
 			<!--end-->
 			<div class="form-group">
 				<label for="editedDescription">Description<span class="important">*</span></label>
-				<textarea type="text" ng-model="editedProject.Description" rows="5"
-					id="description"
-					name="editedDescription"
-					required="required"
-					ng-minlength="3"
-					ng-maxlength="1000"
-					placeholder="[Min-length: 3] [Max-length: 100]"
-					class="form-control"></textarea>
+				<div class="inner-addon left-addon">
+					<i class="fa fa-pencil-square" aria-hidden="true"></i>
+					<textarea type="text" ng-model="editedProject.Description" rows="5"
+						id="description"
+						name="editedDescription"
+						required="required"
+						ng-minlength="3"
+						ng-maxlength="1000"
+						placeholder="[Min-length: 3] [Max-length: 100]"
+						class="form-control"></textarea>
+				</div>
 				<p class="important" ng-show="editProjectForm.editedDescription.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i> Description is required!</small>
 				</p>
@@ -88,14 +98,17 @@
 				<label for="editedPriorities">Priorities <span class="important">*</span></label>
 				<p>Add new priorities separated by a dot-comma and an white-space:</p>
 				<p class="important">[priority1; priority2; ...]</p>
-				<input type="text" ng-model="editedProject.Priorities" 
-					id="editedPriorities "
-					name="editedPriorities"
-					required="required"
-					ng-minlength="3"
-					ng-maxlength="100"
-					placeholder="[Min-length: 3] [Max-length: 100]"
-					class="form-control"/>
+				<div class="inner-addon left-addon">
+					<i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+					<input type="text" ng-model="editedProject.Priorities" 
+						id="editedPriorities "
+						name="editedPriorities"
+						required="required"
+						ng-minlength="3"
+						ng-maxlength="100"
+						placeholder="[Min-length: 3] [Max-length: 100]"
+						class="form-control"/>
+				</div>
 				<p class="important" ng-show="editProjectForm.editedPriorities.$error.required">
 					<small><i class="fa fa-exclamation-triangle"></i> Priorities is required!</small>
 				</p>
