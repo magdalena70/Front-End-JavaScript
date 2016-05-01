@@ -69,21 +69,76 @@
 			</div>
 		</div>
 		<!--end projects filters-->
+		<p ng-show="projects.length" class="important">
+			Sort issues by clicking on <strong>Name</strong>,
+			<strong>Description</strong>, <strong>Leader</strong>,
+			<strong>Labels</strong> or <strong>Priorities</strong>
+		</p>
 		<!-- all projects view selected by filters without pagination-->
 		<div ng-show="projects.length > 3 || searchAllProjects">
 			<table class="table table-hover table-bordered">
 				<thead>
 					  <tr>
 							<th width="7%">Details</th>
-							<th width="15%">Name</th>
-							<th width="28%">Description</th>
-							<th width="20%">Leader</th>
-							<th width="15%">Labels</th>
-							<th width="15%">Priorities</th>
+							<th width="15%">
+								<button popover class="btn btn-default" 
+									data-container="body" 
+									data-toggle="popover" 
+									data-placement="top" 
+									data-trigger="focus"
+									data-content="Oder By Name"
+									ng-click="orderByKey('Name')">
+										Name
+								</button>
+							</th>
+							<th width="28%">
+								<button popover class="btn btn-default" 
+									data-container="body" 
+									data-toggle="popover" 
+									data-placement="top" 
+									data-trigger="focus"
+									data-content="Oder By Description"
+									ng-click="orderByKey('Description')">
+										Description
+								</button>
+							</th>
+							<th width="20%">
+								<button popover class="btn btn-default" 
+									data-container="body" 
+									data-toggle="popover" 
+									data-placement="top" 
+									data-trigger="focus"
+									data-content="Oder By Leader Name"
+									ng-click="orderByKey('Lead.Name')">
+										Leader
+								</button>
+							</th>
+							<th width="15%">
+								<button popover class="btn btn-default" 
+									data-container="body" 
+									data-toggle="popover" 
+									data-placement="top" 
+									data-trigger="focus"
+									data-content="Oder By Label Name"
+									ng-click="orderByKey('Label.Name')">
+										Labels
+								</button>
+							</th>
+							<th width="15%">
+								<button popover class="btn btn-default" 
+									data-container="body" 
+									data-toggle="popover" 
+									data-placement="top" 
+									data-trigger="focus"
+									data-content="Oder By Priorities Name"
+									ng-click="orderByKey('Priorities.Name')">
+										Priorities
+								</button>
+							</th>
 					  </tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="project in projects | orderBy: 'Name' | filter: searchAllProjects">
+					<tr ng-repeat="project in projects | orderBy: keyOrder | filter: searchAllProjects">
 							<td width="7%">
 								<a href="#/projects/{{project.Id}}" class="blue">
 									<i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -147,15 +202,65 @@
 				<thead>
 					<tr>
 						<th width="7%">Details</th>
-						<th width="15%">Name</th>
-						<th width="28%">Description</th>
-						<th width="20%">Leader</th>
-						<th width="15%">Labels</th>
-						<th width="15%">Priorities</th>
+							<th width="15%">
+								<button popover class="btn btn-default" 
+									data-container="body" 
+									data-toggle="popover" 
+									data-placement="top" 
+									data-trigger="focus"
+									data-content="Oder By Name"
+									ng-click="orderByKey('Name')">
+										Name
+								</button>
+							</th>
+							<th width="28%">
+								<button popover class="btn btn-default" 
+									data-container="body" 
+									data-toggle="popover" 
+									data-placement="top" 
+									data-trigger="focus"
+									data-content="Oder By Description"
+									ng-click="orderByKey('Description')">
+										Description
+								</button>
+							</th>
+							<th width="20%">
+								<button popover class="btn btn-default" 
+									data-container="body" 
+									data-toggle="popover" 
+									data-placement="top" 
+									data-trigger="focus"
+									data-content="Oder By Leader Name"
+									ng-click="orderByKey('Lead.Name')">
+										Leader
+								</button>
+							</th>
+							<th width="15%">
+								<button popover class="btn btn-default" 
+									data-container="body" 
+									data-toggle="popover" 
+									data-placement="top" 
+									data-trigger="focus"
+									data-content="Oder By Label Name"
+									ng-click="orderByKey('Label.Name')">
+										labels
+								</button>
+							</th>
+							<th width="15%">
+								<button popover class="btn btn-default" 
+									data-container="body" 
+									data-toggle="popover" 
+									data-placement="top" 
+									data-trigger="focus"
+									data-content="Oder By Priorities Name"
+									ng-click="orderByKey('Priorities.Name')">
+										Priorities
+								</button>
+							</th>
 					 </tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="project in projects | orderBy: 'Name'">
+					<tr ng-repeat="project in projects | orderBy: keyOrder">
 						<td width="7%">
 							<a href="#/projects/{{project.Id}}" class="blue">
 								<i class="fa fa-info-circle" aria-hidden="true"></i>

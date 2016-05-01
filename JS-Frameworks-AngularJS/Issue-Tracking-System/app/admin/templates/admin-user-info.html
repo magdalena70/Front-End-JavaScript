@@ -16,7 +16,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="userProject in userProjects">
+				<tr ng-repeat="userProject in userProjects | orderBy: 'Name'">
 					<td width="85%">{{userProject.Name}}</td>
 					<td width="15%" class="text-center">
 						<a href="#/projects/{{userProject.Id}}">
@@ -38,7 +38,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="userIssue in userIssues">
+				<tr ng-repeat="userIssue in userIssues | orderBy: 'DueDate'">
 					<td width="85%">{{userIssue.Title}}</td>
 					<td width="15%" class="text-center">
 						<a href="#/issues/{{userIssue.Id}}">

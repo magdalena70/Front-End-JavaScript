@@ -22,7 +22,7 @@
 			<!--end projects filter-->
 			<!--projects view without pagination with filter-->
 			<div class="col-md-8 text-center" ng-show="myProjects.length && searcProject">
-				<p id="myProjects" ng-repeat="project in myProjects | filter:searcProject">
+				<p id="myProjects" ng-repeat="project in myProjects | filter:searcProject | orderBy: 'Name'">
 						<a href="#/projects/{{project.Id}}">{{project.Name}}</a>
 				</p>
 			</div>
@@ -120,7 +120,7 @@
 		</div>
 		<!--end issues filters-->
 		<!--issues pagination-->
-		<div class="col-md-12" ng-show="myIssues.length && !search">
+		<div class="col-md-12" ng-show="myIssues.length && !search.Title && !search.Project.Name && !search.DueDate && !search.Status.Name">
 			<div class="text-center" id="myIssuesPagination">
 				<span>
 					<button ng-hide="myIssuesCurPage == 0" 
@@ -138,19 +138,74 @@
 			</div>
 		</div>
 		<!--end issues pagination-->
+		<p ng-show="myIssues.length" class="important">
+			Sort issues by clicking on <strong>Title</strong>,
+			<strong>Description</strong>, <strong>Associated with Project</strong>,
+			<strong>Due Date</strong> or <strong>Status</strong>
+		</p>
 		<table class="table table-hover table-bordered" ng-show="myIssues.length">
 			<thead>
 			  <tr>
-				<th width="22%">Title</th>
-				<th width="28%">Description</th>
-				<th width="15%">Associated with Project</th>
-				<th width="15%">Due date</th>
-				<th width="10%">Status</th>
+				<th width="22%">
+					<button popover class="btn btn-default" 
+						data-container="body" 
+						data-toggle="popover" 
+						data-placement="top" 
+						data-trigger="focus"
+						data-content="Oder By Title"
+						ng-click="orderByKey('Title')">
+							Title
+					</button>
+				</th>
+				<th width="28%">
+					<button popover class="btn btn-default" 
+						data-container="body" 
+						data-toggle="popover" 
+						data-placement="top" 
+						data-trigger="focus"
+						data-content="Oder By Description"
+						ng-click="orderByKey('Description')">
+							Description
+					</button>
+				</th>
+				<th width="15%">
+					<button popover class="btn btn-default" 
+						data-container="body" 
+						data-toggle="popover" 
+						data-placement="top" 
+						data-trigger="focus"
+						data-content="Oder By Project Name"
+						ng-click="orderByKey('Project.Name')">
+							Associated with Project
+					</button>
+				</th>
+				<th width="15%">
+					<button popover class="btn btn-default" 
+						data-container="body" 
+						data-toggle="popover" 
+						data-placement="top"
+						data-trigger="focus"
+						data-content="Oder By DueDate"
+						ng-click="orderByKey('DueDate')">
+							Due Date
+					</button>
+				</th>
+				<th width="10%">
+					<button popover class="btn btn-default" 
+						data-container="body" 
+						data-toggle="popover" 
+						data-placement="top"
+						data-trigger="focus"
+						data-content="Oder By Status Name"
+						ng-click="orderByKey('Status.Name')">
+							Status
+					</button>
+				</th>
 			  </tr>
 			</thead>
 			<tbody>
 			  <tr ng-show="search" 
-				ng-repeat="issue in myIssues | filter:search">
+				ng-repeat="issue in myIssues | filter:search | orderBy: keyOrder">
 						<td width="22%"><a href="#issues/{{issue.Id}}">{{issue.Title}}</a></td>
 						<td width="28%">{{issue.Description}}</td>
 						<td width="15%"><a href="#/projects/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>
@@ -158,7 +213,7 @@
 						<td width="10%">{{issue.Status.Name}}</td>
 			  </tr>
 			  <tr ng-show="!search" 
-				ng-repeat="issue in myIssues | pagination: myIssuesCurPage * myIssuesPageSize | limitTo: myIssuesPageSize">
+				ng-repeat="issue in myIssues | orderBy: keyOrder | pagination: myIssuesCurPage * myIssuesPageSize | limitTo: myIssuesPageSize">
 					<td width="22%"><a href="#issues/{{issue.Id}}">{{issue.Title}}</a></td>
 					<td width="28%">{{issue.Description}}</td>
 					<td width="15%"><a href="#/projects/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>

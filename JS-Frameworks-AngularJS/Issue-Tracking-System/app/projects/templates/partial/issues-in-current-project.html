@@ -57,20 +57,85 @@
 </div>
 <!--end filters-->
 <!--issues data-->
+<p ng-show="issuesInProject.length" class="important">
+	Sort issues by clicking on <strong>Title</strong>,
+	<strong>Description</strong>, <strong>Due Date</strong>,
+	<strong>Author</strong>, <strong>Assignee</strong> or <strong>Status</strong>
+</p>
 <table class="table table-hover table-bordered">
 	<thead>
 		<tr>
-			<th width="18%">Title</th>
-			<th width="30%">Description</th>
-			<th width="8%">Due Date</th>
-			<th width="15%">Author</th>
-			<th width="15%">Assignee</th>
-			<th width="9%">Status</th>
+			<th width="18%">
+				<button popover class="btn btn-default" 
+					data-container="body" 
+					data-toggle="popover" 
+					data-placement="top" 
+					data-trigger="focus"
+					data-content="Oder By Title"
+					ng-click="orderByKey('Title')">
+						Title
+				</button>
+			</th>
+			<th width="30%">
+				<button popover class="btn btn-default" 
+					data-container="body" 
+					data-toggle="popover" 
+					data-placement="top" 
+					data-trigger="focus"
+					data-content="Oder By Description"
+					ng-click="orderByKey('Description')">
+						Description
+				</button>
+			</th>
+			<th width="8%">
+				<button popover class="btn btn-default" 
+					data-container="body" 
+					data-toggle="popover" 
+					data-placement="top"
+					data-trigger="focus"
+					data-content="Oder By DueDate"
+					ng-click="orderByKey('DueDate')">
+						Due Date
+				</button>
+			</th>
+			<th width="15%">
+				<button popover class="btn btn-default" 
+					data-container="body" 
+					data-toggle="popover" 
+					data-placement="top"
+					data-trigger="focus"
+					data-content="Oder By Author Username"
+					ng-click="orderByKey('Author.Username')">
+						Author
+				</button>
+			</th>
+			<th width="15%">
+				<button popover class="btn btn-default" 
+					data-container="body" 
+					data-toggle="popover" 
+					data-placement="top"
+					data-trigger="focus"
+					data-content="Oder By Assignee Username"
+					ng-click="orderByKey('Assignee.Username')">
+							Assignee
+				</button>
+			</th>
+			<th width="9%">
+				<button popover class="btn btn-default" 
+					data-container="body" 
+					data-toggle="popover" 
+					data-placement="top"
+					data-trigger="focus"
+					data-content="Oder By Status Name"
+					ng-click="orderByKey('Status.Name')">
+						Status
+				</button>
+			</th>
 			<th width="5%">Edit</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="issue in issuesInProject | orderBy:issue.DueDate | filter:search">
+		<tr ng-repeat="issue in issuesInProject | orderBy: keyOrder | filter:search">
 			<td width="18%"><a href="#/issues/{{issue.Id}}">{{issue.Title}}</a></td>
 			<td width="30%">{{issue.Description}}</td>
 			<td width="8%">{{issue.DueDate | date: 'dd/MM/yyyy'}}</td>

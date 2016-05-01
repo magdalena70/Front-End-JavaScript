@@ -6,6 +6,13 @@ angular.module('issueTrackingSystemApp.common', [])
 		'BASE_URL',
 		function($scope, authentication, BASE_URL){ 
 			
+			// using to sort projects and issues by key
+			$scope.orderByKey = function(key){
+				$scope.keyOrder = key;
+			}
+			// end 
+			
+			// authentication
 			$scope.getCurrentUserUsername = function(){
 				if(sessionStorage['currentUserUsername']){
 					return $scope.username = sessionStorage['currentUserUsername'];
@@ -27,6 +34,7 @@ angular.module('issueTrackingSystemApp.common', [])
 					 return false;
 				}
 			}
+			// end authentication
 			
 			// for success messages
 			$scope.isSuccess = function(){

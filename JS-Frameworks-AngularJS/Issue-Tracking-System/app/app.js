@@ -6,6 +6,7 @@ angular.module('issueTrackingSystemApp', [
 		'issueTrackingSystemApp.common',
 		'issueTrackingSystemApp.common.datepicker',
 		'issueTrackingSystemApp.common.dialogModal',
+		'issueTrackingSystemApp.common.popover',
 		'issueTrackingSystemApp.common.clearInputValue',
 		'issueTrackingSystemApp.common.hideElement',
 		'issueTrackingSystemApp.common.paginationFilter',

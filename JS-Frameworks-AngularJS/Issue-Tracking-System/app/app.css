@@ -31,6 +31,11 @@ table th, table td{
 	text-align: center;
 }
 
+table th:hover{
+	background-color: #333;
+	color: #FFE374;
+}
+
 a{
 	font-weight: bold;
 	color: #5A297D;
@@ -188,18 +193,33 @@ a:focus, a:hover{
 }
 /* end style input class .form-control */
 
-button,
+/* buttons */
 .btn-success{
 	background-color: #9C9586;
 	color: #FEFBF1;
 	margin: 10px;
 }
 
-button,
 .btn-success:hover{
 	background-color: rgba(254, 238, 189, 0.4);
 	color: #333;
 }
+
+.btn-default{
+	width: 100%;
+	margin: 0;
+	background-color: transparent;
+	border: solid 1px #fff;
+	border-radius: none;
+	font-weight: bold;
+	color: #ED7B19;
+}
+
+.btn-default:hover{
+	background-color: #ED7B19;
+	color: #fff;
+}
+/* end buttons style */
 
 .warning{
 	color: #FF0000;
@@ -325,6 +345,8 @@ button,
 #myProjectsPagination, #myProjectsPagination button,
 #myIssuesPagination, #myIssuesPagination button,
 #usersPagination, #usersPagination button{
+	margin-top: 10px;
+	margin-bottom: 10px;
 	font-size: 18px;
 	font-weight: bold;
 	text-shadow: 1px 3px 6px #333;
