@@ -107,11 +107,14 @@ angular.module('issueTrackingSystemApp.home', [
 			}
 			
 			$scope.getMyIssues = function(){
+				var pageSize = 300,
+					pageNumber = 1;
+					
 				// pagination
 				$scope.myIssuesCurPage = 0;
 				$scope.myIssuesPageSize = 3;
 				
-				issueServices.getMyIssues()
+				issueServices.getMyIssues(pageSize, pageNumber)
 					.then(function(issuesData){
 						$scope.myIssues = issuesData.data.Issues;
 						if($scope.myIssues.length){

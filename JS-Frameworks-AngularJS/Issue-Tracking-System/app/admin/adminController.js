@@ -113,9 +113,11 @@ angular.module('issueTrackingSystemApp.admin', [
 			}
 			
 			$scope.getUserIssues = function(){
-				var username = $routeParams.username;
+				var username = $routeParams.username,
+					pageSize = 300,
+					pageNumber = 1;
 				
-				issueServices.getUserIssues(username)
+				issueServices.getUserIssues(pageSize, pageNumber, username)
 					.then(function(userIssuesData){
 						$scope.userIssues = userIssuesData.data.Issues;
 						if($scope.userIssues.length){
