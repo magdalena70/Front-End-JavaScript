@@ -343,6 +343,7 @@ a:focus, a:hover{
 /* pagination style */
 #projectsPagination, #projectsPagination  button,
 #myProjectsPagination, #myProjectsPagination button,
+#allIssuesPagination, #allIssuesPagination button,
 #myIssuesPagination, #myIssuesPagination button,
 #usersPagination, #usersPagination button{
 	margin-top: 10px;
@@ -354,6 +355,7 @@ a:focus, a:hover{
 
 #projectsPagination button,
 #myProjectsPagination button,
+#allIssuesPagination button,
 #myIssuesPagination button,
 #usersPagination button{
 	border: none;
@@ -363,6 +365,7 @@ a:focus, a:hover{
 
 #projectsPagination button:hover,
 #myProjectsPagination button:hover,
+#allIssuesPagination button:hover,
 #myIssuesPagination button:hover,
 #usersPagination button:hover{
 	background-color: #333;

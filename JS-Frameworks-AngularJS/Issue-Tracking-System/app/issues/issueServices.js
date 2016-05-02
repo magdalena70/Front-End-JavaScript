@@ -6,12 +6,29 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [])
 		'$q',
 		'BASE_URL',
 		function($http, $q, BASE_URL){
+		
+			function getAllIssues(pageSize, pageNumber){
+				var defer = $q.defer();
+				var accessToken = sessionStorage['accessToken'];
+				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
+				$http.get(BASE_URL + 'issues/?pageSize='+ pageSize +
+					'&pageNumber=' + pageNumber + '&filter=', headers)
+					.then(function(success){
+						defer.resolve(success);
+					},
+					function(error){
+						defer.reject(error);
+					});
+				
+				return defer.promise;
+			}
 			
 			function getMyIssues(pageSize, pageNumber){
 				var defer = $q.defer();
 				var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
-				$http.get(BASE_URL + 'issues/me?orderBy=DueDate desc, IssueKey&pageSize='+ pageSize + '&pageNumber=' + pageNumber, headers)
+				$http.get(BASE_URL + 'issues/me?orderBy=DueDate desc, IssueKey&pageSize='+
+					pageSize + '&pageNumber=' + pageNumber, headers)
 					.then(function(success){
 						defer.resolve(success);
 					},
@@ -129,6 +146,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [])
 			}
 			
 			return{
+				getAllIssues: getAllIssues,
 				getMyIssues: getMyIssues,
 				getUserIssues: getUserIssues,
 				getIssueById: getIssueById,

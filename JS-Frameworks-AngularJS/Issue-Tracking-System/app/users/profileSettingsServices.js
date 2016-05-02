@@ -7,10 +7,6 @@ angular.module('issueTrackingSystemApp.users.profileSettingsServices', [])
 		'BASE_URL',
 		function($http, $q, BASE_URL){
 			
-			function editProfile(user){
-				//to do
-			}
-			
 			function changePassword(user){
 				var defer = $q.defer();
 				var accessToken = sessionStorage['accessToken'];
@@ -27,7 +23,6 @@ angular.module('issueTrackingSystemApp.users.profileSettingsServices', [])
 			}
 			
 			return{
-				editProfile: editProfile,
 				changePassword: changePassword
 			};
 	}]);

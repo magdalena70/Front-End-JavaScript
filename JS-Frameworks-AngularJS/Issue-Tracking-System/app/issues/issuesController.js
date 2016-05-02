@@ -8,6 +8,11 @@ angular.module('issueTrackingSystemApp.issues', [
 		'issueTrackingSystemApp.common.projectsAndIssuesHelpers'
 	])
 	.config(['$routeProvider', function($routeProvider){
+		$routeProvider.when('/issues', {
+			templateUrl: 'app/issues/templates/all-issues.html',
+			controller: 'IssuesController'
+		});
+	
 		$routeProvider.when('/issues/:id/edit', {
 			templateUrl: 'app/issues/templates/edit-issue.html',
 			controller: 'IssuesController'
@@ -109,6 +114,24 @@ angular.module('issueTrackingSystemApp.issues', [
 			// end
 			
 			
+			// '/issues'
+			$scope.getAllIssues = function(pageSize, curPage){
+				// pagination
+				$scope.allIssuesPageSize = pageSize;
+				$scope.allIssuesCurPage = curPage;
+				
+				issueServices.getAllIssues($scope.allIssuesPageSize, $scope.allIssuesCurPage)
+					.then(function(allIssuesData){
+						$scope.allIssues = allIssuesData.data.Issues;
+						$scope.allIssuesTotalCount = allIssuesData.data.TotalCount;
+						$scope.allIssuesTotalPages = allIssuesData.data.TotalPages;
+					},
+					function(error){
+						sessionStorage['errorMsg'] = error.data.Message;
+					});
+			}
+			// end
+			
 			// '/issues/:id/edit'
 			$scope.getAllUsersToMakeAssignee = function(){
 				adminServices.getUsers()
@@ -130,7 +153,6 @@ angular.module('issueTrackingSystemApp.issues', [
 				}
 				
 				issue.Labels = projectsAndIssuesHelpers.addLabels(issue.Labels);
-				//issue.Labels = projectsAndIssuesHelpers.makeToAsociativeArr(issue.Labels, ';')
 				issueServices.editIssue(issueId, issue)
 					.then(function(issueData){
 						sessionStorage['successMsg'] = 'Edited issue successfuly';

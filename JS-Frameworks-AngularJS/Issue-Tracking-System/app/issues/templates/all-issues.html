@@ -1,0 +1,160 @@
+<!--error message-->
+<div class="row text-center" ng-if="!isAdmin()" ng-include="'app/common/partial/admin-warning-msg.html'"></div>
+<!--end error message-->
+<!--all issues-->
+<div class="row" ng-if="isAdmin()">
+	<h2>All Issues Total Count: <span class="blue">{{allIssuesTotalCount}}</span></h2>
+	<button ng-if="!allIssues.length || allIssues.length > 7"
+		class="btn btn-success" 
+		ng-click="getAllIssues(7, 1)"><!--First: I get 7 issues on a page and find Issues TotalCount-->
+			Get All Issues
+	</button>
+	<!--using custom directive 'hideElement'-->
+	<button hide-element ng-if="allIssues.length && allIssues.length == 7" 
+		class="btn btn-warning" 
+		ng-click="getAllIssues(allIssuesTotalCount, 1)"><!--Then: Use Issues TotalCount to get all issues on a page-->
+			Search Issues By Filters
+	</button>
+	<div class="col-md-12" ng-show="allIssues.length">
+		<!--all issues filters-->
+		<div id="allIssuesFilters" ng-show="allIssues.length > 7">
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="searchAllIssuesByAssignee">Search issues by Assignee:</label>
+					<div class="inner-addon left-addon">
+						<i class="fa fa-search" aria-hidden="true"></i>
+						<input type="search" ng-model="searchAllIssues.Assignee.Username" 
+							id="searchAllIssuesByAssignee"
+							placeholder="Assignee Username"
+							class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="searchAllIssuesByProject">Search issues by Project Name:</label>
+					<div class="inner-addon left-addon">
+						<i class="fa fa-search" aria-hidden="true"></i>
+						<input type="search" ng-model="searchAllIssues.Project.Name" 
+							id="searchAllIssuesByProject"
+							placeholder="Project Name"
+							class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<label for="searchAllIssuesByStatus">Search issues by Status:</label>
+					<div class="inner-addon left-addon">
+						<i class="fa fa-search" aria-hidden="true"></i>
+						<input type="search" ng-model="searchAllIssues.Status.Name" 
+							id="searchAllIssuesByStatus"
+							placeholder="Status Name"
+							class="form-control">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--end all issues filters-->
+		<!--all issues pagination-->
+		<div class="col-md-4 col-md-offset-4 text-center" ng-show="allIssues.length == 7" id="allIssuesPagination">
+			<span>
+				<button ng-show="allIssuesCurPage > 1" 
+				  ng-click="getAllIssues(7, allIssuesCurPage-1)">
+					<i class="fa fa-angle-double-left" aria-hidden="true"></i>
+				</button>
+			</span>
+			<span>Page {{allIssuesCurPage}} of {{allIssuesTotalPages}}</span>
+			<span>
+				<button ng-show="allIssuesCurPage < allIssuesTotalPages" 
+				  ng-click="getAllIssues(7, allIssuesCurPage+1)">
+					<i class="fa fa-angle-double-right" aria-hidden="true"></i>
+				</button>
+			</span>
+		</div>
+		<!--end pagination-->
+		<div class=" col-md-12 important">
+			Sort issues by clicking on <strong>Name</strong>,
+			<strong>Leader</strong> or <strong>Assignee</strong>
+		</div>
+		<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th width="7%">Details</th>
+							<th width="30%">
+								<button popover class="btn btn-default" 
+									data-container="body" 
+									data-toggle="popover" 
+									data-placement="top" 
+									data-trigger="focus"
+									data-content="Oder By Title"
+									ng-click="orderByKey('Title')">
+										Title
+								</button>
+							</th>
+							<th width="30%">
+								<button popover class="btn btn-default" 
+									data-container="body" 
+									data-toggle="popover" 
+									data-placement="top" 
+									data-trigger="focus"
+									data-content="Oder By Project Name"
+									ng-click="orderByKey('Project.Name')">
+										Project
+								</button>
+							</th>
+							<th width="20%">
+								<button popover class="btn btn-default" 
+									data-container="body" 
+									data-toggle="popover" 
+									data-placement="top" 
+									data-trigger="focus"
+									data-content="Oder By Assignee Username"
+									ng-click="orderByKey('Assignee.Username')">
+										Assignee
+								</button>
+							</th>
+							<th width="13%">
+								<button popover class="btn btn-default" 
+									data-container="body" 
+									data-toggle="popover" 
+									data-placement="top" 
+									data-trigger="focus"
+									data-content="Oder By Status Name"
+									ng-click="orderByKey('Status.Name')">
+										Status
+								</button>
+							</th>
+					 </tr>
+				</thead>
+				<tbody>
+					<tr ng-show="allIssues.length > 7" ng-repeat="issue in allIssues | orderBy: keyOrder | filter:searchAllIssues">
+						<td width="7%">
+							<a href="#/issues/{{issue.Id}}" class="blue">
+								<i class="fa fa-info-circle" aria-hidden="true"></i>
+							</a>
+						</td>
+						<td width="30%">{{issue.Title}}</td>
+						<td width="30%">{{issue.Project.Name}}</td>
+						<td width="20%">
+							<a href="#/admin/users/{{issue.Assignee.Username}}/info">{{issue.Assignee.Username}}</a>
+						</td>
+						<td>{{issue.Status.Name}}</td>
+					 </tr>
+					 <tr ng-show="allIssues.length == 7" ng-repeat="issue in allIssues | orderBy: keyOrder">
+						<td width="7%">
+							<a href="#/issues/{{issue.Id}}" class="blue">
+								<i class="fa fa-info-circle" aria-hidden="true"></i>
+							</a>
+						</td>
+						<td width="30%">{{issue.Title}}</td>
+						<td width="30%">{{issue.Project.Name}}</td>
+						<td width="20%">
+							<a href="#/admin/users/{{issue.Assignee.Username}}/info">{{issue.Assignee.Username}}</a>
+						</td>
+						<td>{{issue.Status.Name}}</td>
+					 </tr>
+				</tbody>
+			</table>
+	</div>
+</div>
