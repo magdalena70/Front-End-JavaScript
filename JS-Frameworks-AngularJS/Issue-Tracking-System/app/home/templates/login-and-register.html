@@ -1,120 +1,126 @@
-	<div class="col-md-4 col-md-offset-1">
-		<h2>Register</h2>
-		<form name="registerUserForm">
-			<div class="form-group">
-				<label for="registerEmail">Email<span class="important">*</span></label>
-				<input type="email" ng-model="registerUser.email" 
-					ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i"
-					id="registerEmail" 
-					name="registerEmail"
-					required="required" 
-					class="form-control"/>
-				<p class="important" ng-show="registerUserForm.registerEmail.$error.required">
-					<small><i class="fa fa-exclamation-triangle"></i>Email is required!</small>
-				</p>
-				<p class="important" ng-show="loginUserForm.registerEmail!=false &&
-					loginUserForm.registerEmail.$invalid &&
-					loginUserForm.registerEmail.$dirty">
-						<small>Invalid Email</small>
-				</p>
+<!--login and register-->
+<p class="important text-center">
+	A valid e-mail address includes only Latin and Cirillic letters, a dash, a dot, numbers or an underscore.
+</p>
+<div class="col-md-4 col-md-offset-1">
+	<h2>Register</h2>
+	<form name="registerUserForm">
+		<div class="form-group">
+			<label for="registerEmail">E-mail<span class="important">*</span></label>
+			<input type="text" ng-model="registerUser.email" 
+				ng-pattern="/^[a-zA-Z\u0400-\u04ff0-9\._-]+@[a-zA-Z\u0400-\u04ff0-9\.-]+\.[a-zA-Z\u0400-\u04ff]{2,4}$/i"
+				id="registerEmail" 
+				name="registerEmail"
+				required="required"
+				placeholder="user.1_Юзър-1@user.1Юзър-1.bgбг"
+				class="form-control"/>
+			<p class="important" ng-show="registerUserForm.registerEmail.$error.required">
+				<small><i class="fa fa-exclamation-triangle"></i>E-mail is required!</small>
+			</p>
+			<p class="important" ng-show="registerUserForm.registerEmail!=false &&
+				registerUserForm.registerEmail.$invalid &&
+				registerUserForm.registerEmail.$dirty">
+					<small>Invalid E-mail</small>
+			</p>
+		</div>
+		<div class="form-group">
+			<label for="register-pass">Password<span class="important">*</span></label>
+			<input type="password" ng-model="registerUser.password" 
+				id="register-pass" 
+				name="password"
+				required="required"
+				min-length="6"
+				max-length="100"
+				placeholder="[Min-length: 6] [Max-length: 100]"
+				class="form-control"/>
+			<p class="important" ng-show="registerUserForm.password.$error.required">
+				<small><i class="fa fa-exclamation-triangle"></i>Password is required!</small>
+			</p>
+			<div role="alert">
+				<span class="important" ng-show="registerUserForm.password.$error.minlength">
+					<small>[Min-length: 6 simbols]</small>
+				</span>
+				<span class="error" ng-show="registerUserForm.password.$error.maxlength">
+					<small>[Max-length: 100 simbols]</small>
+				</span>
 			</div>
-			<div class="form-group">
-				<label for="register-pass">Password<span class="important">*</span></label>
-				<input type="password" ng-model="registerUser.password" 
-					id="register-pass" 
-					name="password"
-					required="required"
-					min-length="6"
-					max-length="100"
-					placeholder="[Min-length: 6] [Max-length: 100]"
-					class="form-control"/>
-				<p class="important" ng-show="registerUserForm.password.$error.required">
-					<small><i class="fa fa-exclamation-triangle"></i>Password is required!</small>
-				</p>
-				<div role="alert">
-					<span class="important" ng-show="registerUserForm.password.$error.minlength">
-						<small>[Min-length: 6 simbols]</small>
-					</span>
-					<span class="error" ng-show="registerUserForm.password.$error.maxlength">
-						<small>[Max-length: 100 simbols]</small>
-					</span>
-				</div>
+		</div>
+		<div class="form-group">
+			<label for="confirm-register-pass">Confirm password<span class="important">*</span></label>
+			<input type="password" ng-model="registerUser.confirmPassword" 
+				id="confirm-register-pass"
+				name="confirmPassword"					
+				required="required"
+				ng-minlength="6"
+				ng-maxlength="100"	
+				placeholder="[Min-length: 6] [Max-length: 100]"				
+				class="form-control"/>
+			<p class="important" ng-show="registerUserForm.confirmPassword.$error.required">
+				<small><i class="fa fa-exclamation-triangle"></i>Confirm password is required!</small>
+			</p>
+			<div role="alert">
+				<span class="important" ng-show="registerUserForm.confirmPassword.$error.minlength">
+					<small>[Min-length: 6 simbols]</small>
+				</span>
+				<span class="error" ng-show="registerUserForm.confirmPassword.$error.maxlength">
+					<small>[Max-length: 100 simbols]</small>
+				</span>
 			</div>
-			<div class="form-group">
-				<label for="confirm-register-pass">Confirm password<span class="important">*</span></label>
-				<input type="password" ng-model="registerUser.confirmPassword" 
-					id="confirm-register-pass"
-					name="confirmPassword"					
-					required="required"
-					ng-minlength="6"
-					ng-maxlength="100"	
-					placeholder="[Min-length: 6] [Max-length: 100]"				
-					class="form-control"/>
-				<p class="important" ng-show="registerUserForm.confirmPassword.$error.required">
-					<small><i class="fa fa-exclamation-triangle"></i>Confirm password is required!</small>
-				</p>
-				<div role="alert">
-					<span class="important" ng-show="registerUserForm.confirmPassword.$error.minlength">
-						<small>[Min-length: 6 simbols]</small>
-					</span>
-					<span class="error" ng-show="registerUserForm.confirmPassword.$error.maxlength">
-						<small>[Max-length: 100 simbols]</small>
-					</span>
-				</div>
+		</div>
+		<button type="submit" class="btn btn-success" 
+			ng-disabled="registerUserForm.$invalid || registerUser.password != registerUser.confirmPassword" 
+			ng-click="register(registerUser)">
+				Register
+		</button>
+	</form>
+</div>
+<div class="col-md-4 col-md-offset-1">
+	<h2>Login</h2>
+	<form name="loginUserForm">
+		<div class="form-group">
+			<label for="login-email">E-mail<span class="important">*</span></label>
+			<input type="text" ng-model="loginUser.username"
+				ng-pattern="/^[a-zA-Z\u0400-\u04ff0-9._-]+@[a-zA-Z\u0400-\u04ff0-9.-]+\.[a-zA-Z\u0400-\u04ff]{2,4}$/i"
+				id="login-email" 
+				name="loginEmail"
+				required="required"
+                placeholder="user.1_Юзър-1@user.1Юзър-1.bgбг"				
+				class="form-control"/>
+			<p class="important" ng-show="loginUserForm.loginEmail.$error.required">
+				<small><i class="fa fa-exclamation-triangle"></i>E-mail is required!</small>
+			</p>
+			<p class="important" ng-show="loginUserForm.loginEmail!=false &&
+				loginUserForm.loginEmail.$invalid &&
+				loginUserForm.loginEmail.$dirty">
+					<small>Invalid E-mail</small>
+			</p>
+		</div>
+		<div class="form-group">
+			<label for="login-pass">Password<span class="important">*</span></label>
+			<input type="password" ng-model="loginUser.password" 
+				id="login-pass"
+				name="loginPassword"
+				required="required"
+				ng-minlength="6"
+				ng-maxlength="100"
+				placeholder="[Min-length: 6] [Max-length: 100]"
+				class="form-control"/>
+			<p class="important" ng-show="loginUserForm.loginPassword.$error.required">
+				<small><i class="fa fa-exclamation-triangle"></i>Password is required!</small>
+			</p>
+			<div role="alert">
+				<span class="important" ng-show="loginUserForm.loginPassword.$error.minlength">
+					<small>[Min-length: 6 simbols]</small>
+				</span>
+				<span class="error" ng-show="loginUserForm.loginPassword.$error.maxlength">
+					<small>[Max-length: 100 simbols]</small>
+				</span>
 			</div>
-			<button type="submit" class="btn btn-success" 
-				ng-disabled="registerUserForm.$invalid || registerUser.password != registerUser.confirmPassword" 
-				ng-click="register(registerUser)">
-					Register
-			</button>
-		</form>
-	</div>
-	<div class="col-md-4 col-md-offset-1">
-		<h2>Login</h2>
-		<form name="loginUserForm">
-			<div class="form-group">
-				<label for="login-email">Email<span class="important">*</span></label>
-				<input type="email" ng-model="loginUser.username"
-					ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i"
-					id="login-email" 
-					name="loginEmail"
-					required="required" 
-					class="form-control"/>
-				<p class="important" ng-show="loginUserForm.loginEmail.$error.required">
-					<small><i class="fa fa-exclamation-triangle"></i>Email is required!</small>
-				</p>
-				<p class="important" ng-show="loginUserForm.loginEmail!=false &&
-					loginUserForm.loginEmail.$invalid &&
-					loginUserForm.loginEmail.$dirty">
-						<small>Invalid Email</small>
-				</p>
-			</div>
-			<div class="form-group">
-				<label for="login-pass">Password<span class="important">*</span></label>
-				<input type="password" ng-model="loginUser.password" 
-					id="login-pass"
-					name="loginPassword"
-					required="required"
-					ng-minlength="6"
-					ng-maxlength="100"
-					placeholder="[Min-length: 6] [Max-length: 100]"
-					class="form-control"/>
-				<p class="important" ng-show="loginUserForm.loginPassword.$error.required">
-					<small><i class="fa fa-exclamation-triangle"></i>Password is required!</small>
-				</p>
-				<div role="alert">
-					<span class="important" ng-show="loginUserForm.loginPassword.$error.minlength">
-						<small>[Min-length: 6 simbols]</small>
-					</span>
-					<span class="error" ng-show="loginUserForm.loginPassword.$error.maxlength">
-						<small>[Max-length: 100 simbols]</small>
-					</span>
-				</div>
-			</div>
-			<button type="submit" class="btn btn-success" 
-				ng-disabled="loginUserForm.$invalid" 
-				ng-click="login(loginUser)">
-					Login
-			</button>
-		</form>
-	</div>
+		</div>
+		<button type="submit" class="btn btn-success" 
+			ng-disabled="loginUserForm.$invalid" 
+			ng-click="login(loginUser)">
+				Login
+		</button>
+	</form>
+</div>

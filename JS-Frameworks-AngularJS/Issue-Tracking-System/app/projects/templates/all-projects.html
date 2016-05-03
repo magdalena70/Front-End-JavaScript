@@ -6,19 +6,19 @@
 	<h2>All Projects Total Count: <span class="blue">{{totalCount}}</span></h2>
 	<p class="text-center"><a href="#/projects/add">Add New Project</a></p>
 	<!--using custom directive 'hideElement'-->
-	<button ng-if="!projects.length || projects.length > 3" 
+	<button ng-if="!projects.length || projects.length > allProjectsPaginationPageSize" 
 		class="btn btn-success" 
 		ng-click="getAllProjects(3, 1)"><!--First: I get 3 projects on a page and find Projects TotalCount-->
 			Get All Projects
 	</button>
-	<button hide-element ng-if="projects.length && projects.length == 3"
+	<button hide-element ng-if="projects.length && projects.length === allProjectsPaginationPageSize"
 		class="btn btn-warning" 
 		ng-click="getAllProjects(totalCount, 1)"><!--Then: Use Projects TotalCount to get all projects on a page-->
 			Search Projects By Filters
 	</button>
 	<div class="col-md-12" ng-show="projects.length">
 		<!--projects filters-->
-		<div id="allProjectsFilters" ng-show="projects.length > 3">
+		<div id="allProjectsFilters" ng-show="projects.length > allProjectsPaginationPageSize">
 			<div class="col-md-3">
 				<div class="form-group">
 					<label for="searchAllProjectsByName">Search project by Project Name:</label>
@@ -69,23 +69,23 @@
 			</div>
 		</div>
 		<!--end projects filters-->
-		<p class="col-md-12 important">
+		<p ng-show="projects.length > allProjectsPaginationPageSize" class="col-md-12 important">
 			Sort projects by clicking on <strong>Name</strong>,
 			<strong>Description</strong>, <strong>Leader</strong>,
 			<strong>Labels</strong> or <strong>Priorities</strong>
 		</p>
 		<!--all projects pagination-->
-		<div class="col-md-4 col-md-offset-4 text-center" ng-show="projects.length == 3" id="projectsPagination">
+		<div class="col-md-4 col-md-offset-4 text-center" ng-show="projects.length === allProjectsPaginationPageSize" id="projectsPagination">
 			<span>
 				<button ng-show="allProjectsCurPage > 1" 
-				  ng-click="getAllProjects(3, allProjectsCurPage-1)">
+				  ng-click="getAllProjects(allProjectsPaginationPageSize, allProjectsCurPage-1)">
 					<i class="fa fa-angle-double-left" aria-hidden="true"></i>
 				</button>
 			</span>
 			<span>Page {{allProjectsCurPage}} of {{ allProjectsNumberOfPages() }}</span>
 			<span>
 				<button ng-show="allProjectsCurPage < allProjectsNumberOfPages()" 
-				  ng-click="getAllProjects(3, allProjectsCurPage+1)">
+				  ng-click="getAllProjects(allProjectsPaginationPageSize, allProjectsCurPage+1)">
 					<i class="fa fa-angle-double-right" aria-hidden="true"></i>
 				</button>
 			</span>
@@ -95,8 +95,8 @@
 			<thead>
 				<tr>
 					<th width="7%">Details</th>
-					<th width="15%">
-						<button popover class="btn btn-default" 
+					<th width="15%"><span ng-show="projects.length === allProjectsPaginationPageSize">Name</span>
+						<button ng-show="projects.length > allProjectsPaginationPageSize" popover class="btn btn-default" 
 							data-container="body" 
 							data-toggle="popover" 
 							data-placement="top" 
@@ -106,8 +106,8 @@
 								Name
 						</button>
 					</th>
-					<th width="28%">
-						<button popover class="btn btn-default" 
+					<th width="28%"><span ng-show="projects.length === allProjectsPaginationPageSize">Description</span>
+						<button ng-show="projects.length > allProjectsPaginationPageSize" popover class="btn btn-default" 
 							data-container="body" 
 							data-toggle="popover" 
 							data-placement="top" 
@@ -117,8 +117,8 @@
 								Description
 						</button>
 					</th>
-					<th width="20%">
-						<button popover class="btn btn-default" 
+					<th width="20%"><span ng-show="projects.length=== allProjectsPaginationPageSize">Leader</span>
+						<button ng-show="projects.length > allProjectsPaginationPageSize" popover class="btn btn-default" 
 							data-container="body" 
 							data-toggle="popover" 
 							data-placement="top" 
@@ -128,8 +128,8 @@
 								Leader
 						</button>
 					</th>
-					<th width="15%">
-						<button popover class="btn btn-default" 
+					<th width="15%"><span ng-show="projects.length === allProjectsPaginationPageSize">Labels</span>
+						<button ng-show="projects.length > allProjectsPaginationPageSize" popover class="btn btn-default" 
 							data-container="body" 
 							data-toggle="popover" 
 							data-placement="top" 
@@ -139,8 +139,8 @@
 								Labels
 						</button>
 					</th>
-					<th width="15%">
-						<button popover class="btn btn-default" 
+					<th width="15%"><span ng-show="projects.length === allProjectsPaginationPageSize">Priorities</span>
+						<button ng-show="projects.length > allProjectsPaginationPageSize" popover class="btn btn-default" 
 							data-container="body" 
 							data-toggle="popover" 
 							data-placement="top" 
@@ -153,7 +153,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-show="projects.length > 3" ng-repeat="project in projects | orderBy: keyOrder | filter:searchAllProjects">
+				<tr ng-show="projects.length > allProjectsPaginationPageSize" 
+					ng-repeat="project in projects | orderBy: keyOrder | filter:searchAllProjects">
 					<td width="7%">
 						<a href="#/projects/{{project.Id}}" class="blue">
 							<i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -185,7 +186,7 @@
 						</div>
 					</td>
 				</tr>
-				<tr ng-show="projects.length == 3" ng-repeat="project in projects | orderBy: keyOrder">
+				<tr ng-show="projects.length === allProjectsPaginationPageSize" ng-repeat="project in projects | orderBy: keyOrder">
 					<td width="7%">
 						<a href="#/projects/{{project.Id}}" class="blue">
 							<i class="fa fa-info-circle" aria-hidden="true"></i>

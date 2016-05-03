@@ -10,11 +10,12 @@
 				<label for="searchUserToMakeAdmin">Search user by filter: "Username"<span class="important">*</span>:</label>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-search" aria-hidden="true"></i>
-					<input type="email" ng-model="user.Username" 
-						ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i"
+					<input type="search" ng-model="user.Username"
+						ng-pattern="/^[a-zA-Z\u0400-\u04ff0-9._-]+@[a-zA-Z\u0400-\u04ff0-9.-]+\.[a-zA-Z\u0400-\u04ff]{2,4}$/i"
 						id="searchUserToMakeAdmin" 
 						name="searchUserToMakeAdmin"
 						required="required"
+						placeholder="userЮзър@userЮзър.bgбг"
 						class="form-control">
 				</div>
 				<p class="important" ng-show="makeAdminForm.searchUserToMakeAdmin.$error.required">

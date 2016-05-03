@@ -115,8 +115,8 @@ angular.module('issueTrackingSystemApp.issues', [
 			
 			
 			// '/issues'
+			$scope.allIssuesPaginationPageSize = 7;
 			$scope.getAllIssues = function(pageSize, curPage){
-				// pagination
 				$scope.allIssuesPageSize = pageSize;
 				$scope.allIssuesCurPage = curPage;
 				

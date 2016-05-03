@@ -112,8 +112,8 @@ angular.module('issueTrackingSystemApp.projects', [
 			// Step-1. The user call function getAllProjects(3, 1) -> using pagination and takes 3 projects a page,
 			//  so I take Projects TotalCount and then I use it when the user make Step-2;
 			// Step-2. The user call function getAllProjects(totalCount, 1) -> without pagination using filters;
+			$scope.allProjectsPaginationPageSize = 3;
 			$scope.getAllProjects = function(pageSize, curPage){
-				// pagination
 				$scope.allProjectsPageSize = pageSize;
 				$scope.allProjectsCurPage = curPage;
 				

@@ -27,7 +27,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [])
 				var defer = $q.defer();
 				var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
-				$http.get(BASE_URL + 'issues/me?orderBy=DueDate desc, IssueKey&pageSize='+
+				$http.get(BASE_URL + 'issues/me?orderBy=DueDate desc&pageSize='+
 					pageSize + '&pageNumber=' + pageNumber, headers)
 					.then(function(success){
 						defer.resolve(success);
@@ -43,7 +43,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [])
 				var defer = $q.defer();
 				var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
-				$http.get(BASE_URL + 'issues?pageSize=' + pageSize + '&pageNumber=' + pageNumber +
+				$http.get(BASE_URL + 'issues?orderBy=DueDate desc&pageSize=' + pageSize + '&pageNumber=' + pageNumber +
 					'&filter=Assignee.Username=="' + username + '"', headers)
 					.then(function(success){
 						defer.resolve(success);
