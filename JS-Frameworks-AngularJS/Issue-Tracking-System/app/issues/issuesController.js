@@ -43,8 +43,10 @@ angular.module('issueTrackingSystemApp.issues', [
 						$scope.issue = issueData.data;
 						$scope.issue.DueDate = new Date($scope.issue.DueDate);
 						$scope.issue.PriorityId = $scope.issue.Priority.Id;
-						$scope.issue.AvailablePriorities = JSON.parse(sessionStorage['availablePriorities']);
-						if($scope.issue.Assignee.Id === sessionStorage['userId']){
+						//$scope.issue.AvailablePriorities = JSON.parse(sessionStorage['availablePriorities']);
+						$scope.issue.AvailablePriorities = JSON.parse(localStorage['availablePriorities']);
+						//
+						if($scope.issue.Assignee.Id === localStorage['userId']){
 							$scope.isAssignee = true;
 						}else{
 							$scope.isAssignee = false;
@@ -55,7 +57,8 @@ angular.module('issueTrackingSystemApp.issues', [
 						var projectId = $scope.issue.Project.Id;
 						projectServices.getProjectById(projectId)
 							.then(function(projectData){
-								if(projectData.data.Lead.Id === sessionStorage['userId']){
+								//
+								if(projectData.data.Lead.Id === localStorage['userId']){
 									$scope.isLeader = true;
 								}else{
 									$scope.isLeader = false;

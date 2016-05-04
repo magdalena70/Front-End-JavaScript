@@ -27,6 +27,7 @@ angular.module('issueTrackingSystemApp.home', [
 			$scope.register = function(user){
 				$scope.registerUserData = user;
 				$scope.registerUserData.username = user.email;
+				
 				authenticationServices.registerUser(user)
 					.then(function(){
 						$scope.login($scope.registerUserData);
@@ -39,7 +40,8 @@ angular.module('issueTrackingSystemApp.home', [
 			$scope.login = function(user){
 				authenticationServices.loginUser("username=" + user.username + "&password=" + user.password + "&grant_type=password")
 					.then(function(loggedInUser){
-						sessionStorage['accessToken'] = loggedInUser.access_token;
+						//sessionStorage['accessToken'] = loggedInUser.access_token;
+						localStorage['accessToken'] = loggedInUser.access_token;
 						$scope.getUserInfo();
 						sessionStorage['successMsg'] = 'Logged in successfuly';
 						$location.path('/');
@@ -53,10 +55,13 @@ angular.module('issueTrackingSystemApp.home', [
 			$scope.getUserInfo = function(){
 				authenticationServices.getUserInfo()
 					.then(function(userData){
-						sessionStorage['userId'] = userData.data.Id;
-						sessionStorage['currentUserUsername'] = userData.data.Username;
+						//sessionStorage['userId'] = userData.data.Id;
+						//sessionStorage['currentUserUsername'] = userData.data.Username;
+						localStorage['userId'] = userData.data.Id;
+						localStorage['currentUserUsername'] = userData.data.Username;
 						if(userData.data.isAdmin === true){
-							sessionStorage['isAdmin'] = userData.data.isAdmin;
+							//sessionStorage['isAdmin'] = userData.data.isAdmin;
+							localStorage['isAdmin'] = userData.data.isAdmin;
 						}
 					},
 					function(error){
@@ -68,6 +73,7 @@ angular.module('issueTrackingSystemApp.home', [
 				authenticationServices.logout()
 					.then(function(success){
 						sessionStorage.clear();
+						localStorage.clear();
 						sessionStorage['successMsg'] = 'Logout successfuly';
 						$location.path('/');
 					},
@@ -77,7 +83,8 @@ angular.module('issueTrackingSystemApp.home', [
 			}
 			
 			$scope.getMyProjects = function(){
-				var username = sessionStorage['currentUserUsername'],
+				//var username = sessionStorage['currentUserUsername'],
+				var username = localStorage['currentUserUsername'],
 					pageSize = 300,
 					pageNumber = 1;
 					

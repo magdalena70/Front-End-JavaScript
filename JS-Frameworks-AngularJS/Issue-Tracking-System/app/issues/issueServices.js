@@ -6,10 +6,13 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [])
 		'$q',
 		'BASE_URL',
 		function($http, $q, BASE_URL){
-		
+			//if(localStorage['accessToken']){
+				var accessToken = localStorage['accessToken'];
+			//}
+			
 			function getAllIssues(pageSize, pageNumber){
 				var defer = $q.defer();
-				var accessToken = sessionStorage['accessToken'];
+				//var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 				$http.get(BASE_URL + 'issues/?pageSize='+ pageSize +
 					'&pageNumber=' + pageNumber + '&filter=', headers)
@@ -25,7 +28,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [])
 			
 			function getMyIssues(pageSize, pageNumber){
 				var defer = $q.defer();
-				var accessToken = sessionStorage['accessToken'];
+				//var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 				$http.get(BASE_URL + 'issues/me?orderBy=DueDate desc&pageSize='+
 					pageSize + '&pageNumber=' + pageNumber, headers)
@@ -41,7 +44,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [])
 			
 			function getUserIssues(pageSize, pageNumber, username){
 				var defer = $q.defer();
-				var accessToken = sessionStorage['accessToken'];
+				//var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 				$http.get(BASE_URL + 'issues?orderBy=DueDate desc&pageSize=' + pageSize + '&pageNumber=' + pageNumber +
 					'&filter=Assignee.Username=="' + username + '"', headers)
@@ -57,7 +60,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [])
 			
 			function getIssueById(id){
 				var defer = $q.defer();
-				var accessToken = sessionStorage['accessToken'];
+				//var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 				$http.get(BASE_URL + 'issues/' + id, headers)
 					.then(function(success){
@@ -72,7 +75,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [])
 			
 			function getCommentsByIssueId(id){
 				var defer = $q.defer();
-				var accessToken = sessionStorage['accessToken'];
+				//var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 				$http.get(BASE_URL + 'issues/' + id + '/comments', headers)
 					.then(function(success){
@@ -87,7 +90,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [])
 			
 			function addCommentInIssue(id, comment){
 				var defer = $q.defer();
-				var accessToken = sessionStorage['accessToken'];
+				//var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 				$http.post(BASE_URL + 'issues/' + id + '/comments', comment, headers)
 					.then(function(success){
@@ -102,7 +105,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [])
 			
 			function changeIssueStatus(id, statusId, issue){
 				var defer = $q.defer();
-				var accessToken = sessionStorage['accessToken'];
+				//var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 				$http.put(BASE_URL + 'issues/' + id + '/changestatus?statusId=' + statusId, issue, headers)
 					.then(function(success){
@@ -117,7 +120,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [])
 			
 			function editIssue(id, issue){
 				var defer = $q.defer();
-				var accessToken = sessionStorage['accessToken'];
+				//var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 				$http.put(BASE_URL + 'issues/' + id, issue, headers)
 					.then(function(success){
@@ -132,7 +135,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [])
 			
 			function addIssue(issue){
 				var defer = $q.defer();
-				var accessToken = sessionStorage['accessToken'];
+				//var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 				$http.post(BASE_URL + 'issues', issue, headers)
 					.then(function(success){

@@ -14,21 +14,34 @@ angular.module('issueTrackingSystemApp.common', [])
 			
 			// authentication
 			$scope.getCurrentUserUsername = function(){
-				if(sessionStorage['currentUserUsername']){
+				/*if(sessionStorage['currentUserUsername']){
 					return $scope.username = sessionStorage['currentUserUsername'];
+				}*/
+				if(localStorage['currentUserUsername']){
+					return $scope.username = localStorage['currentUserUsername'];
 				}
 			}
 			
 			$scope.isAuthenticated = function(){
-				if(sessionStorage['accessToken']){
+				/*if(sessionStorage['accessToken']){
 					return true;
 				}else{
 					 return false;
-				}	
+				}*/
+				if(localStorage['accessToken']){
+					return true;
+				}else{
+					 return false;
+				}
 			}
 			
 			$scope.isAdmin = function(){
-				if(sessionStorage['isAdmin']){
+				/*if(sessionStorage['isAdmin']){
+					return true;
+				}else{
+					 return false;
+				}*/
+				if(localStorage['isAdmin']){
 					return true;
 				}else{
 					 return false;

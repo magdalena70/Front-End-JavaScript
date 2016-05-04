@@ -9,7 +9,8 @@ angular.module('issueTrackingSystemApp.users.profileSettingsServices', [])
 			
 			function changePassword(user){
 				var defer = $q.defer();
-				var accessToken = sessionStorage['accessToken'];
+				//var accessToken = sessionStorage['accessToken'];
+				var accessToken = localStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 				$http.post(BASE_URL + 'api/Account/ChangePassword', user, headers)
 					.then(function(success){

@@ -6,10 +6,13 @@ angular.module('issueTrackingSystemApp.admin.adminServices', [])
 		'$q',
 		'BASE_URL',
 		function($http, $q, BASE_URL){
+			if(localStorage['accessToken']){
+				var accessToken = localStorage['accessToken'];
+			}
 			
 			function getUsers(){
 				var defer = $q.defer();
-				var accessToken = sessionStorage['accessToken'];
+				//var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 				$http.get(BASE_URL + 'users', headers)
 					.then(function(success){
@@ -24,7 +27,7 @@ angular.module('issueTrackingSystemApp.admin.adminServices', [])
 			
 			function getUserToMakeAdmin(filterUsername){
 				var defer = $q.defer();
-				var accessToken = sessionStorage['accessToken'];
+				//var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 				$http.get(BASE_URL + 'users?filter=Username=="' + filterUsername + '"', headers)
 					.then(function(success){
@@ -39,7 +42,7 @@ angular.module('issueTrackingSystemApp.admin.adminServices', [])
 			
 			function makeAdmin(user){
 				var defer = $q.defer();
-				var accessToken = sessionStorage['accessToken'];
+				//var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 				$http.put(BASE_URL + 'users/makeadmin', user, headers)
 					.then(function(success){

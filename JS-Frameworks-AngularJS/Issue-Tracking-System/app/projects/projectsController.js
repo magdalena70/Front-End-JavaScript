@@ -48,14 +48,16 @@ angular.module('issueTrackingSystemApp.projects', [
 				
 				projectServices.getProjectById(projectId)
 					.then(function(projectData){
-						sessionStorage['availablePriorities'] = JSON.stringify(projectData.data.Priorities);
+						//sessionStorage['availablePriorities'] = JSON.stringify(projectData.data.Priorities);
+						localStorage['availablePriorities'] = JSON.stringify(projectData.data.Priorities);
 					
 						var editedProject = projectData.data;
 						editedProject.AvailablePriorities = editedProject.Priorities;
 						editedProject.Priorities = projectsAndIssuesHelpers.makeToString(editedProject.Priorities);
 						editedProject.Labels = projectsAndIssuesHelpers.makeToString(editedProject.Labels);
 						
-						if(editedProject.Lead.Id === sessionStorage['userId']){
+						//
+						if(editedProject.Lead.Id === localStorage['userId']){
 							$scope.isLeader = true;
 						}else{
 							$scope.isLeader = false;

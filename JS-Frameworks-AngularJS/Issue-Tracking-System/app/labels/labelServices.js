@@ -6,11 +6,14 @@ angular.module('issueTrackingSystemApp.labels.labelServices', [])
 		'$q',
 		'BASE_URL',
 		function($http, $q, BASE_URL){
+			if(localStorage['accessToken']){
+				var accessToken = localStorage['accessToken'];
+			}
 			
 			// get all withouth filter
 			function getLabels(labelFilter){
 				var defer = $q.defer();
-				var accessToken = sessionStorage['accessToken'];
+				//var accessToken = sessionStorage['accessToken'];
 				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 				$http.get(BASE_URL + 'labels/?filter=' + labelFilter, headers)
 					.then(function(success){
