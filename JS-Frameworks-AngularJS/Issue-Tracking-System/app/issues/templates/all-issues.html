@@ -4,7 +4,7 @@
 <!--all issues-->
 <div class="row" ng-if="isAdmin()">
 	<h2>All Issues Total Count: <span class="blue">{{allIssuesTotalCount}}</span></h2>
-	<div ng-show="!allIssues.length || allIssues.length > allIssuesPaginationPageSize" class="col-md-10 col-md-offset-2">
+	<div class="col-md-10 col-md-offset-2">
 		<form name="getAllIssuesForm" class="form-inline">
 			<label for="allIssuesPaginationPageSize">
 				Current page size is {{allIssuesPaginationPageSize}}.

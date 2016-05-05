@@ -69,10 +69,9 @@ angular.module('issueTrackingSystemApp.issues', [
 				
 				issueServices.changeIssueStatus(issueId, statusId, issue)
 					.then(function(statusData){
-						sessionStorage['successMsg'] = 'Changed status successfuly';
+						notificationServices.setMessage('successMsg', 'Changed status successfuly');
 					},
 					function(error){
-						//sessionStorage['errorMsg'] = error.data.Message;
 						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
@@ -91,7 +90,6 @@ angular.module('issueTrackingSystemApp.issues', [
 						}
 					},
 					function(error){
-						//sessionStorage['errorMsg'] = error.data.Message;
 						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
@@ -101,13 +99,12 @@ angular.module('issueTrackingSystemApp.issues', [
 				
 				issueServices.addCommentInIssue(issueId, comment)
 					.then(function(commentData, comment){
-						sessionStorage['successMsg'] = 'Added comment successfuly';
+						notificationServices.setMessage('successMsg', 'Added comment successfuly');
 						$scope.newComment = commentData.data;
 						// show comments
 						$scope.getIssueComments();
 					},
 					function(error){
-						//sessionStorage['errorMsg'] = error.data.Message;
 						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
@@ -127,7 +124,6 @@ angular.module('issueTrackingSystemApp.issues', [
 						$scope.allIssuesTotalPages = allIssuesData.data.TotalPages;
 					},
 					function(error){
-						//sessionStorage['errorMsg'] = error.data.Message;
 						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
@@ -139,11 +135,10 @@ angular.module('issueTrackingSystemApp.issues', [
 					.then(function(usersData){
 						if(usersData.data.length){
 							$scope.usersForAssignee =  usersData.data;
-							sessionStorage['successMsg'] = 'Got users by filter successfuly. Now select user!';
+							notificationServices.setMessage('successMsg', 'Got users by filter successfuly. Now select user!');
 						}
 					},
 					function(error){
-						//sessionStorage['errorMsg'] = error.data.Message;
 						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
@@ -157,11 +152,10 @@ angular.module('issueTrackingSystemApp.issues', [
 				issue.Labels = projectsAndIssuesHelpers.addLabels(issue.Labels);
 				issueServices.editIssue(issueId, issue)
 					.then(function(issueData){
-						sessionStorage['successMsg'] = 'Edited issue successfuly';
+						notificationServices.setMessage('successMsg', 'Edited issue successfuly');
 						$location.path('/issues/' + issueId);
 					},
 					function(error){
-						//sessionStorage['errorMsg'] = error.data.Message;
 						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}

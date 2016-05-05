@@ -1,7 +1,8 @@
 'use strict'
 
 angular.module('issueTrackingSystemApp.users', [
-		'issueTrackingSystemApp.users.profileSettingsServices'
+		'issueTrackingSystemApp.users.profileSettingsServices',
+		'issueTrackingSystemApp.common.notificationServices'
 	])
 	.config(['$routeProvider', function($routeProvider){
 		$routeProvider.when('/profile/password', {
@@ -13,17 +14,18 @@ angular.module('issueTrackingSystemApp.users', [
 		'$scope',
 		'$location',
 		'profileSettingsServices',
-		function($scope, $location, profileSettingsServices){
+		'notificationServices',
+		function($scope, $location, profileSettingsServices, notificationServices){
 			
 			// '/profile/password'
 			$scope.changePassword = function(user){
 				profileSettingsServices.changePassword(user)
 					.then(function(success){
-						sessionStorage['successMsg'] = 'Changed password successfuly';
+						notificationServices.setMessage('successMsg', 'Changed password successfuly');
 						$location.path('/');
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			// end

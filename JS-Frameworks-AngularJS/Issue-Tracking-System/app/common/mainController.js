@@ -1,14 +1,14 @@
 'use strict'
 
 angular.module('issueTrackingSystemApp.common', [
-		'ngStorage',
-		'issueTrackingSystemApp.users.userIdentityServices'
+		'issueTrackingSystemApp.users.userIdentityServices',
+		'issueTrackingSystemApp.common.notificationServices'
 	])
 	.controller('MainController', [
 		'$scope',
-		'$sessionStorage',
 		'userIdentity',
-		function($scope, $sessionStorage, userIdentity){ 
+		'notificationServices',
+		function($scope, userIdentity, notificationServices){ 
 			
 			// using to sort projects and issues by key
 			$scope.orderByKey = function(key){
@@ -32,39 +32,31 @@ angular.module('issueTrackingSystemApp.common', [
 			
 			// for success messages
 			$scope.isSuccess = function(){
-				if($sessionStorage['successMsg']){
-					$scope.messageBoxStyle = {
-						"background-color": "rgba(254, 238, 189, 0.6)"
-					};
-					$scope.successMsg = $sessionStorage['successMsg'];
+				if(notificationServices.checkIfSomeMessage('successMsg')){
+					$scope.messageBoxStyle = notificationServices.showSuccessMessageBox_style();
+					$scope.successMsg = notificationServices.getMessage('successMsg');
 					return true;
 				}
 			}
 			
 			$scope.hideSuccessMsg = function(){
-				delete $sessionStorage('successMsg');
-				$scope.messageBoxStyle = {
-					"background-color": "transparent"
-				};
+				notificationServices.deleteMessage('successMsg');
+				$scope.messageBoxStyle = notificationServices.hideMessageBox_style();
 			}
 			// end success messages
 			
 			// for error messages
 			$scope.isError = function(){
-				if($sessionStorage['errorMsg']){
-					$scope.messageBoxStyle = {
-						"background-color": "rgba(212, 10, 0, 0.6)"
-					};
-					$scope.errorMsg = $sessionStorage['errorMsg'];
+				if(notificationServices.checkIfSomeMessage('errorMsg')){
+					$scope.messageBoxStyle = notificationServices.showErrorMessageBox_style();
+					$scope.errorMsg = notificationServices.getMessage('errorMsg');
 					return true;
 				}
 			}
 			
 			$scope.hideErrorMsg = function(){
-				delete sessionStorage('errorMsg');
-				$scope.messageBoxStyle = {
-					"background-color": "transparent"
-				};
+				notificationServices.deleteMessage('errorMsg');
+				$scope.messageBoxStyle = notificationServices.hideMessageBox_style();
 			}
 			
 			// if Network is not connected
@@ -73,7 +65,7 @@ angular.module('issueTrackingSystemApp.common', [
 				x = new XMLHttpRequest(); 
 				x.timeout = timeout,
 				x.onreadystatechange = function(){
-					x.readyState == 4 && callback(x.status == 200)
+					x.readyState === 4 && callback(x.status === 200)
 				},
 				x.onerror = function(e){
 					callback(!1)

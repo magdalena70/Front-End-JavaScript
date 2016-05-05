@@ -44,7 +44,8 @@ angular.module('issueTrackingSystemApp.projects', [
 		'projectsAndIssuesHelpers',
 		'notificationServices',
 		'userIdentity',
-		function($scope, $routeParams, $location, projectServices, issueServices, adminServices, projectsAndIssuesHelpers, notificationServices, userIdentity){
+		function($scope, $routeParams, $location, projectServices, issueServices,
+			adminServices, projectsAndIssuesHelpers, notificationServices, userIdentity){
 			
 			// '/projects/:id'
 			function getProjectById(){
@@ -63,7 +64,6 @@ angular.module('issueTrackingSystemApp.projects', [
 						$scope.editedProject = editedProject;
 					},
 					function(error){
-						//sessionStorage['errorMsg'] = error.data.Message;
 						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
@@ -84,7 +84,6 @@ angular.module('issueTrackingSystemApp.projects', [
 						}
 					},
 					function(error){
-						//sessionStorage['errorMsg'] = error.data.Message;
 						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
@@ -98,11 +97,10 @@ angular.module('issueTrackingSystemApp.projects', [
 				issueServices.addIssue(newIssue)
 					.then(function(issueData){
 						$scope.issue = issueData.data;
-						sessionStorage['successMsg'] = 'Added issue successfuly';
+						notificationServices.setMessage('successMsg', 'Added issue successfuly');
 						$location.path('/issues/' + $scope.issue.Id);;
 					},
 					function(error){
-						//sessionStorage['errorMsg'] = error.data.Message;
 						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			};
@@ -132,7 +130,6 @@ angular.module('issueTrackingSystemApp.projects', [
 						}
 					},
 					function(error){
-						//sessionStorage['errorMsg'] = error.data.Message;
 						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
@@ -148,11 +145,10 @@ angular.module('issueTrackingSystemApp.projects', [
 				projectServices.addProject(project)
 					.then(function(projectData){
 						project.Priorities = projectsAndIssuesHelpers.makeToString(project.Priorities);
-						sessionStorage['successMsg'] = 'Added project successfuly';
+						notificationServices.setMessage('successMsg', 'Added project successfuly');
 						$location.path('/projects/' + projectData.data.Id);
 					},
 					function(error){
-						//sessionStorage['errorMsg'] = error.data.Message;
 						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			};
@@ -170,11 +166,10 @@ angular.module('issueTrackingSystemApp.projects', [
 			
 				projectServices.editProject(editedProject, projectId)
 					.then(function(projectData){
-						sessionStorage['successMsg'] = 'Edited project successfuly';
+						notificationServices.setMessage('successMsg', 'Edited issue successfuly');
 						$location.path('/projects/' + $routeParams.id);
 					},
 					function(error){
-						//sessionStorage['errorMsg'] = error.data.Message;
 						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			};
@@ -187,13 +182,12 @@ angular.module('issueTrackingSystemApp.projects', [
 						if(usersData.data.length){
 							$scope.usersForAssignee =  usersData.data;
 							$scope.usersForLeader = usersData.data;
-							sessionStorage['successMsg'] = 'Got users by filter successfuly. Now select user!';
+							notificationServices.setMessage('successMsg', 'Got users by filter successfuly. Now select user!');
 						}else{
-							sessionStorage['errorMsg'] = 'No users';
+							notificationServices.setMessage('errorMsg', 'No users');
 						}
 					},
 					function(error){
-						//sessionStorage['errorMsg'] = error.data.Message;
 						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}

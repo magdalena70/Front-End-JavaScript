@@ -4,7 +4,8 @@ angular.module('issueTrackingSystemApp.home', [
 		'issueTrackingSystemApp.users.userIdentityServices',
 		'issueTrackingSystemApp.users.authenticationServices',
 		'issueTrackingSystemApp.projects.projectServices',
-		'issueTrackingSystemApp.issues.issueServices'
+		'issueTrackingSystemApp.issues.issueServices',
+		'issueTrackingSystemApp.common.notificationServices'
 	])
 	.config(['$routeProvider', function($routeProvider) {
 	  $routeProvider.when('/', {
@@ -24,7 +25,8 @@ angular.module('issueTrackingSystemApp.home', [
 		'authenticationServices',
 		'projectServices',
 		'issueServices',
-		function($scope, $location,userIdentity, authenticationServices, projectServices, issueServices) {
+		'notificationServices',
+		function($scope, $location,userIdentity, authenticationServices, projectServices, issueServices, notificationServices) {
 		
 			$scope.register = function(user){
 				$scope.registerUserData = user;
@@ -35,7 +37,7 @@ angular.module('issueTrackingSystemApp.home', [
 						$scope.login($scope.registerUserData);
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					})
 			}
 			
@@ -44,11 +46,11 @@ angular.module('issueTrackingSystemApp.home', [
 					.then(function(loggedInUser){
 						userIdentity.setCurrentUserAccessToken(loggedInUser);
 						$scope.getUserInfo();
-						sessionStorage['successMsg'] = 'Logged in successfuly';
+						notificationServices.setMessage('successMsg', 'Logged in successfuly');
 						$location.path('/');
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			
@@ -59,7 +61,7 @@ angular.module('issueTrackingSystemApp.home', [
 						userIdentity.setCurrentUserInfo(userData.data);
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			
@@ -68,11 +70,11 @@ angular.module('issueTrackingSystemApp.home', [
 					.then(function(success){
 						sessionStorage.clear();
 						userIdentity.clearCurrentUserInfo();
-						sessionStorage['successMsg'] = 'Logout successfuly';
+						notificationServices.setMessage('successMsg', 'Logout successfuly');
 						$location.path('/');
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			
@@ -102,7 +104,7 @@ angular.module('issueTrackingSystemApp.home', [
 						}
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			
@@ -131,7 +133,7 @@ angular.module('issueTrackingSystemApp.home', [
 						}
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 	}]);

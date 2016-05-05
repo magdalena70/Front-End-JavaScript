@@ -3,7 +3,8 @@
 angular.module('issueTrackingSystemApp.admin', [
 		'issueTrackingSystemApp.admin.adminServices',
 		'issueTrackingSystemApp.projects.projectServices',
-		'issueTrackingSystemApp.issues.issueServices'
+		'issueTrackingSystemApp.issues.issueServices',
+		'issueTrackingSystemApp.common.notificationServices',
 	])
 	.config(['$routeProvider', function($routeProvider){
 		$routeProvider.when('/admin/makeAdmin', {
@@ -28,7 +29,8 @@ angular.module('issueTrackingSystemApp.admin', [
 		'adminServices',
 		'projectServices',
 		'issueServices',
-		function($scope, $location, $routeParams, adminServices, projectServices, issueServices){
+		'notificationServices',
+		function($scope, $location, $routeParams, adminServices, projectServices, issueServices, notificationServices){
 			
 			// '/admin/users/all'
 			$scope.getAllUsers = function(){
@@ -49,7 +51,7 @@ angular.module('issueTrackingSystemApp.admin', [
 						}
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			// end
@@ -58,31 +60,30 @@ angular.module('issueTrackingSystemApp.admin', [
 			$scope.getUserToMakeAdmin = function(filterUsername){
 				adminServices.getUserToMakeAdmin(filterUsername)
 					.then(function(userData){
-						console.log(userData);
 						if(userData.data.length == 1){
 							$scope.userToMakeAdmin = userData.data[0];
 							if($scope.userToMakeAdmin.isAdmin===true){
-								sessionStorage['errorMsg'] = 'Selected user is an Admin!'
+								notificationServices.setMessage('errorMsg', 'Selected user is an Admin!');
 							}else{
-								sessionStorage['successMsg'] = 'Selected user: ' + JSON.stringify($scope.userToMakeAdmin);
+								notificationServices.setMessage('successMsg', 'Selected user: ' + angular.toJson($scope.userToMakeAdmin));
 							}
 						}else{
-							sessionStorage['errorMsg'] = 'No user with username: ' + filterUsername;
+							notificationServices.setMessage('errorMsg', 'No user with username: ' + filterUsername);
 						}
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			
 			$scope.makeAdmin = function(user){
-				adminServices.makeAdmin({"userId": user.userId})
+				adminServices.makeAdmin({"userId": user.Id})
 					.then(function(response){
-						sessionStorage['successMsg'] = 'Made admin successfuly';
+						notificationServices.setMessage('successMsg', 'Made admin successfuly');
 						$location.path('/admin/users/all');
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			// end
@@ -108,7 +109,7 @@ angular.module('issueTrackingSystemApp.admin', [
 						}
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			
@@ -127,7 +128,7 @@ angular.module('issueTrackingSystemApp.admin', [
 						}
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			// end

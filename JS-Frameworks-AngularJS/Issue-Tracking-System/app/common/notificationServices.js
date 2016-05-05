@@ -14,10 +14,45 @@ angular.module('issueTrackingSystemApp.common.notificationServices', ['ngStorage
 					return $sessionStorage[storageKey];
 				}
 			}
+			
+			function checkIfSomeMessage(storageKey){
+				if($sessionStorage[storageKey]){
+					return true;
+				}else{
+					return false;
+				}
+			}
+			
+			function showSuccessMessageBox_style(){
+				return {
+						"background-color": "rgba(254, 238, 189, 0.6)"
+					};
+			}
+			
+			function showErrorMessageBox_style(){
+				return {
+						"background-color": "rgba(212, 10, 0, 0.6)"
+					};
+			}
+			
+			function hideMessageBox_style(){
+				return {
+					"background-color": "transparent"
+				};
+			}
+			
+			function deleteMessage(storageKey){
+				delete $sessionStorage[storageKey];
+			}
 		
 			return{
 				setMessage: setMessage,
-				getMessage: getMessage
+				getMessage: getMessage,
+				checkIfSomeMessage: checkIfSomeMessage,
+				showSuccessMessageBox_style: showSuccessMessageBox_style,
+				showErrorMessageBox_style: showErrorMessageBox_style,
+				hideMessageBox_style: hideMessageBox_style,
+				deleteMessage: deleteMessage
 			};
 		}
 	]);
