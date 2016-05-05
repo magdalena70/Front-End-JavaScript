@@ -1,8 +1,8 @@
 <!--navbar-->
 <div class="container">
     <div class="navbar-header">
-        <a ng-if="!isAuthenticated()" href="#/" class="navbar-brand">Issue Tracking System</a>
-		<a ng-if="isAuthenticated()" href="#/profile/password" class="navbar-brand">
+        <a ng-if="!isAuthenticated()" ng-href="#/" class="navbar-brand">Issue Tracking System</a>
+		<a ng-if="isAuthenticated()" ng-href="#/profile/password" class="navbar-brand">
 			<i class="fa fa-user" aria-hidden="true"></i>
 			<span class="important" ng-if="getCurrentUserUsername()">{{username}}</span>
 		</a>
@@ -15,27 +15,27 @@
     <div ng-if="isAuthenticated()" class="navbar-collapse collapse" id="navbar-main">
         <ul class="nav navbar-nav">
 			<li>
-				<a href="#/">Dashboard</a>
+				<a ng-href="#/">Dashboard</a>
 			</li>
             <li class="dropdown">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="" id="download">
+				<a class="dropdown-toggle" data-toggle="dropdown" ng-href="" id="download">
 					<i class="fa fa-cogs" aria-hidden="true"></i><span ng-if="isAdmin()"> Admin</span> Settings <span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu" aria-labelledby="download">
-					<li><a href="#/profile/password">Change My Password</a></li>
+					<li><a ng-href="#/profile/password">Change My Password</a></li>
 					<li class="divider"></li>
-					<li ng-if="isAdmin()"><a href="#/admin/users/all">All Users</a></li>
-					<li ng-if="isAdmin()"><a href="#/admin/makeAdmin">Make Admin</a></li>
+					<li ng-if="isAdmin()"><a ng-href="#/admin/users/all">All Users</a></li>
+					<li ng-if="isAdmin()"><a ng-href="#/admin/makeAdmin">Make Admin</a></li>
 					<li class="divider"></li>
-					<li ng-if="isAdmin()"><a href="#/projects">All Projects</a></li>
-					<li ng-if="isAdmin()"><a href="#/projects/add">Add New Project</a></li>
+					<li ng-if="isAdmin()"><a ng-href="#/projects">All Projects</a></li>
+					<li ng-if="isAdmin()"><a ng-href="#/projects/add">Add New Project</a></li>
 					<li class="divider"></li>
-					<li ng-if="isAdmin()"><a href="#/issues">All Issues</a></li>
+					<li ng-if="isAdmin()"><a ng-href="#/issues">All Issues</a></li>
 				</ul>
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#/logout"><strong>Logout</strong></a></li>
+            <li><a ng-href="#/logout"><strong>Logout</strong></a></li>
         </ul>
     </div>
 </div>

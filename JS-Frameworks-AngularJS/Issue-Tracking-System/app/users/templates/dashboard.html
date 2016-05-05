@@ -23,7 +23,7 @@
 			<!--projects view without pagination with filter-->
 			<div class="col-md-8 text-center" ng-show="myProjects.length && searcProject">
 				<p id="myProjects" ng-repeat="project in myProjects | filter:searcProject | orderBy: 'Name'">
-						<a href="#/projects/{{project.Id}}">{{project.Name}}</a>
+						<a ng-href="#/projects/{{project.Id}}">{{project.Name}}</a>
 				</p>
 			</div>
 			<!--end projects view without pagination with filter-->	
@@ -50,7 +50,7 @@
 				<!--end projects pagination-->
 				<p id="myProjects" ng-repeat="project in myProjects |
       			  pagination: myProjectsCurPage * myProjectsPageSize | limitTo: myProjectsPageSize">
-					<a href="#/projects/{{project.Id}}">{{project.Name}}</a>
+					<a ng-href="#/projects/{{project.Id}}">{{project.Name}}</a>
 				</p>
 			</div>
 			<!--end projects view with pagination without filter-->	
@@ -206,17 +206,17 @@
 			<tbody>
 			  <tr ng-show="search" 
 				ng-repeat="issue in myIssues | filter:search | orderBy: keyOrder">
-						<td width="22%"><a href="#issues/{{issue.Id}}">{{issue.Title}}</a></td>
+						<td width="22%"><a ng-href="#issues/{{issue.Id}}">{{issue.Title}}</a></td>
 						<td width="28%">{{issue.Description}}</td>
-						<td width="15%"><a href="#/projects/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>
+						<td width="15%"><a ng-href="#/projects/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>
 						<td width="15%">{{issue.DueDate}}</td>
 						<td width="10%">{{issue.Status.Name}}</td>
 			  </tr>
 			  <tr ng-show="!search" 
 				ng-repeat="issue in myIssues | orderBy: keyOrder | pagination: myIssuesCurPage * myIssuesPageSize | limitTo: myIssuesPageSize">
-					<td width="22%"><a href="#issues/{{issue.Id}}">{{issue.Title}}</a></td>
+					<td width="22%"><a ng-href="#issues/{{issue.Id}}">{{issue.Title}}</a></td>
 					<td width="28%">{{issue.Description}}</td>
-					<td width="15%"><a href="#/projects/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>
+					<td width="15%"><a ng-href="#/projects/{{issue.Project.Id}}">{{issue.Project.Name}}</a></td>
 					<td width="15%">{{issue.DueDate}}</td>
 					<td width="10%">{{issue.Status.Name}}</td>
 			  </tr>

@@ -19,7 +19,7 @@
 				<tr ng-repeat="userProject in userProjects | orderBy: 'Name'">
 					<td width="85%">{{userProject.Name}}</td>
 					<td width="15%" class="text-center">
-						<a href="#/projects/{{userProject.Id}}">
+						<a ng-href="#/projects/{{userProject.Id}}">
 							<i class="fa fa-info-circle blue" aria-hidden="true"></i>
 						</a>
 					</td>
@@ -41,7 +41,7 @@
 				<tr ng-repeat="userIssue in userIssues | orderBy: 'DueDate'">
 					<td width="85%">{{userIssue.Title}}</td>
 					<td width="15%" class="text-center">
-						<a href="#/issues/{{userIssue.Id}}">
+						<a ng-href="#/issues/{{userIssue.Id}}">
 							<i class="fa fa-info-circle blue" aria-hidden="true"></i>
 						</a>
 					</td>

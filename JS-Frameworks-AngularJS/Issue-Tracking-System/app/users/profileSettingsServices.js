@@ -1,17 +1,18 @@
 'use strict';
 
-angular.module('issueTrackingSystemApp.users.profileSettingsServices', [])
+angular.module('issueTrackingSystemApp.users.profileSettingsServices', [
+		'issueTrackingSystemApp.users.userIdentityServices'
+	])
 	.factory('profileSettingsServices', [
 		'$http',
 		'$q',
 		'BASE_URL',
-		function($http, $q, BASE_URL){
+		'userIdentity',
+		function($http, $q, BASE_URL, userIdentity){
 			
 			function changePassword(user){
 				var defer = $q.defer();
-				//var accessToken = sessionStorage['accessToken'];
-				var accessToken = localStorage['accessToken'];
-				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
+				var headers = userIdentity.getRequestHeaders();
 				$http.post(BASE_URL + 'api/Account/ChangePassword', user, headers)
 					.then(function(success){
 						defer.resolve(success);

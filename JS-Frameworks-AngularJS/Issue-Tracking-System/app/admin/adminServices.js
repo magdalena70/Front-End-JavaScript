@@ -1,19 +1,19 @@
 'use strict'
 
-angular.module('issueTrackingSystemApp.admin.adminServices', [])
+angular.module('issueTrackingSystemApp.admin.adminServices', [
+		'issueTrackingSystemApp.users.userIdentityServices'
+	])
 	.factory('adminServices', [
 		'$http',
 		'$q',
 		'BASE_URL',
-		function($http, $q, BASE_URL){
-			if(localStorage['accessToken']){
-				var accessToken = localStorage['accessToken'];
-			}
+		'userIdentity',
+		function($http, $q, BASE_URL, userIdentity){
+			var headers = userIdentity.getRequestHeaders();
 			
 			function getUsers(){
 				var defer = $q.defer();
-				//var accessToken = sessionStorage['accessToken'];
-				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
+				
 				$http.get(BASE_URL + 'users', headers)
 					.then(function(success){
 						defer.resolve(success);
@@ -27,8 +27,7 @@ angular.module('issueTrackingSystemApp.admin.adminServices', [])
 			
 			function getUserToMakeAdmin(filterUsername){
 				var defer = $q.defer();
-				//var accessToken = sessionStorage['accessToken'];
-				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
+				
 				$http.get(BASE_URL + 'users?filter=Username=="' + filterUsername + '"', headers)
 					.then(function(success){
 						defer.resolve(success);
@@ -42,8 +41,7 @@ angular.module('issueTrackingSystemApp.admin.adminServices', [])
 			
 			function makeAdmin(user){
 				var defer = $q.defer();
-				//var accessToken = sessionStorage['accessToken'];
-				var headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
+				
 				$http.put(BASE_URL + 'users/makeadmin', user, headers)
 					.then(function(success){
 						defer.resolve(success);

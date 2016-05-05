@@ -1,10 +1,14 @@
 'use strict'
 
-angular.module('issueTrackingSystemApp.common', [])
+angular.module('issueTrackingSystemApp.common', [
+		'ngStorage',
+		'issueTrackingSystemApp.users.userIdentityServices'
+	])
 	.controller('MainController', [
-		'$scope', 
-		'BASE_URL',
-		function($scope, authentication, BASE_URL){ 
+		'$scope',
+		'$sessionStorage',
+		'userIdentity',
+		function($scope, $sessionStorage, userIdentity){ 
 			
 			// using to sort projects and issues by key
 			$scope.orderByKey = function(key){
@@ -14,54 +18,31 @@ angular.module('issueTrackingSystemApp.common', [])
 			
 			// authentication
 			$scope.getCurrentUserUsername = function(){
-				/*if(sessionStorage['currentUserUsername']){
-					return $scope.username = sessionStorage['currentUserUsername'];
-				}*/
-				if(localStorage['currentUserUsername']){
-					return $scope.username = localStorage['currentUserUsername'];
-				}
+				return $scope.username = userIdentity.getCurrentUserUsername();
 			}
 			
 			$scope.isAuthenticated = function(){
-				/*if(sessionStorage['accessToken']){
-					return true;
-				}else{
-					 return false;
-				}*/
-				if(localStorage['accessToken']){
-					return true;
-				}else{
-					 return false;
-				}
+				return userIdentity.checkIfCurrentUserIsAuthenticated();
 			}
 			
 			$scope.isAdmin = function(){
-				/*if(sessionStorage['isAdmin']){
-					return true;
-				}else{
-					 return false;
-				}*/
-				if(localStorage['isAdmin']){
-					return true;
-				}else{
-					 return false;
-				}
+				return userIdentity.checkIfCurrentUserIsAdmin();
 			}
 			// end authentication
 			
 			// for success messages
 			$scope.isSuccess = function(){
-				if(sessionStorage['successMsg']){
+				if($sessionStorage['successMsg']){
 					$scope.messageBoxStyle = {
 						"background-color": "rgba(254, 238, 189, 0.6)"
 					};
-					$scope.successMsg = sessionStorage['successMsg'];
+					$scope.successMsg = $sessionStorage['successMsg'];
 					return true;
 				}
 			}
 			
 			$scope.hideSuccessMsg = function(){
-				sessionStorage.removeItem('successMsg');
+				delete $sessionStorage('successMsg');
 				$scope.messageBoxStyle = {
 					"background-color": "transparent"
 				};
@@ -70,17 +51,17 @@ angular.module('issueTrackingSystemApp.common', [])
 			
 			// for error messages
 			$scope.isError = function(){
-				if(sessionStorage['errorMsg']){
+				if($sessionStorage['errorMsg']){
 					$scope.messageBoxStyle = {
 						"background-color": "rgba(212, 10, 0, 0.6)"
 					};
-					$scope.errorMsg = sessionStorage['errorMsg'];
+					$scope.errorMsg = $sessionStorage['errorMsg'];
 					return true;
 				}
 			}
 			
 			$scope.hideErrorMsg = function(){
-				sessionStorage.removeItem('errorMsg');
+				delete sessionStorage('errorMsg');
 				$scope.messageBoxStyle = {
 					"background-color": "transparent"
 				};
@@ -103,11 +84,11 @@ angular.module('issueTrackingSystemApp.common', [])
 				(x.open('GET', 'http://ip-api.com/json/'), x.send());
 			}
 
-			getNetworkStatus(function(isOnline){
+			/*getNetworkStatus(function(isOnline){
 				if(!isOnline){
-					sessionStorage['errorMsg'] = 'Error: INTERNET DISCONNECTED';
+					 sessionStorage['errorMsg'] = 'Error: INTERNET DISCONNECTED';
 				}
 				//console.log(isOnline ? "ONLINE" : "OFFLINE");
-			},40000);
+			},40000);*/
 			// end error messages
 		}]);

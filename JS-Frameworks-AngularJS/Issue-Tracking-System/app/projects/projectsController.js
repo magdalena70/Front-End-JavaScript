@@ -4,7 +4,9 @@ angular.module('issueTrackingSystemApp.projects', [
 		'issueTrackingSystemApp.projects.projectServices',
 		'issueTrackingSystemApp.issues.issueServices',
 		'issueTrackingSystemApp.admin.adminServices',
-		'issueTrackingSystemApp.common.projectsAndIssuesHelpers'
+		'issueTrackingSystemApp.common.projectsAndIssuesHelpers',
+		'issueTrackingSystemApp.common.notificationServices',
+		'issueTrackingSystemApp.users.userIdentityServices'
 	])
 	.config(['$routeProvider', function($routeProvider){
 		$routeProvider.when('/projects', {
@@ -40,7 +42,9 @@ angular.module('issueTrackingSystemApp.projects', [
 		'issueServices',
 		'adminServices',
 		'projectsAndIssuesHelpers',
-		function($scope, $routeParams, $location, projectServices, issueServices, adminServices, projectsAndIssuesHelpers){
+		'notificationServices',
+		'userIdentity',
+		function($scope, $routeParams, $location, projectServices, issueServices, adminServices, projectsAndIssuesHelpers, notificationServices, userIdentity){
 			
 			// '/projects/:id'
 			function getProjectById(){
@@ -48,26 +52,19 @@ angular.module('issueTrackingSystemApp.projects', [
 				
 				projectServices.getProjectById(projectId)
 					.then(function(projectData){
-						//sessionStorage['availablePriorities'] = JSON.stringify(projectData.data.Priorities);
-						localStorage['availablePriorities'] = JSON.stringify(projectData.data.Priorities);
-					
+						projectsAndIssuesHelpers.setAvailablePrioritiesForIssuesInCurProject(projectData.data);
 						var editedProject = projectData.data;
 						editedProject.AvailablePriorities = editedProject.Priorities;
 						editedProject.Priorities = projectsAndIssuesHelpers.makeToString(editedProject.Priorities);
 						editedProject.Labels = projectsAndIssuesHelpers.makeToString(editedProject.Labels);
 						
-						//
-						if(editedProject.Lead.Id === localStorage['userId']){
-							$scope.isLeader = true;
-						}else{
-							$scope.isLeader = false;
-						}
-						
+						$scope.isLeader = userIdentity.checkIfCurrentUserIsProjectLeader(editedProject);
 						$scope.project = editedProject;
 						$scope.editedProject = editedProject;
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						//sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			if(Number($routeParams.id)){
@@ -87,7 +84,8 @@ angular.module('issueTrackingSystemApp.projects', [
 						}
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						//sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			// end
@@ -104,7 +102,8 @@ angular.module('issueTrackingSystemApp.projects', [
 						$location.path('/issues/' + $scope.issue.Id);;
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						//sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			};
 			// end
@@ -115,6 +114,7 @@ angular.module('issueTrackingSystemApp.projects', [
 			//  so I take Projects TotalCount and then I use it when the user make Step-2;
 			// Step-2. The user call function getAllProjects(totalCount, 1) -> without pagination using filters;
 			$scope.allProjectsPaginationPageSize = 3;
+			
 			$scope.getAllProjects = function(pageSize, curPage){
 				$scope.allProjectsPageSize = pageSize;
 				$scope.allProjectsCurPage = curPage;
@@ -132,7 +132,8 @@ angular.module('issueTrackingSystemApp.projects', [
 						}
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						//sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			// end
@@ -151,7 +152,8 @@ angular.module('issueTrackingSystemApp.projects', [
 						$location.path('/projects/' + projectData.data.Id);
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						//sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			};
 			
@@ -172,7 +174,8 @@ angular.module('issueTrackingSystemApp.projects', [
 						$location.path('/projects/' + $routeParams.id);
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						//sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			};
 			// end
@@ -190,7 +193,8 @@ angular.module('issueTrackingSystemApp.projects', [
 						}
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						//sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			//end

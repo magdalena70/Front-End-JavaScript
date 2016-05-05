@@ -5,7 +5,9 @@ angular.module('issueTrackingSystemApp.issues', [
 		'issueTrackingSystemApp.labels.labelServices',
 		'issueTrackingSystemApp.admin.adminServices',
 		'issueTrackingSystemApp.projects.projectServices',
-		'issueTrackingSystemApp.common.projectsAndIssuesHelpers'
+		'issueTrackingSystemApp.common.projectsAndIssuesHelpers',
+		'issueTrackingSystemApp.common.notificationServices',
+		'issueTrackingSystemApp.users.userIdentityServices'
 	])
 	.config(['$routeProvider', function($routeProvider){
 		$routeProvider.when('/issues', {
@@ -32,7 +34,10 @@ angular.module('issueTrackingSystemApp.issues', [
 		'adminServices',
 		'projectServices',
 		'projectsAndIssuesHelpers',
-		function($scope, $routeParams, $location, issueServices, labelServices, adminServices, projectServices, projectsAndIssuesHelpers){
+		'notificationServices',
+		'userIdentity',
+		function($scope, $routeParams, $location, issueServices, labelServices,
+			adminServices, projectServices, projectsAndIssuesHelpers, notificationServices, userIdentity){
 			
 			// '/issues/:id/edit'
 			function getIssueById(){
@@ -43,26 +48,15 @@ angular.module('issueTrackingSystemApp.issues', [
 						$scope.issue = issueData.data;
 						$scope.issue.DueDate = new Date($scope.issue.DueDate);
 						$scope.issue.PriorityId = $scope.issue.Priority.Id;
-						//$scope.issue.AvailablePriorities = JSON.parse(sessionStorage['availablePriorities']);
-						$scope.issue.AvailablePriorities = JSON.parse(localStorage['availablePriorities']);
-						//
-						if($scope.issue.Assignee.Id === localStorage['userId']){
-							$scope.isAssignee = true;
-						}else{
-							$scope.isAssignee = false;
-						}
+						$scope.issue.AvailablePriorities = projectsAndIssuesHelpers.getIssueAvailablePriorities();
 						$scope.issue.Labels = projectsAndIssuesHelpers.makeToString($scope.issue.Labels);
+						$scope.isAssignee = userIdentity.checkIfCurrentUserIsIssueAssignee($scope.issue);
 						
 						// check if current user is project leader
 						var projectId = $scope.issue.Project.Id;
 						projectServices.getProjectById(projectId)
 							.then(function(projectData){
-								//
-								if(projectData.data.Lead.Id === localStorage['userId']){
-									$scope.isLeader = true;
-								}else{
-									$scope.isLeader = false;
-								}
+								$scope.isLeader = userIdentity.checkIfCurrentUserIsProjectLeader(projectData.data);
 							});
 					});
 			}
@@ -78,7 +72,8 @@ angular.module('issueTrackingSystemApp.issues', [
 						sessionStorage['successMsg'] = 'Changed status successfuly';
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						//sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			
@@ -96,7 +91,8 @@ angular.module('issueTrackingSystemApp.issues', [
 						}
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						//sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			
@@ -111,7 +107,8 @@ angular.module('issueTrackingSystemApp.issues', [
 						$scope.getIssueComments();
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						//sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			// end
@@ -130,7 +127,8 @@ angular.module('issueTrackingSystemApp.issues', [
 						$scope.allIssuesTotalPages = allIssuesData.data.TotalPages;
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						//sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			// end
@@ -145,7 +143,8 @@ angular.module('issueTrackingSystemApp.issues', [
 						}
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						//sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			
@@ -162,7 +161,8 @@ angular.module('issueTrackingSystemApp.issues', [
 						$location.path('/issues/' + issueId);
 					},
 					function(error){
-						sessionStorage['errorMsg'] = error.data.Message;
+						//sessionStorage['errorMsg'] = error.data.Message;
+						notificationServices.setMessage('errorMsg', error.data.Message);
 					});
 			}
 			// end

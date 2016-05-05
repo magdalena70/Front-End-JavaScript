@@ -1,7 +1,7 @@
 <!--project info-->
 <div class="text-center">
-	<p ng-if="isAdmin()||isLeader"><a href="#/projects/{{project.Id}}/add-issue"><strong>Add New Issue In This Project </strong></a></p>
-	<p ng-if="isAdmin()||isLeader"><a href="#/projects/{{project.Id}}/edit"><strong> Edit Project</strong></a></p>
+	<p ng-if="isAdmin()||isLeader"><a ng-href="#/projects/{{project.Id}}/add-issue"><strong>Add New Issue In This Project </strong></a></p>
+	<p ng-if="isAdmin()||isLeader"><a ng-href="#/projects/{{project.Id}}/edit"><strong> Edit Project</strong></a></p>
 </div>
 <ul id="project-info">
 	<li><strong>Id:</strong> <em>{{project.Id}}</em></li>

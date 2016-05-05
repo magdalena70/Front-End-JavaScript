@@ -1,11 +1,14 @@
 'use strict'
 
 angular.module('issueTrackingSystemApp.common.projectsAndIssuesHelpers', [
+		'ngStorage',
 		'issueTrackingSystemApp.labels.labelServices'
 	])
 	.factory('projectsAndIssuesHelpers', [
+		'$localStorage',
 		'labelServices',
-		function(labelServices){
+		function($localStorage, labelServices){
+		
 			// using for project.Labels, project.Priorities, issue.Labels, issue.Priorities
 			function makeToAsociativeArr(str, splitBy){
 				var strToArr = str.split(splitBy),  arr = [];
@@ -54,10 +57,23 @@ angular.module('issueTrackingSystemApp.common.projectsAndIssuesHelpers', [
 				
 				return labels;
 			}
+			// end
+			
+			// using for issue.AvailablePriorities
+			function setAvailablePrioritiesForIssuesInCurProject(projectData){
+				$localStorage['availablePriorities'] = angular.toJson(projectData.Priorities);
+			}
+			
+			function getIssueAvailablePriorities(){
+				return angular.fromJson($localStorage['availablePriorities'])
+			}
+			// end
 			
 			return{
 				makeToAsociativeArr: makeToAsociativeArr,
 				makeToString: makeToString,
-				addLabels: addLabels
+				addLabels: addLabels,
+				setAvailablePrioritiesForIssuesInCurProject: setAvailablePrioritiesForIssuesInCurProject,
+				getIssueAvailablePriorities: getIssueAvailablePriorities
 			};
 		}]);

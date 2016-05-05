@@ -3,6 +3,7 @@
 angular.module('issueTrackingSystemApp', [
 		'angular-loading-bar',
 		'ngRoute',
+		'ngStorage',
 		'issueTrackingSystemApp.common',
 		'issueTrackingSystemApp.common.datepicker',
 		'issueTrackingSystemApp.common.dialogModal',

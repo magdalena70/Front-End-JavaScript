@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('issueTrackingSystemApp.home', [
+		'issueTrackingSystemApp.users.userIdentityServices',
 		'issueTrackingSystemApp.users.authenticationServices',
 		'issueTrackingSystemApp.projects.projectServices',
 		'issueTrackingSystemApp.issues.issueServices'
@@ -19,10 +20,11 @@ angular.module('issueTrackingSystemApp.home', [
 	.controller('HomeController', [
 		'$scope',
 		'$location',
+		'userIdentity',
 		'authenticationServices',
 		'projectServices',
 		'issueServices',
-		function($scope, $location, authenticationServices, projectServices, issueServices) {
+		function($scope, $location,userIdentity, authenticationServices, projectServices, issueServices) {
 		
 			$scope.register = function(user){
 				$scope.registerUserData = user;
@@ -40,8 +42,7 @@ angular.module('issueTrackingSystemApp.home', [
 			$scope.login = function(user){
 				authenticationServices.loginUser("username=" + user.username + "&password=" + user.password + "&grant_type=password")
 					.then(function(loggedInUser){
-						//sessionStorage['accessToken'] = loggedInUser.access_token;
-						localStorage['accessToken'] = loggedInUser.access_token;
+						userIdentity.setCurrentUserAccessToken(loggedInUser);
 						$scope.getUserInfo();
 						sessionStorage['successMsg'] = 'Logged in successfuly';
 						$location.path('/');
@@ -55,14 +56,7 @@ angular.module('issueTrackingSystemApp.home', [
 			$scope.getUserInfo = function(){
 				authenticationServices.getUserInfo()
 					.then(function(userData){
-						//sessionStorage['userId'] = userData.data.Id;
-						//sessionStorage['currentUserUsername'] = userData.data.Username;
-						localStorage['userId'] = userData.data.Id;
-						localStorage['currentUserUsername'] = userData.data.Username;
-						if(userData.data.isAdmin === true){
-							//sessionStorage['isAdmin'] = userData.data.isAdmin;
-							localStorage['isAdmin'] = userData.data.isAdmin;
-						}
+						userIdentity.setCurrentUserInfo(userData.data);
 					},
 					function(error){
 						sessionStorage['errorMsg'] = error.data.Message;
@@ -73,7 +67,7 @@ angular.module('issueTrackingSystemApp.home', [
 				authenticationServices.logout()
 					.then(function(success){
 						sessionStorage.clear();
-						localStorage.clear();
+						userIdentity.clearCurrentUserInfo();
 						sessionStorage['successMsg'] = 'Logout successfuly';
 						$location.path('/');
 					},
@@ -83,8 +77,7 @@ angular.module('issueTrackingSystemApp.home', [
 			}
 			
 			$scope.getMyProjects = function(){
-				//var username = sessionStorage['currentUserUsername'],
-				var username = localStorage['currentUserUsername'],
+				var username = userIdentity.getCurrentUserUsername(),
 					pageSize = 300,
 					pageNumber = 1;
 					

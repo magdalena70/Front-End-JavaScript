@@ -156,14 +156,14 @@
 				<tr ng-show="projects.length > allProjectsPaginationPageSize" 
 					ng-repeat="project in projects | orderBy: keyOrder | filter:searchAllProjects">
 					<td width="7%">
-						<a href="#/projects/{{project.Id}}" class="blue">
+						<a ng-href="#/projects/{{project.Id}}" class="blue">
 							<i class="fa fa-info-circle" aria-hidden="true"></i>
 						</a>
 					</td>
 					<td width="15%">{{project.Name}}</td>
 					<td width="28%">{{project.Description}}</td>
 					<td width="20%">
-						<a href="#/admin/users/{{project.Lead.Username}}/info">{{project.Lead.Username}}</a>
+						<a ng-href="#/admin/users/{{project.Lead.Username}}/info">{{project.Lead.Username}}</a>
 					</td>
 					<td width="15%">
 						<p>Count: {{project.Labels.length}}</p>
@@ -188,7 +188,7 @@
 				</tr>
 				<tr ng-show="projects.length === allProjectsPaginationPageSize" ng-repeat="project in projects | orderBy: keyOrder">
 					<td width="7%">
-						<a href="#/projects/{{project.Id}}" class="blue">
+						<a ng-href="#/projects/{{project.Id}}" class="blue">
 							<i class="fa fa-info-circle" aria-hidden="true"></i>
 						</a>
 					</td>

@@ -136,14 +136,14 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="issue in issuesInProject | orderBy: keyOrder | filter:search">
-			<td width="18%"><a href="#/issues/{{issue.Id}}">{{issue.Title}}</a></td>
+			<td width="18%"><a ng-href="#/issues/{{issue.Id}}">{{issue.Title}}</a></td>
 			<td width="30%">{{issue.Description}}</td>
 			<td width="8%">{{issue.DueDate | date: 'dd/MM/yyyy'}}</td>
 			<td width="15%">{{issue.Author.Username}}</td>
 			<td width="15%">{{issue.Assignee.Username}}</td>
 			<td width="9%">{{issue.Status.Name}}</td>
 			<td width="5%">
-				<a href="#/issues/{{issue.Id}}/edit" ng-if="isAdmin() || isLeader">
+				<a ng-href="#/issues/{{issue.Id}}/edit" ng-if="isAdmin() || isLeader">
 					<i class="fa fa-pencil-square-o blue" aria-hidden="true"></i>
 				</a>
 			</td>
