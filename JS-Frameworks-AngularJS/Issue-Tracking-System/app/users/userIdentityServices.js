@@ -12,8 +12,8 @@ angular.module('issueTrackingSystemApp.users.userIdentityServices', ['ngStorage'
 			}
 			
 			function getRequestHeaders(){
-				if($localStorage.accessToken){
-					var accessToken = $localStorage.accessToken,
+				if($localStorage['accessToken']){
+					var accessToken = $localStorage['accessToken'],
 						headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 						return headers;
 				}

@@ -4,9 +4,52 @@
 </div>
 <!--end error message-->
 <!--edit-issue-->
-<div class="row" ng-if="isLeader||isAdmin()">
+<div class="col-md-3 div-fixed">
+	<button hide-element class="btn btn-warning openerBtn">Edit Issue</button>
+	<!--using collapse directive-->
+	<h4 data-toggle="collapse" type="button" class="btn btn-default"
+		data-target="#issueTitleCollapse" aria-expanded="false" aria-controls="issueTitleCollapse">
+		Title
+	</h4>
+	<p collapse class="collapse" id="issueTitleCollapse"><strong>{{issue.Title}}</strong>:</p>
+	<h4 data-toggle="collapse" type="button" class="btn btn-default"
+		data-target="#issueDescriptionCollapse" aria-expanded="false" aria-controls="issueDescriptionCollapse">
+		Description
+	</h4>
+	<p collapse class="collapse" id="issueDescriptionCollapse"><strong>{{issue.Description}}</strong></p>
+	<h4 data-toggle="collapse" type="button" class="btn btn-default"
+		data-target="#issueDueDateCollapse" aria-expanded="false" aria-controls="issueDueDateCollapse">
+		DueDate
+	</h4>
+	<p collapse class="collapse" id="issueDueDateCollapse"><strong>{{issue.DueDate | date}}</strong></p>
+	<h4 data-toggle="collapse" type="button" class="btn btn-default"
+		data-target="#issuePriorityCollapse" aria-expanded="false" aria-controls="issuePriorityCollapse">
+		Priority
+	</h4>
+	<p collapse class="collapse" id="issuePriorityCollapse"><strong>{{issue.Priority}}</strong></p>
+	<h4 data-toggle="collapse" type="button" class="btn btn-default"
+		data-target="#issueCurrentAssigneeCollapse" aria-expanded="false" aria-controls="issueCurrentAssigneeCollapse">
+		Current Assignee
+	</h4>
+	<p collapse class="collapse" id="issueCurrentAssigneeCollapse">
+		Username: <strong>{{issue.Assignee.Username}}</strong><br/>Id: <strong>{{issue.Assignee.Id}}</strong>
+	</p>
+	<h4 data-toggle="collapse" type="button" class="btn btn-default"
+		data-target="#issueNewAssigneeCollapse" aria-expanded="false" aria-controls="issueNewAssigneeCollapse">
+		New Assignee Id
+	</h4>
+	<p collapse class="collapse" id="issueNewAssigneeCollapse"><strong>{{issue.AssigneeId}}</strong></p>
+	<h4 data-toggle="collapse" type="button" class="btn btn-default"
+		data-target="#issueLabelsCollapse" aria-expanded="false" aria-controls="issueLabelsCollapse">
+		Labels
+	</h4>
+	<p collapse class="collapse" id="issueLabelsCollapse"><strong>{{issue.Labels}}</strong></p>
+	<!--end collapse directive-->
+	<a class="btn btn-success" ng-href="#/issues/{{issue.Id}}">Cancel</a>
+</div>
+<div dialog-modal class="row" ng-if="isLeader||isAdmin()">
 	<h2>Edit Issue <em>&#34;{{issue.Title}}&#34;</em>:</h2>
-	<div class="col-md-6 col-md-offset-3">
+	<div class="col-md-10 col-md-offset-1">
 		<form name="editIssueForm">
 			<div class="form-group">
 				<label for="issueTitle">Issue Title<span class="important">*</span></label>
@@ -135,9 +178,9 @@
 					</span>
 				</div>
 			</div>
-			<button type="submit" class="btn btn-success" 
+			<button hide-element type="submit" class="btn btn-success" 
 				ng-disabled="editIssueForm.$invalid" 
-				ng-click="editIssue(issue)">
+				ng-click="editIssue(issue)" hide-modal>
 					Edit Issue
 			</button>
 		</form>

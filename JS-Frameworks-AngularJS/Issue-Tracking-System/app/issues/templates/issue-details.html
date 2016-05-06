@@ -32,30 +32,32 @@
 		</div>
 		<!--using custom directive 'dialogModal'-->
 		<div class="col-md-12"><button class="btn openerBtn">Add Comment</button></div>
-		<div dialog-modal class="col-md-12" id="addComment">
-			<h3><i class="fa fa-commenting-o" aria-hidden="true"></i> Add Comment:</h3>
-			<p class="important"><small>
-				Only user who is either a project leader or has a assigned issue in this project can add comments.
-			</small></p>
-			<form name="addCommentForm">
-				<div class="form-group">
-					<label for="text">Text<span class="important">*</span></label>
-					<div class="inner-addon left-addon">
-						<i class="fa fa-pencil" aria-hidden="true"></i>
-						<input type="text" ng-model="comment.Text" id="text" name="text" required="required" class="form-control"/>
+		<div dialog-modal class="row" id="addComment">
+			<div class="col-md-10 col-md-offset-1">
+				<h3><i class="fa fa-commenting-o" aria-hidden="true"></i> Add Comment:</h3>
+				<p class="important"><small>
+					Only user who is either a project leader or has a assigned issue in this project can add comments.
+				</small></p>
+				<form name="addCommentForm">
+					<div class="form-group">
+						<label for="text">Text<span class="important">*</span></label>
+						<div class="inner-addon left-addon">
+							<i class="fa fa-pencil" aria-hidden="true"></i>
+							<input type="text" ng-model="comment.Text" id="text" name="text" required="required" class="form-control"/>
+						</div>
+						<p class="important" ng-show="addCommentForm.text.$error.required || addCommentForm.text==false">
+							<small><i class="fa fa-exclamation-triangle"></i> Text is required! Comment can not be empty!</small>
+						</p>
 					</div>
-					<p class="important" ng-show="addCommentForm.text.$error.required || addCommentForm.text==false">
-						<small><i class="fa fa-exclamation-triangle"></i> Text is required! Comment can not be empty!</small>
-					</p>
-				</div>
-				<!--using custom directive 'clearinputValue'-->
-				<button clear-input-value id="addCommentBtn"
-					class="btn btn-success" 
-					ng-disabled="addCommentForm.text.$invalid"
-					ng-click="addCommentInIssue(comment)">
-						Add
-					</button>
-			</form>
+					<!--using custom directive 'hideModal'-->
+					<button hide-modal id="addCommentBtn"
+						class="btn btn-success" 
+						ng-disabled="addCommentForm.text.$invalid"
+						ng-click="addCommentInIssue(comment)">
+							Add
+						</button>
+				</form>
+			</div>
 		</div>
 		<!--end dialog-->
 		<div class="col-md-12">

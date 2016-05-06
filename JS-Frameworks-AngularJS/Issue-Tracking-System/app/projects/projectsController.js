@@ -155,7 +155,6 @@ angular.module('issueTrackingSystemApp.projects', [
 			
 			// '/projects/:id/edit'
 			$scope.editProject = function(editedProject){
-				var projectId = $routeParams.id;
 				
 				if(!editedProject.LeadId){
 					editedProject.LeadId = editedProject.Lead.Id;
@@ -164,10 +163,10 @@ angular.module('issueTrackingSystemApp.projects', [
 				editedProject.Priorities = projectsAndIssuesHelpers.makeToAsociativeArr(editedProject.Priorities, '; ');
 				editedProject.Labels = projectsAndIssuesHelpers.addLabels(editedProject.Labels);
 			
-				projectServices.editProject(editedProject, projectId)
+				projectServices.editProject(editedProject, editedProject.Id)
 					.then(function(projectData){
-						notificationServices.setMessage('successMsg', 'Edited issue successfuly');
-						$location.path('/projects/' + $routeParams.id);
+						notificationServices.setMessage('successMsg', 'Edited project successfuly');
+						$location.path('/projects/' + editedProject.Id);
 					},
 					function(error){
 						notificationServices.setMessage('errorMsg', error.data.Message);

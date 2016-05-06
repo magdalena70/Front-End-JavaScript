@@ -6,10 +6,11 @@ angular.module('issueTrackingSystemApp.common.dialogModal', [])
 			restict: 'A',
 			link: function(scope, element){
 				element.dialog({
-					width: 500,
+					width: 600,
 					autoOpen: false,
 					show: {
-						effect: "blind",
+						//effect: "blind",
+						effect: "explode",
 						duration: 1000
 					},
 					hide: {

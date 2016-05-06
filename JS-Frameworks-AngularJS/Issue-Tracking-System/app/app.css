@@ -54,6 +54,7 @@ a:focus, a:hover{
 /* navbar style */
 .navbar-default{
 	background-color: #9C9586;
+	z-index: 1;
 }
 
 .navbar{
@@ -194,6 +195,10 @@ a:focus, a:hover{
 /* end style input class .form-control */
 
 /* buttons */
+.btn-warning{
+	margin: 10px;
+}
+
 .btn-success{
 	background-color: #9C9586;
 	color: #FEFBF1;
@@ -236,6 +241,34 @@ a:focus, a:hover{
 	font-size: 23px;
 }
 
+/* style pages 'Edit Issue' and 'Edit Project' */
+.div-fixed{
+	position: fixed;
+	left: 0;
+	top: 11%;
+	padding: 4px;
+	background-color: rgba(254, 238, 189, 0.4);
+	border-radius: 10px;
+	box-shadow: 2px 3px 10px #999;
+}
+
+.div-fixed p{
+	padding: 3px;
+	margin: 3px 0;
+	border-radius: 8px;
+	box-shadow: 2px 3px 10px #999;
+}
+
+.div-fixed:hover{
+	width: 100%;
+}
+
+.div-fixed:hover h4{
+	text-align: left;
+}
+/* end*/
+
+
 .list-decimal{
 	 list-style-type: decimal;
 	 padding: 5px;
@@ -248,12 +281,13 @@ a:focus, a:hover{
 	border-top: solid 1px #999;
 	border-bottom: solid 1px #999;
 }
-
+/* input select style */
 .style-select{
 	width: 100%;
 	padding: 3px;
 	border-radius: 5px;
 }
+/* end */
 
 /* dialog style */
 .openerBtn{
@@ -267,7 +301,8 @@ a:focus, a:hover{
 }
 
 .ui-dialog{
-	z-index: 1;
+	z-index: 10;
+	
 }
 
 .ui-dialog .ui-dialog-titlebar-close{
@@ -298,17 +333,14 @@ a:focus, a:hover{
 	box-shadow: 4px 9px 10px #333;
 	font-size: 20px;
 	font-weight: bold;
+	color: #fff;
 	text-shadow: 5px 6px 5px #333;
 	text-align: center;
-	z-index: 10;
+	z-index: 100;
 }
 
 .successMsg{
-	color: #000;
-}
-
-.errorMsg{
-	color: #fff;
+	font-size: 23px;
 }
 
 #successMsgBtn,

@@ -144,16 +144,16 @@ angular.module('issueTrackingSystemApp.issues', [
 			}
 			
 			$scope.editIssue = function(issue){
-				var issueId = $routeParams.id;
+				
 				if(!issue.AssigneeId){
 					issue.AssigneeId = issue.Assignee.Id;
 				}
 				
 				issue.Labels = projectsAndIssuesHelpers.addLabels(issue.Labels);
-				issueServices.editIssue(issueId, issue)
+				issueServices.editIssue(issue.Id, issue)
 					.then(function(issueData){
 						notificationServices.setMessage('successMsg', 'Edited issue successfuly');
-						$location.path('/issues/' + issueId);
+						$location.path('/issues/' + issue.Id);
 					},
 					function(error){
 						notificationServices.setMessage('errorMsg', error.data.Message);

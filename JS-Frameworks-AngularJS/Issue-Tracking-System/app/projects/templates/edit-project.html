@@ -3,9 +3,47 @@
 	ng-if="!isAdmin() && !isLeader" ng-include="'app/common/partial/add-issue-in-project-warning-msg.html'">
 </div>
 <!--end error message-->
-<!--edit project form-->
-<div class="row" ng-if="isAdmin()|| isLeader">
-	<div class="col-md-6 col-md-offset-3">
+<!--edit project-->
+<div class="col-md-3 div-fixed">
+	<button hide-element class="btn btn-warning openerBtn">Edit Project</button>
+	<!--using collapse directive-->
+	<h4 data-toggle="collapse" type="button" class="btn btn-default"
+		data-target="#projectNameCollapse" aria-expanded="false" aria-controls="projectNameCollapse">
+		Name
+	</h4>
+	<p collapse class="collapse" id="projectNameCollapse"><strong>{{editedProject.Name}}</strong></p>
+	<h4 data-toggle="collapse" type="button" class="btn btn-default"
+		data-target="#projectDescriptionCollapse" aria-expanded="false" aria-controls="projectDescriptionCollapse">
+		Description
+	</h4>
+	<p collapse class="collapse" id="projectDescriptionCollapse"><strong>{{editedProject.Description}}</strong></p>
+	<h4 data-toggle="collapse" type="button" class="btn btn-default"
+		data-target="#projectPrioritiesCollapse" aria-expanded="false" aria-controls="projectPrioritiesCollapse">
+		Priorities
+	</h4>
+	<p collapse class="collapse" id="projectPrioritiesCollapse"><strong>{{editedProject.Priorities}}</strong></p>
+	<h4 data-toggle="collapse" type="button" class="btn btn-default"
+		data-target="#projectCurrentLeaderCollapse" aria-expanded="false" aria-controls="projectCurrentLeaderCollapse">
+		Current Leader
+	</h4>
+	<p collapse class="collapse" id="projectCurrentLeaderCollapse">
+		Name: <strong>{{editedProject.Lead.Username}}</strong><br/>Id: <strong>{{editedProject.Lead.Id}}</strong>
+	</p>
+	<h4 data-toggle="collapse" type="button" class="btn btn-default"
+		data-target="#projectNewLeaderCollapse" aria-expanded="false" aria-controls="projectNewLeaderCollapse">
+		New Leader Id
+	</h4>
+	<p collapse class="collapse" id="projectNewLeaderCollapse"><strong>{{editedProject.LeadId}}</strong></p>
+	<h4 data-toggle="collapse" type="button" class="btn btn-default"
+		data-target="#projectLabelsCollapse" aria-expanded="false" aria-controls="projectLabelsCollapse">
+		Labels
+	</h4>
+	<p collapse class="collapse" id="projectLabelsCollapse"><strong>{{editedProject.Labels}}</strong></p>
+	<!--end collapse directive-->
+	<a class="btn btn-success" ng-href="#/projects/{{editedProject.Id}}">Cancel</a>
+</div>
+<div dialog-modal class="row" ng-if="isAdmin()|| isLeader">
+	<div class="col-md-10 col-md-offset-1">
 		<h2>Edit Project</h2>
 		<form name="editProjectForm">
 			<div class="form-group">
@@ -61,7 +99,7 @@
 				<div class="inner-addon left-addon">
 					<i class="fa fa-user" aria-hidden="true"></i>
 					<select ng-model="editedProject.LeadId" id="editedLeader" name="editedLeadId" class="form-control">
-						<option  ng-repeat="user in usersForLeader | orderBy: 'Username' | filter: editLeader" value="{{user.Id}}">
+						<option  ng-repeat="user in usersForLeader | orderBy: 'Username' | filter: editLeader.Username" value="{{user.Id}}">
 							{{user.Username}}
 						</option>
 					</select>
@@ -143,9 +181,9 @@
 				</div>
 			</div>
 			<!--end labels-->
-			<button type="submit" class="btn btn-success" 
+			<button hide-element type="submit" class="btn btn-success" 
 				ng-disabled="editProjectForm.$invalid" 
-				ng-click="editProject(editedProject)">
+				ng-click="editProject(editedProject)" hide-modal>
 					Edit Project
 			</button>
 		</form>

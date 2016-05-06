@@ -29,7 +29,7 @@ angular.module('issueTrackingSystemApp.projects.projectServices', [
 			
 			function getUserProjects(pageSize, pageNumber, username){
 				var defer = $q.defer();
-			
+				var headers = userIdentity.getRequestHeaders();
 				$http.get(BASE_URL + 'projects?pageSize=' + pageSize + 
 					'&pageNumber=' + pageNumber + '&filter=Lead.Username=="' + username + '"', headers)
 						.then(function(success){

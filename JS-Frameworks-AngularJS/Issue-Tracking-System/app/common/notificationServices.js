@@ -25,7 +25,7 @@ angular.module('issueTrackingSystemApp.common.notificationServices', ['ngStorage
 			
 			function showSuccessMessageBox_style(){
 				return {
-						"background-color": "rgba(254, 238, 189, 0.6)"
+						"background-color": "rgba(241, 140, 25, 0.6)"
 					};
 			}
 			
