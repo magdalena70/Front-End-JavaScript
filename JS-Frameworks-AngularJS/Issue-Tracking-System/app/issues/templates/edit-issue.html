@@ -11,7 +11,7 @@
 		data-target="#issueTitleCollapse" aria-expanded="false" aria-controls="issueTitleCollapse">
 		Title
 	</h4>
-	<p collapse class="collapse" id="issueTitleCollapse"><strong>{{issue.Title}}</strong>:</p>
+	<p collapse class="collapse" id="issueTitleCollapse"><strong>{{issue.Title}}</strong></p>
 	<h4 data-toggle="collapse" type="button" class="btn btn-default"
 		data-target="#issueDescriptionCollapse" aria-expanded="false" aria-controls="issueDescriptionCollapse">
 		Description
@@ -24,7 +24,7 @@
 	<p collapse class="collapse" id="issueDueDateCollapse"><strong>{{issue.DueDate | date}}</strong></p>
 	<h4 data-toggle="collapse" type="button" class="btn btn-default"
 		data-target="#issuePriorityCollapse" aria-expanded="false" aria-controls="issuePriorityCollapse">
-		Priority
+		Current Priority
 	</h4>
 	<p collapse class="collapse" id="issuePriorityCollapse"><strong>{{issue.Priority}}</strong></p>
 	<h4 data-toggle="collapse" type="button" class="btn btn-default"
@@ -48,7 +48,7 @@
 	<a class="btn btn-success" ng-href="#/issues/{{issue.Id}}">Cancel</a>
 </div>
 <div dialog-modal class="row" ng-if="isLeader||isAdmin()">
-	<h2>Edit Issue <em>&#34;{{issue.Title}}&#34;</em>:</h2>
+	<h2>Edit Issue</h2>
 	<div class="col-md-10 col-md-offset-1">
 		<form name="editIssueForm">
 			<div class="form-group">
@@ -98,7 +98,7 @@
 				<label for="dueDate">Due Date<span class="important">*</span></label>
 				<div class="inner-addon left-addon">
 					<i class="fa fa-calendar-plus-o" aria-hidden="true"></i>
-					<input type="text" date-picker ng-model="issue.DueDate" 
+					<input date-picker ng-model="issue.DueDate" 
 						id="dueDate" 
 						name="dueDate"
 						required="required"

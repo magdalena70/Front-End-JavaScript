@@ -70,6 +70,7 @@ angular.module('issueTrackingSystemApp.issues', [
 				issueServices.changeIssueStatus(issueId, statusId, issue)
 					.then(function(statusData){
 						notificationServices.setMessage('successMsg', 'Changed status successfuly');
+						getIssueById();
 					},
 					function(error){
 						notificationServices.setMessage('errorMsg', error.data.Message);
