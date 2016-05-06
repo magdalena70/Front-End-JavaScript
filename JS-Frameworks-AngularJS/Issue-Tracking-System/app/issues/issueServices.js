@@ -28,7 +28,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [
 			
 			function getMyIssues(pageSize, pageNumber){
 				var defer = $q.defer();
-				
+				var headers = userIdentity.getRequestHeaders();
 				$http.get(BASE_URL + 'issues/me?orderBy=DueDate desc&pageSize='+
 					pageSize + '&pageNumber=' + pageNumber, headers)
 					.then(function(success){
@@ -86,7 +86,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [
 			
 			function addCommentInIssue(id, comment){
 				var defer = $q.defer();
-				
+				var headers = userIdentity.getRequestHeaders();
 				$http.post(BASE_URL + 'issues/' + id + '/comments', comment, headers)
 					.then(function(success){
 						defer.resolve(success);

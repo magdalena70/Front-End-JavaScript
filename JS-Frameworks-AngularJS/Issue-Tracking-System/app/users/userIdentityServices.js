@@ -6,17 +6,13 @@ angular.module('issueTrackingSystemApp.users.userIdentityServices', ['ngStorage'
 		function($localStorage){
 			
 			function setCurrentUserAccessToken(responseData){
-				if(responseData.access_token){
 					$localStorage['accessToken'] = responseData.access_token;
-				}
 			}
 			
 			function getRequestHeaders(){
-				if($localStorage['accessToken']){
 					var accessToken = $localStorage['accessToken'],
 						headers = {headers: { 'Authorization': 'Bearer ' + accessToken }};
 						return headers;
-				}
 			}
 			
 			function setCurrentUserInfo(responseData){
@@ -38,9 +34,7 @@ angular.module('issueTrackingSystemApp.users.userIdentityServices', ['ngStorage'
 			}
 			
 			function getCurrentUserUsername(){
-				if($localStorage['currentUserUsername']){
 					return $localStorage['currentUserUsername'];
-				}
 			}
 			
 			function checkIfCurrentUserIsAuthenticated(){
