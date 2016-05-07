@@ -10,11 +10,10 @@ angular.module('issueTrackingSystemApp.projects.projectServices', [
 		'BASE_URL',
 		'userIdentity',
 		function($http, $q, $localStorage, BASE_URL, userIdentity){
-			var headers = userIdentity.getRequestHeaders();
 			
 			function getAllProjects(pageSize, pageNumber){
 				var defer = $q.defer();
-				
+				var headers = userIdentity.getRequestHeaders();
 				$http.get(BASE_URL + 'projects?pageSize=' + pageSize +
 					'&pageNumber=' + pageNumber + '&filter=' , headers)
 					.then(function(success){
@@ -44,7 +43,7 @@ angular.module('issueTrackingSystemApp.projects.projectServices', [
 			
 			function getProjectById(id){
 				var defer = $q.defer();
-				
+				var headers = userIdentity.getRequestHeaders();
 				$http.get(BASE_URL + 'projects/' + id, headers)
 					.then(function(success){
 						defer.resolve(success);
@@ -58,7 +57,7 @@ angular.module('issueTrackingSystemApp.projects.projectServices', [
 			
 			function getIssuesByProjectId(id){
 				var defer = $q.defer();
-				
+				var headers = userIdentity.getRequestHeaders();
 				$http.get(BASE_URL + 'projects/' + id + '/issues', headers)
 					.then(function(success){
 						defer.resolve(success);
@@ -72,7 +71,7 @@ angular.module('issueTrackingSystemApp.projects.projectServices', [
 			
 			function addProject(project){
 				var defer = $q.defer();
-			
+				var headers = userIdentity.getRequestHeaders();
 				$http.post(BASE_URL + 'projects', project, headers)
 					.then(function(success){
 						defer.resolve(success);
@@ -86,7 +85,7 @@ angular.module('issueTrackingSystemApp.projects.projectServices', [
 			
 			function editProject(project, projectId){
 				var defer = $q.defer();
-				
+				var headers = userIdentity.getRequestHeaders();
 				$http.put(BASE_URL + 'projects/' + projectId, project, headers)
 					.then(function(success){
 						defer.resolve(success);

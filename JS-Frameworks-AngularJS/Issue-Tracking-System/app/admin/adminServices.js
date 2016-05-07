@@ -9,11 +9,10 @@ angular.module('issueTrackingSystemApp.admin.adminServices', [
 		'BASE_URL',
 		'userIdentity',
 		function($http, $q, BASE_URL, userIdentity){
-			var headers = userIdentity.getRequestHeaders();
 			
 			function getUsers(){
 				var defer = $q.defer();
-				
+				var headers = userIdentity.getRequestHeaders();
 				$http.get(BASE_URL + 'users', headers)
 					.then(function(success){
 						defer.resolve(success);
@@ -27,7 +26,7 @@ angular.module('issueTrackingSystemApp.admin.adminServices', [
 			
 			function getUserToMakeAdmin(filterUsername){
 				var defer = $q.defer();
-				
+				var headers = userIdentity.getRequestHeaders();
 				$http.get(BASE_URL + 'users?filter=Username=="' + filterUsername + '"', headers)
 					.then(function(success){
 						defer.resolve(success);
@@ -41,7 +40,7 @@ angular.module('issueTrackingSystemApp.admin.adminServices', [
 			
 			function makeAdmin(user){
 				var defer = $q.defer();
-				
+				var headers = userIdentity.getRequestHeaders();
 				$http.put(BASE_URL + 'users/makeadmin', user, headers)
 					.then(function(success){
 						defer.resolve(success);

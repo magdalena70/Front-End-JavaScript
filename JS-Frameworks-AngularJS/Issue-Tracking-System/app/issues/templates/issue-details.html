@@ -45,14 +45,13 @@
 							<i class="fa fa-pencil" aria-hidden="true"></i>
 							<input type="text" ng-model="comment.Text" id="text" name="text" required="required" class="form-control"/>
 						</div>
-						<p class="important" ng-show="addCommentForm.text.$error.required || addCommentForm.text==false">
+						<p class="important" ng-show="addCommentForm.text.$error.required">
 							<small><i class="fa fa-exclamation-triangle"></i> Text is required! Comment can not be empty!</small>
 						</p>
 					</div>
-					<!--using custom directive 'clearinputValue'-->
-					<button clear-input-value id="addCommentBtn"
-						class="btn btn-success" 
-						ng-disabled="addCommentForm.text.$invalid"
+					<button id="addCommentBtn"
+						class="btn btn-success closeDialogBtn" 
+						ng-disabled="addCommentForm.text.$error.required"
 						ng-click="addCommentInIssue(comment)">
 							Add
 						</button>

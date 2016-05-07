@@ -54,7 +54,6 @@ angular.module('issueTrackingSystemApp.home', [
 					});
 			}
 			
-			//get isAdmin for current user
 			$scope.getUserInfo = function(){
 				authenticationServices.getUserInfo()
 					.then(function(userData){
@@ -68,7 +67,6 @@ angular.module('issueTrackingSystemApp.home', [
 			$scope.logout = function(){
 				authenticationServices.logout()
 					.then(function(success){
-						//$sessionStorage.reset();
 						userIdentity.clearCurrentUserInfo();
 						notificationServices.setMessage('successMsg', 'Logout successfuly');
 						$location.path('/');

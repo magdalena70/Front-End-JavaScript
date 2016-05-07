@@ -19,9 +19,13 @@ angular.module('issueTrackingSystemApp.common.dialogModal', [])
 					}
 				});
  
-				$( ".openerBtn" ).click(function() {
-					element.dialog( "open" );
+				$('.openerBtn').click(function(){
+					element.dialog('open');
 				});
+				
+				$('.closeDialogBtn').click(function(){
+					element.dialog('close');
+				})
 			}
 		};
 	}]);

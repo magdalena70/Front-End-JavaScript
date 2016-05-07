@@ -9,11 +9,10 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [
 		'BASE_URL',
 		'userIdentity',
 		function($http, $q, BASE_URL, userIdentity){
-			var headers = userIdentity.getRequestHeaders();
 			
 			function getAllIssues(pageSize, pageNumber){
 				var defer = $q.defer();
-				
+				var headers = userIdentity.getRequestHeaders();
 				$http.get(BASE_URL + 'issues/?pageSize='+ pageSize +
 					'&pageNumber=' + pageNumber + '&filter=', headers)
 					.then(function(success){
@@ -43,7 +42,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [
 			
 			function getUserIssues(pageSize, pageNumber, username){
 				var defer = $q.defer();
-				
+				var headers = userIdentity.getRequestHeaders();
 				$http.get(BASE_URL + 'issues?orderBy=DueDate desc&pageSize=' + pageSize + '&pageNumber=' + pageNumber +
 					'&filter=Assignee.Username=="' + username + '"', headers)
 					.then(function(success){
@@ -58,7 +57,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [
 			
 			function getIssueById(id){
 				var defer = $q.defer();
-				
+				var headers = userIdentity.getRequestHeaders();
 				$http.get(BASE_URL + 'issues/' + id, headers)
 					.then(function(success){
 						defer.resolve(success);
@@ -72,7 +71,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [
 			
 			function getCommentsByIssueId(id){
 				var defer = $q.defer();
-				
+				var headers = userIdentity.getRequestHeaders();
 				$http.get(BASE_URL + 'issues/' + id + '/comments', headers)
 					.then(function(success){
 						defer.resolve(success);
@@ -100,7 +99,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [
 			
 			function changeIssueStatus(id, statusId, issue){
 				var defer = $q.defer();
-				
+				var headers = userIdentity.getRequestHeaders();
 				$http.put(BASE_URL + 'issues/' + id + '/changestatus?statusId=' + statusId, issue, headers)
 					.then(function(success){
 						defer.resolve(success);
@@ -114,7 +113,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [
 			
 			function editIssue(id, issue){
 				var defer = $q.defer();
-				
+				var headers = userIdentity.getRequestHeaders();
 				$http.put(BASE_URL + 'issues/' + id, issue, headers)
 					.then(function(success){
 						defer.resolve(success);
@@ -128,7 +127,7 @@ angular.module('issueTrackingSystemApp.issues.issueServices', [
 			
 			function addIssue(issue){
 				var defer = $q.defer();
-				
+				var headers = userIdentity.getRequestHeaders();
 				$http.post(BASE_URL + 'issues', issue, headers)
 					.then(function(success){
 						defer.resolve(success);

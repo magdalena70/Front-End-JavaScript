@@ -96,7 +96,6 @@ angular.module('issueTrackingSystemApp.issues', [
 			}
 			
 			$scope.addCommentInIssue = function(comment){
-				console.log(comment);
 				var issueId = $routeParams.id;
 				
 				issueServices.addCommentInIssue(issueId, comment)
