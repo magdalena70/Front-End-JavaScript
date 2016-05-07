@@ -83,9 +83,9 @@ angular.module('issueTrackingSystemApp.issues', [
 				issueServices.getCommentsByIssueId(issueId)
 					.then(function(commentsData){
 						if(commentsData.data.length){
-							$scope.comments = commentsData.data;
-							commentsData.count = commentsData.data.length;
-							$scope.commentsCount = commentsData.count;
+							// use function reverse() to show comments sorted from last to first
+							$scope.comments = commentsData.data.reverse();
+							$scope.commentsCount = commentsData.data.length;
 						}else{
 							$scope.commentsCount = 'No comments';
 						}

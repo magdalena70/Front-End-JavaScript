@@ -45,7 +45,7 @@
 	</h4>
 	<p collapse class="collapse" id="issueLabelsCollapse"><strong>{{issue.Labels}}</strong></p>
 	<!--end collapse directive-->
-	<a class="btn btn-success" ng-href="#/issues/{{issue.Id}}">Cancel</a>
+	<a class="btn btn-success closeDialogBtn" ng-href="#/issues/{{issue.Id}}">Cancel</a>
 </div>
 <div dialog-modal class="row" ng-if="isLeader||isAdmin()">
 	<h2>Edit Issue</h2>

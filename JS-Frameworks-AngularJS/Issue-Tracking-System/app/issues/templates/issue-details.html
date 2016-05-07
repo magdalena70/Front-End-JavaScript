@@ -14,9 +14,9 @@
 			<li><strong>Priority:</strong> <em>{{issue.Priority.Name}}</em></li>
 			<li><strong>Labels:</strong> <em>{{issue.Labels}}</em></li>
 			<li><strong>Current Status:</strong> <em class="important">{{issue.Status.Name}}</em></li>
-			<li><strong>AvailableStatuses:</strong> <em>{{issue.AvailableStatuses}}</em></li>
+			<li ng-if="issue.AvailableStatuses.length"><strong>AvailableStatuses:</strong> <em>{{issue.AvailableStatuses}}</em></li>
 		</ul>
-		<div class="col-md-6 col-md-offset-3" ng-if="isAssignee || isAdmin() || isLeader">
+		<div class="col-md-6 col-md-offset-3" ng-if="issue.AvailableStatuses.length" ng-show="isAssignee || isAdmin() || isLeader">
 			<form name="changeStatusForm">
 				<div class="form-group">
 					<label for="newStatus">Select new Status</label>
@@ -59,17 +59,22 @@
 			</div>
 		</div>
 		<!--end dialog-->
+		<!--comments view ordered by date-created desc-->
 		<div class="col-md-12">
 			<h3><i class="fa fa-comments" aria-hidden="true"></i> Comments: <span class="blue">{{commentsCount}}</span></h3> 
 			<button class="btn btn-success" ng-click="getIssueComments()">Get Comments</button>
 			<ul class="list-decimal">
 				<li ng-repeat="comment in comments">
 					<p>
-						<em>CreatedOn: <strong>{{comment.CreatedOn | date: dd.MM.yyyy}}</strong> By: <strong>{{comment.Author.Username}}</strong></em>
+						<em>
+							CreatedOn: <strong>{{comment.CreatedOn | date: dd.MM.yyyy}}</strong> 
+							By: <strong>{{comment.Author.Username}}</strong>
+						</em>
 					</p>
 					<p><strong>{{comment.Text}}</strong></p>
 				</li>
 			</ul>
 		</div>
+		<!--end comments view-->
 	</div>
 </div>

@@ -15,7 +15,7 @@ angular.module('issueTrackingSystemApp.common.dialogModal', [])
 					},
 					hide: {
 						effect: "explode",
-						duration: 1000
+						duration: 2000
 					}
 				});
  

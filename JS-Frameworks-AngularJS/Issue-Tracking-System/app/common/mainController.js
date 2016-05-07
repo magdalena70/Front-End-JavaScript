@@ -16,6 +16,13 @@ angular.module('issueTrackingSystemApp.common', [
 			}
 			// end 
 			
+			/*$scope.orderCommentsByDate = function(comments){
+				return comments.sort(function(a, b){
+					return a.CreatedOn > b.CreatedOn;
+				});
+				//return a.CreatedOn > b.CreatedOn;
+			}*/
+			
 			// authentication
 			$scope.getCurrentUserUsername = function(){
 				return $scope.username = userIdentity.getCurrentUserUsername();
