@@ -16,13 +16,6 @@ angular.module('issueTrackingSystemApp.common', [
 			}
 			// end 
 			
-			/*$scope.orderCommentsByDate = function(comments){
-				return comments.sort(function(a, b){
-					return a.CreatedOn > b.CreatedOn;
-				});
-				//return a.CreatedOn > b.CreatedOn;
-			}*/
-			
 			// authentication
 			$scope.getCurrentUserUsername = function(){
 				return $scope.username = userIdentity.getCurrentUserUsername();
@@ -82,10 +75,11 @@ angular.module('issueTrackingSystemApp.common', [
 				}, 
 				(x.open('GET', 'http://ip-api.com/json/'), x.send());
 			}
-
+			
+			// you can test in Google Hrome
 			/*getNetworkStatus(function(isOnline){
 				if(!isOnline){
-					 sessionStorage['errorMsg'] = 'Error: INTERNET DISCONNECTED';
+					notificationServices.setMessage('errorMsg', 'Error: INTERNET DISCONNECTED');
 				}
 				//console.log(isOnline ? "ONLINE" : "OFFLINE");
 			},40000);*/
