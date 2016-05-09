@@ -9,29 +9,44 @@ angular.module('issueTrackingSystemApp.projects', [
 		'issueTrackingSystemApp.users.userIdentityServices'
 	])
 	.config(['$routeProvider', function($routeProvider){
+		var routeChecks = {
+					authenticated: ['$q', 'userIdentity', function($q, userIdentity){
+						if(userIdentity.checkIfCurrentUserIsAuthenticated()){
+							return $q.when(true);
+						}
+						
+						return $q.reject('Unauthorized!');
+					}]
+			};
+	
 		$routeProvider.when('/projects', {
 			templateUrl: 'app/projects/templates/all-projects.html',
-			controller: 'ProjectsController'
+			controller: 'ProjectsController',
+			resolve: routeChecks.authenticated
 		});
 		
 		$routeProvider.when('/projects/add', {
 			templateUrl: 'app/projects/templates/add-project.html',
-			controller: 'ProjectsController'
+			controller: 'ProjectsController',
+			resolve: routeChecks.authenticated
 		});
 		
 		$routeProvider.when('/projects/:id/add-issue', {
 			templateUrl: 'app/issues/templates/add-issue.html',
-			controller: 'ProjectsController'
+			controller: 'ProjectsController',
+			resolve: routeChecks.authenticated
 		});
 		
 		$routeProvider.when('/projects/:id/edit', {
 			templateUrl: 'app/projects/templates/edit-project.html',
-			controller: 'ProjectsController'
+			controller: 'ProjectsController',
+			resolve: routeChecks.authenticated
 		});
 		
 		$routeProvider.when('/projects/:id', {
 			templateUrl: 'app/projects/templates/project-details.html',
-			controller: 'ProjectsController'
+			controller: 'ProjectsController',
+			resolve: routeChecks.authenticated
 		});
 	}])
 	.controller('ProjectsController', [

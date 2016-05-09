@@ -10,19 +10,32 @@ angular.module('issueTrackingSystemApp.issues', [
 		'issueTrackingSystemApp.users.userIdentityServices'
 	])
 	.config(['$routeProvider', function($routeProvider){
+		var routeChecks = {
+					authenticated: ['$q', 'userIdentity', function($q, userIdentity){
+						if(userIdentity.checkIfCurrentUserIsAuthenticated()){
+							return $q.when(true);
+						}
+						
+						return $q.reject('Unauthorized!');
+					}]
+			};
+	
 		$routeProvider.when('/issues', {
 			templateUrl: 'app/issues/templates/all-issues.html',
-			controller: 'IssuesController'
+			controller: 'IssuesController',
+			resolve: routeChecks.authenticated
 		});
 	
 		$routeProvider.when('/issues/:id/edit', {
 			templateUrl: 'app/issues/templates/edit-issue.html',
-			controller: 'IssuesController'
+			controller: 'IssuesController',
+			resolve: routeChecks.authenticated
 		});
 		
 		$routeProvider.when('/issues/:id', {
 			templateUrl: 'app/issues/templates/issue-details.html',
-			controller: 'IssuesController'
+			controller: 'IssuesController',
+			resolve: routeChecks.authenticated
 		});
 	}])
 	.controller('IssuesController', [

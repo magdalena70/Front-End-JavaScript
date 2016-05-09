@@ -7,19 +7,32 @@ angular.module('issueTrackingSystemApp.admin', [
 		'issueTrackingSystemApp.common.notificationServices',
 	])
 	.config(['$routeProvider', function($routeProvider){
+		var routeChecks = {
+					authenticated: ['$q', 'userIdentity', function($q, userIdentity){
+						if(userIdentity.checkIfCurrentUserIsAuthenticated()){
+							return $q.when(true);
+						}
+						
+						return $q.reject('Unauthorized!');
+					}]
+			};
+	
 		$routeProvider.when('/admin/makeAdmin', {
 			templateUrl: 'app/admin/templates/make-admin.html',
-			controller: 'AdminsController'
+			controller: 'AdminsController',
+			resolve: routeChecks.authenticated
 		});
 		
 		$routeProvider.when('/admin/users/all', {
 			templateUrl: 'app/admin/templates/all-users.html',
-			controller: 'AdminsController'
+			controller: 'AdminsController',
+			resolve: routeChecks.authenticated
 		});
 		
 		$routeProvider.when('/admin/users/:username/info', {
 			templateUrl: 'app/admin/templates/admin-user-info.html',
-			controller: 'AdminsController'
+			controller: 'AdminsController',
+			resolve: routeChecks.authenticated
 		});
 	}])
 	.controller('AdminsController', [

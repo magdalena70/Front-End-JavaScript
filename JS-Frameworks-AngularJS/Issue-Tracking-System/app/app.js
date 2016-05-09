@@ -26,4 +26,12 @@ angular.module('issueTrackingSystemApp', [
 			cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
 			cfpLoadingBarProvider.spinnerTemplate = '<h1>Loading...<i class="fa fa-spinner"></i></h1>';
 	}])
+	.run(['$rootScope', '$location','$sessionStorage', function($rootScope, $location, $sessionStorage){
+		$rootScope.$on('$routeChangeError', function(ev, current, previous, rejection){
+			if(rejection === 'Unauthorized!'){
+				$location.path('/');
+				$sessionStorage['errorMsg'] = rejection + ' You can not access route: " ' + current.$$route.originalPath + '"';
+			}
+		});
+	}])
 	.constant('BASE_URL', 'http://softuni-issue-tracker.azurewebsites.net/');

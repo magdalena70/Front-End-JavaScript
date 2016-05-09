@@ -5,9 +5,20 @@ angular.module('issueTrackingSystemApp.users', [
 		'issueTrackingSystemApp.common.notificationServices'
 	])
 	.config(['$routeProvider', function($routeProvider){
+		var routeChecks = {
+					authenticated: ['$q', 'userIdentity', function($q, userIdentity){
+						if(userIdentity.checkIfCurrentUserIsAuthenticated()){
+							return $q.when(true);
+						}
+						
+						return $q.reject('Unauthorized!');
+					}]
+			};
+	
 		$routeProvider.when('/profile/password', {
 			templateUrl: 'app/users/templates/change-user-password.html',
-			controller: 'UsersController'
+			controller: 'UsersController',
+			resolve: routeChecks.authenticated
 		})
 	}])
 	.controller('UsersController', [

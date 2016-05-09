@@ -8,6 +8,16 @@ angular.module('issueTrackingSystemApp.home', [
 		'issueTrackingSystemApp.common.notificationServices'
 	])
 	.config(['$routeProvider', function($routeProvider) {
+		var routeChecks = {
+					authenticated: ['$q', 'userIdentity', function($q, userIdentity){
+						if(userIdentity.checkIfCurrentUserIsAuthenticated()){
+							return $q.when(true);
+						}
+						
+						return $q.reject('Unauthorized!');
+					}]
+			};
+	
 	  $routeProvider.when('/', {
 		  templateUrl: 'app/home/templates/home.html',
 		  controller: 'HomeController'
@@ -15,7 +25,8 @@ angular.module('issueTrackingSystemApp.home', [
 	  
 	  $routeProvider.when('/logout', {
 		  templateUrl: 'app/users/templates/logout.html',
-		  controller: 'HomeController'
+		  controller: 'HomeController',
+		  resolve: routeChecks.authenticated
 	  });
 	}])
 	.controller('HomeController', [

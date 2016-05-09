@@ -4,7 +4,7 @@
 </div>
 <!--end error message-->
 <!--edit-issue-->
-<div class="col-md-3 div-fixed">
+<div class="col-md-3 div-fixed" ng-if="isLeader||isAdmin()">
 	<button hide-element class="btn btn-warning openerBtn">Edit Issue</button>
 	<!--using collapse directive-->
 	<h4 data-toggle="collapse" type="button" class="btn btn-default"
