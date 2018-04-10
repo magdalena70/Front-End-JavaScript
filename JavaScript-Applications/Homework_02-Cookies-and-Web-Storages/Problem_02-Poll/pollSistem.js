@@ -121,15 +121,15 @@
 			errorMsgBox.hide();
 			$('#formQuestions').hide();
 			
-			createAnswerView('#result-answer1', localStorage['currAnswer1'], 'Fourth answer', '#answer1-message');
-			createAnswerView('#result-answer2', localStorage['currAnswer2'], 'Third answer', '#answer2-message');
-			createAnswerView('#result-answer3', localStorage['currAnswer3'], 'Fourth answer', '#answer3-message');
-			createAnswerView('#result-answer4', localStorage['currAnswer4'], 'First answer', '#answer4-message');
+			createAnswerView('#result-answer1', localStorage['currAnswer1'], 'Asia', '#answer1-message');
+			createAnswerView('#result-answer2', localStorage['currAnswer2'], 'Bugatti Chiron 2017', '#answer2-message');
+			createAnswerView('#result-answer3', localStorage['currAnswer3'], 'Blue Whale', '#answer3-message');
+			createAnswerView('#result-answer4', localStorage['currAnswer4'], 'Chinese', '#answer4-message');
 			
-			if(localStorage['currAnswer1'] == 'Fourth answer' &&
-				localStorage['currAnswer2'] == 'Third answer' &&
-				localStorage['currAnswer3'] == 'Fourth answer' &&
-				localStorage['currAnswer4'] == 'First answer'){
+			if(localStorage['currAnswer1'] == 'Asia' &&
+				localStorage['currAnswer2'] == 'Bugatti Chiron 2017' &&
+				localStorage['currAnswer3'] == 'Blue Whale' &&
+				localStorage['currAnswer4'] == 'Chinese'){
 				
 				$('#timeOut').text('WINNER!!!')
 					.css('color', '#fff')
