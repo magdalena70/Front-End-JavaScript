@@ -74,10 +74,14 @@ body #wrapper{
 		border: dashed 2px #333;
 	}
 	
-		#wrapper #books div{
-			width: 20%;
+		#wrapper #books .book div{	
 			display: inline-block;
 			vertical-align: middle;
 			text-align: left;
 			font-style: italic;
 		}
+		
+			#wrapper #books .book .buttons{
+				width: 90%;
+				text-align: center;
+			}

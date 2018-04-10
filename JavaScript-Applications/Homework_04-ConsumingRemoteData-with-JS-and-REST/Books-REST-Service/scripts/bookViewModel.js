@@ -105,6 +105,7 @@ app.bookViewModel = (function(){
 			function(){
 				$('#notifications').text('Book has been removed successfully!').show();
 				$('.' + bookId).hide();
+				$('.' + bookId).parent('div').hide();
 			},
 			function(err){
 				$('#notifications').text(err.responseText).show();
@@ -147,37 +148,47 @@ app.bookViewModel = (function(){
 		var bookTags;
 		
 		if(bookData.title && bookData.author && bookData.isbn && bookData._id){
-				var bookTitle = $('<div>').text('Title: ' + bookData.title)
+				var bookDiv, divBtns, bookTitle, bookAuthor, bookIsbn,
+					detailsBtn, deleteBookBtn, editBookBtn;
+				
+		
+				bookDiv = $('<div>').attr('class', 'book'),
+				divBtns = $('<div>').attr('class', 'buttons');
+		
+				bookTitle = $('<div>').text('Title: ' + bookData.title)
 					.attr('class', bookData._id)
-					.appendTo($('#books')),
+					.appendTo(bookDiv),
 				bookAuthor= $('<div>').text('Author: ' + bookData.author)
 					.attr('class', bookData._id)
-					.appendTo($('#books')),
+					.appendTo(bookDiv),
 				bookIsbn = $('<div>').text('isbn: ' + bookData.isbn)
 					.attr('class', bookData._id)
-					.appendTo($('#books')),
+					.appendTo(bookDiv),
 				detailsBtn = $('<button>').text('Details')
 					.attr('class', bookData._id)
 					.on('click', function(){
 						_this.getBookById(bookData._id);
 					})
-					.appendTo($('#books')),
-				deleteBookBtn = $('<button>').text('X')
+					.appendTo(divBtns),
+				deleteBookBtn = $('<button>').text('X').css('color','red')
 					.attr('class', bookData._id)
 					.on('click', function(){
 						_this.deleteBook(bookData._id);
 					})
-					.appendTo($('#books')),
+					.appendTo(divBtns),
 				editBookBtn = $('<button>').text('Edit')
 					.attr('class', bookData._id)
 					.on('click', function(){
 						_this.editBook(bookData._id, bookData);
 					})
-					.appendTo($('#books'));
+					.appendTo(divBtns);
+					
+				bookTags = $('<div>').attr('class', bookData._id).appendTo(bookDiv);
+				divBtns.appendTo(bookDiv);
 			}
 			
-			bookTags = $('<div>').attr('class', bookData._id)
-				.appendTo($('#books'));
+			bookDiv.appendTo($('#books'));
+			
 			if(bookData.tags && bookData.tags.length){
 				bookTags.text('tags: ' + bookData.tags.join(', '));
 			}else{
